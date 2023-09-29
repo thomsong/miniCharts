@@ -1,0 +1,6 @@
+<apex:page controller="MiniChartsRenderController"
+    showHeader="false" applyBodyTag="false" applyHtmlTag="false"
+    contentType="image/svg+xml"
+    readOnly="true"
+    cache="false"
+>{!chartSVG}</apex:page>
