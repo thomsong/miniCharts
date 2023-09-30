@@ -28,7 +28,8 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.0",
-    "prettier-plugin-apex": "^1.10.0"
+    "prettier-plugin-apex": "^1.10.0",
+    "sass": "^1.68.0"
   },
   "lint-staged": {
     "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
@@ -37,5 +38,10 @@
     "**/{aura,lwc}/**": [
       "eslint"
     ]
+  },
+  "dependencies": {
+    "dart-sass": "^1.25.0",
+    "node-sass": "^9.0.0",
+    "run-applescript": "^6.1.0"
   }
 }

@@ -4,5 +4,23 @@
     "**/bower_components": true,
     "**/.sfdx": true
   },
-  "salesforcedx-vscode-core.show-cli-success-msg": false
+  "salesforcedx-vscode-core.show-cli-success-msg": false,
+  
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+
+  "emeraldwalk.runonsave": {
+    "commands": [
+        {
+            "match": ".scss",
+            "cmd": "node scripts/js/compileSCSS.js ${file}"
+        },
+        {
+            "match": ".cls",
+            "cmd": "node scripts/js/compileSCSS.js ${file}"
+        },
+    ]
+  }
 }
