@@ -1,7 +1,7 @@
 public class MiniChartsErrorDesign extends MiniChartsDesign {
     private String errMessage = '';
 
-    public override virtual String render(List<String> params) {
+    public override virtual String render(Map<String, Object> params, Integer[] chartSize) {
         String style = '.error {fill:red; font-size:10px; }';
         String body = '<text x="0" y="16" class="error">' + this.errMessage + '</text>';
 

@@ -1,0 +1,78 @@
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--         DO NOT EDIT CHARTS OUTSIDE OF MINICHARTS STUDIO         -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!--                   _       _   _____  _                          -->
+<!--                  (_)     (_) / ___ \| |               _         -->
+<!--         _ __ ___  _ _ __  _ | |   \_| |__   __ _ _ __| |_ ___   -->
+<!--      _ | `_ ` _ \| | `_ \| || |    _|  _ \ / _` | `__| __/ __|  -->
+<!--   _ | || | | | | | | | | | || |___/ | | | | (_| | |  | |_\__ \  -->
+<!--  |_||_||_| |_| |_|_|_| |_|_| \_____/|_| |_|\__,_|_|   \__|___/  -->
+<!--                                                                 -->
+<!--  miniCharts™ v0.1 Auto Generated Page - https://miniCharts.app  -->
+<!--                                                                 -->
+<!--  eyoibmFtZSI6ICJUZXN0IENoYXJ0Iiwid2lkdGgiOiAxMjAsImhlaWdodCI6I  -->
+<!--  DUwLCJuYW1lIjogIlRlc3QgQ2hhcnQiLCJ3aWR0aCI6IDEyMCwiaGVpZ2h0Ij  -->
+<!--  ogNTAsIm5hbWUiOiAiVGVzdCBDaGFydCIsIndpZHRoIjogMTIwLCJoZWlnaHQ  -->
+<!--  iOiA1MCwibmFtZSI6ICJUZXN0IENoYXJ0Iiwid2lkdGgiOiAxMjAsImhlaWdo  -->
+<!--  dCI6IDUwLCJuYW1lIjogIlRlc3QgQ2hhcnQiLCJ3aWR0aCI6IDEyMCwiaGVpZ  -->
+<!--  2h0IjogNTAsIm5hbWUiOiAiVGVzdCBDaGFydCIsIndpZHRoIjogMTIwLCJoZW  -->
+<!--  lnaHQiOiA1MCwibmFtZSI6ICJUZXN0IENoYXJ0Iiwid2lkdGgiOiAxMjAsImh  -->
+<!--  laWdodCI6IDUwLCJuYW1lIjogIlRlc3QgQ2hhcnQiLCJ3aWR0aCI6IDEyMCwi  -->
+<!--  aGVpZ2h0IjogNTAsIm5hbWUiOiAiVGVzdCBDaGFydCIsIndpZHRoIjogMTIwL  -->
+<!--  CJoZWlnaHQiOiA1MCwibmFtZSI6ICJUZXN0IENoYXJ0Iiwid2lkdGgiOiAxMj  -->
+<!--  AsImhlaWdodCI6IDUwLCJuYW1lIjogIlRlc3QgQ2hhcnQiLCJ3aWR0aCI6IDE  -->
+<!--  yMCwiaGVpZ2h0IjogNTAsIm5hbWUiOiAiVGVzdCBDaGFydCIsIndpZHRoIjog  -->
+<!--  MTIwLCJoZWlnaHQiOiA1MCwibmFtZSI6ICJUZXN0IENoYXJ0Iiwid2lkdGgiO  -->
+<!--  iAxMjAsImhlaWdodCI6IDUwCn0e=                                   -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+<apex:page standardController="Account" contentType="image/svg+xml"
+    readOnly="true" cache="false" extensions="MiniChartsRenderController"
+    showHeader="false" applyBodyTag="false" applyHtmlTag="false">
+<apex:variable var="mcLinkedField" value="{!Account.mc_Dial_Chart__c}" />
+<c:MiniChartsFormula id="a" type="Text" formula="'aaaQWERTY-' + {!Account.name}" />
+<c:MiniChartsFormula id="cc" type="Number" formula="{!'bbb'+'QWERTY'}" />
+{!renderChart}
+</apex:page>
+
+
+<!--
+@miniChartsStudio
+{
+    "name": "Test Chart",
+    
+    "width": 120,
+    "height": 50,
+    "margin": 2.0,
+
+    "components": [
+        {
+            "type": "BarChart",
+            "pos": [-2,-2],
+            "size": [62,27],
+            "props": {
+                "a":"b",
+                "c":"16"
+            }
+        },
+        {
+            "type": "BarChart",
+            "pos": [60,-2],
+            "size": [62,27],
+            "props": {
+                "a":"b",
+                "c":"16"
+            }
+        },
+        {
+            "type": "BarChart",
+            "pos": [-2,25],
+            "size": [124,27],
+            "props": {
+                "a":"b",
+                "c":"16"
+            }
+        }
+    ]
+}
+-->

@@ -43,15 +43,15 @@ const processClass = (savedFile) => {
   const newClsContent = clsContents
     .split("\n")
     .map((line) => {
-      if (line.includes("String CSS_STYLE = ")) {
-        return "        String CSS_STYLE = '" + compiledStyle + "';";
+      if (line.includes("        this.COMPILED_CSS_STYLE =")) {
+        return "        this.COMPILED_CSS_STYLE = '" + compiledStyle + "';";
       }
       return line;
     })
     .join("\n");
 
-  // console.log(newClsContent);
-
+  // console.log(compiledStyle);
+  // process.exit();
   fs.writeFileSync(clsPath, newClsContent);
 
   return clsPath;

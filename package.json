@@ -13,7 +13,8 @@
     "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
     "prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
     "postinstall": "husky install",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "logs:tail": "grc ssh -lroot 146.190.172.123 'tail -f -n100 /var/www/minicharts.app/log/log.txt'"
   },
   "devDependencies": {
     "@lwc/eslint-plugin-lwc": "^1.1.2",

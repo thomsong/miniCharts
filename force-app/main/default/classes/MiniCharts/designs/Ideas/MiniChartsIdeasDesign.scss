@@ -1,0 +1,50 @@
+@import "../common/MiniChartsDesign";
+
+@keyframes animate-icon-flash-frames {
+  0% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  40%,
+  60% {
+    opacity: 0.1;
+  }
+
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes animate-icon-pulse-frames {
+  0% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.8);
+  }
+}
+
+g.animate-icon-flash {
+  animation: animate-icon-flash-frames linear 2.5s infinite;
+}
+
+g.animate-icon-flash-fast {
+  animation: animate-icon-flash-frames linear 1.5s infinite;
+}
+
+g.animate-icon-pulse {
+  transform-origin: 8px 8px;
+  animation: animate-icon-pulse-frames ease-in-out 1.5s infinite;
+}

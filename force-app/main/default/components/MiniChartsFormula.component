@@ -1,0 +1,5 @@
+<apex:component controller="MiniChartsFormulaController">
+<apex:attribute name="id" assignTo="{!idValue}" type="String" description="Formula variable name" required="true" />
+<apex:attribute name="type" assignTo="{!typeValue}" type="String" description="Formula type" required="true" />
+<apex:attribute name="formula" assignTo="{!formulaValue}" type="String" description="Formula expression"  required="true" />
+</apex:component>

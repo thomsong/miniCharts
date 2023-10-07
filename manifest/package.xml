@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <version>58.0</version>
+
     <types>
         <members>*</members>
         <name>StaticResource</name>
@@ -19,7 +21,7 @@
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
+        <members>MiniChartsFormula</members>
         <name>ApexComponent</name>
     </types>
     <types>
@@ -47,7 +49,6 @@
         <name>CustomObject</name>
     </types>
     <types>
-        <members>*</members>
         <name>CustomTab</name>
     </types>
     <types>
@@ -57,14 +58,10 @@
         <name>FlexiPage</name>
     </types>
     
+    <types>
+        <members>miniCharts</members>
+        <name>PlatformCachePartition</name>
+    </types>
 
-    <types>
-        <members>*</members>
-        <name>ApexPage</name>
-    </types>
-    <types>
-        <members>*</members>
-        <name>StaticResource</name>
-    </types>
-    <version>58.0</version>
+    
 </Package>

@@ -1,0 +1,50 @@
+@import "../common/MiniChartsDesign";
+
+svg #fillGradient stop:nth-child(1) {
+  stop-color: $lwc-chartGreen;
+}
+
+svg #fillGradient stop:nth-child(2) {
+  stop-color: $lwc-chartRed;
+}
+
+.BarChart rect {
+  fill: black;
+  stroke: none;
+
+  &.purple {
+    fill: $lwc-chartPurple;
+  }
+
+  &.blue {
+    fill: $lwc-chartBlue;
+  }
+
+  &.dark-blue {
+    fill: $lwc-chartDarkBlue;
+  }
+
+  &.green {
+    fill: $lwc-chartGreen;
+  }
+
+  &.red {
+    fill: $lwc-chartRed;
+  }
+
+  &.yellow {
+    fill: $lwc-chartYellow;
+  }
+
+  &.orange {
+    fill: $lwc-chartOrange;
+  }
+}
+
+.red-stroke {
+  stroke: $lwc-chartRed;
+}
+
+svg {
+  --test-color: green;
+}
