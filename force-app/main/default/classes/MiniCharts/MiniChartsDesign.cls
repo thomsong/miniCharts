@@ -15,7 +15,7 @@ public virtual class MiniChartsDesign {
         svgOutput += '<style>' + COMPILED_CSS_STYLE + style + '</style>\n';
         svgOutput += body;
         
-        MiniChartsLiveLogger.log('\n=========================\n  Render Finished: ' + Limits.getCPUTime() + 'ms\n=========================\n');
+        // MiniChartsLiveLogger.log('\n=========================\n  Render Finished: ' + Limits.getCPUTime() + 'ms\n=========================\n');
         return svgOutput;
     }
 }

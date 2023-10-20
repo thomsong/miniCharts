@@ -12,9 +12,10 @@ public class MiniChartsFormulaController {
   public String formulaValue { 
     get; 
     set { 
-      if (idValue!= null && typeValue != null && formulaValue != null) {
+      if (idValue!= null && typeValue != null) {
         MiniChartsApexFormula.addFormula(idValue, typeValue, value);
       }
     }
   }
+
 }

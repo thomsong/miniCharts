@@ -4,5 +4,10 @@
     <availableInTouch>false</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <description>miniCharts™ Studio</description>
-    <label>miniCharts: Test Chart</label>
+    <label>miniCharts Test Chart</label>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>20</minorNumber>
+        <namespace>sf_chttr_apps</namespace>
+    </packageVersions>
 </ApexPage>

@@ -6,6 +6,7 @@
         <members>*</members>
         <name>StaticResource</name>
     </types>
+
     <types>
         <members>minicharts_logo_m_1024</members>
         <name>ContentAsset</name>
@@ -45,7 +46,8 @@
         <name>CustomMetadata</name>
     </types>
     <types>
-        <members>*</members>
+        <members>miniCharts_Log__b</members>
+        <members>miniCharts_Setting__mdt</members>
         <name>CustomObject</name>
     </types>
     <types>

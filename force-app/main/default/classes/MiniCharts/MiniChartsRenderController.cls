@@ -1,6 +1,8 @@
 public class MiniChartsRenderController {
+    public static Long START_TIME = 0;
+    
     public static Boolean isManaged = MiniChartsRenderController.class.getName().contains('.');
-    public static String namespace =  isManaged ?  MiniChartsRenderController.class.getName().split('\\.')[0] : 'c';
+    public static String namespace =  isManaged ?  MiniChartsRenderController.class.getName().split('\\.')[0] : '';
     
     public static Boolean DEBUG = false;
     
@@ -13,8 +15,39 @@ public class MiniChartsRenderController {
     private Id recordId = null;
     private List<String> params = null;
 
+
+    public String contIdChosen {get; set;}
+
+
+    public MiniChartsRenderController() {
+        // TAKES 30ms
+        // List<Messaging.RenderEmailTemplateBodyResult> resList =
+        // Messaging.renderEmailTemplate('001Hs00002vtXNjIAM', null, new List<String>{'abcdef-{!Account.name + 17}'});
+        // System.debug(resList);
+
+    }
+
+    // Theme1—Obsolete Salesforce theme
+    // Theme2—Salesforce Classic 2005 user interface theme
+    // Theme3—Salesforce Classic 2010 user interface theme
+    // Theme4d—Modern “Lightning Experience” Salesforce theme
+    // Theme4t—Salesforce mobile app theme
+    // Theme4u—Lightning Console theme
+    // PortalDefault—Salesforce Customer Portal theme that applies to Customer Portals only and not to Experience Builder sites
+    // Webstore—AppExchange theme
+
     // miniCharts Renderer Code
     public MiniChartsRenderController(ApexPages.StandardController controller) {
+        MiniChartsRenderController.DEBUG = true;//System.currentPageReference().getParameters().get('dbg') == '1';
+        MiniChartsLiveLogger.init();
+
+        // MiniChartsLiveLogger.log('getSessionID 2', UserInfo.getSessionID());
+
+        START_TIME = Datetime.now().getTime();
+
+        // System.debug('isManaged');
+        // System.debug(isManaged);
+        // System.debug('namespace: ' + namespace);
         // controller.addFields(new List<String>{'name'});
 
         System.debug('MiniChartsRenderController::Constructor with ApexPages.StandardController');
@@ -23,11 +56,12 @@ public class MiniChartsRenderController {
         // TODO: document.cookie="debug_logs=debug_logs;domain=.force.com";
 
         // accountRef = (Account)controller.getRecord();
-        MiniChartsRenderController.DEBUG = System.currentPageReference().getParameters().get('dbg') == '1';
         
+        // MiniChartsLiveLogger.log('Records', 16, controller.getRecord());
         chartConfig = MiniChartsStudioChartConfig.getConfig();
         
-        // System.debug(this.chartConfig);
+        // // System.debug(chartConfig);
+
         this.addResponseHeaders();
         this.parseParams();
         this.initChart();
@@ -39,7 +73,7 @@ public class MiniChartsRenderController {
 
     //     MiniChartsRenderController.DEBUG = System.currentPageReference().getParameters().get('debug') == '1';
         
-    //     this.addResponseHeaders();
+        // this.addResponseHeaders();
     //     this.parseParams();
     //     this.initChart();
     // }
@@ -60,7 +94,12 @@ public class MiniChartsRenderController {
         return (MiniChartsDesign)chartDesignType.newInstance();
     }
 
+    public String getRenderChartx() {
+        return 'CPU: ' + Limits.getCpuTime();
+    }
+
     public String getRenderChart() {
+        
         // System.debug();
         // Map<String, String> params = ApexPages.currentPage().getParameters();
 
@@ -68,9 +107,50 @@ public class MiniChartsRenderController {
         //     Object value = params.get(varName);
         //     System.debug(varName+':'+value);
         // }
+
+        // System.debug('--------');
+        // for (String varName : MiniChartsApexFormula.formulaValues.keySet()) {
+        //     Object value = MiniChartsApexFormula.formulaValues.get(varName);
+        //     System.debug(varName+':'+value);
+        // }
+        // System.debug('--------');
         
+        // return 'CPU: ' + Limits.getCpuTime();
         // return this.chartMarkup + '\n\n\nCPU: ' + Limits.getCpuTime();//
-        return getChartSVG();
+
+        // String x = '<!--  miniCharts v0.1 Generated Chart - https://miniCharts.app  -->  <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="50" viewBox="0 0 1024 50"> svg { --chart-black: #181818; --chart-gray: #706e6b; --chart-purple: #9d53f2; --chart-green: #04844b; --chart-red: #aa2422; --chart-yellow: #fcc003; --chart-orange: #f38303; --chart-blue: #3296ed; --chart-dark-blue: #0176D3; --icon-disabled: #dad6d0; --text-black: #181818; --text-gray: #706e6b; --text-purple: #9d53f2; --text-green: #2e844a; --text-red: #ba0517; --text-yellow: #fcc003; --text-orange: #f38303; --text-blue: #0176D3; --highlight-red: #ffdcdb; --highlight-green: #ddf3d3; --highlight-yellow: #fff6b9; --highlight-orange: #ffe1c1; --highlight-blue: #d4e7ff; --highlight-purple: #ecdcff; --highlight-gray: #eeeded; --badge-red: #c23934; --badge-green: #05844b}  <style> line { stroke:rgb(24, 24, 24); stroke-width: 0.5; } text {stroke:none; fill:rgb(24, 24, 24); font-size:12px; text-rendering: optimizeLegibility; dominant-baseline: hanging; font-family:-apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" } </style> <style>rect.bg-canvas-fill {fill:rgba(255,0,0,0.1) !important;}</style> <style>rect.debug {fill:rgba(255,0,0,0.3) !important;}</style> <rect width="1024" height="50" class="bg-canvas-fill" /> <g class="chart BarChart" transform="translate(-2 -2)"> <style>svg #fillGradient stop:nth-child(1){stop-color:#04844b}svg #fillGradient stop:nth-child(2){stop-color:#aa2422}.BarChart rect{fill:#000;stroke:none}.BarChart rect.purple{fill:#9d53f2}.BarChart rect.blue{fill:#3296ed}.BarChart rect.dark-blue{fill:#0071cd}.BarChart rect.green{fill:#04844b}.BarChart rect.red{fill:#aa2422}.BarChart rect.yellow{fill:#fcc003}.BarChart rect.orange{fill:#f38303}.red-stroke{stroke:#aa2422}svg{--test-color: green}</style> <g transform="translate(2.0 2.0)"> <rect class="blue" x="0.0" y="5.5" width="18.4" height="44.5" rx="0.25" /><rect class="blue" x="20.5" y="4.1" width="18.4" height="45.9" rx="0.25" /><rect class="blue" x="41.0" y="49.2" width="18.4" height="0.8" rx="0.25" /><rect class="blue" x="61.6" y="35.7" width="18.4" height="14.3" rx="0.25" /><rect class="blue" x="82.1" y="10.5" width="18.4" height="39.5" rx="0.25" /><rect class="blue" x="102.6" y="23.8" width="18.4" height="26.2" rx="0.25" /><rect class="blue" x="123.1" y="13.1" width="18.4" height="36.9" rx="0.25" /><rect class="blue" x="143.7" y="13.0" width="18.4" height="37.0" rx="0.25" /><rect class="blue" x="164.2" y="0.3" width="18.4" height="49.7" rx="0.25" /><rect class="blue" x="184.7" y="2.4" width="18.4" height="47.6" rx="0.25" /><rect class="blue" x="205.2" y="0.9" width="18.4" height="49.1" rx="0.25" /><rect class="blue" x="225.7" y="23.0" width="18.4" height="27.0" rx="0.25" /><rect class="blue" x="246.3" y="0.1" width="18.4" height="49.9" rx="0.25" /><rect class="blue" x="266.8" y="36.8" width="18.4" height="13.2" rx="0.25" /><rect class="blue" x="287.3" y="12.1" width="18.4" height="37.9" rx="0.25" /><rect class="blue" x="307.8" y="8.8" width="18.4" height="41.2" rx="0.25" /><rect class="blue" x="328.3" y="15.9" width="18.4" height="34.1" rx="0.25" /><rect class="blue" x="348.9" y="13.0" width="18.4" height="37.0" rx="0.25" /><rect class="blue" x="369.4" y="1.9" width="18.4" height="48.1" rx="0.25" /><rect class="blue" x="389.9" y="4.2" width="18.4" height="45.8" rx="0.25" /><rect class="blue" x="410.4" y="3.3" width="18.4" height="46.7" rx="0.25" /><rect class="blue" x="431.0" y="23.3" width="18.4" height="26.7" rx="0.25" /><rect class="blue" x="451.5" y="17.8" width="18.4" height="32.2" rx="0.25" /><rect class="blue" x="472.0" y="12.8" width="18.4" height="37.2" rx="0.25" /><rect class="blue" x="492.5" y="14.4" width="18.4" height="35.6" rx="0.25" /><rect class="blue" x="513.0" y="44.5" width="18.4" height="5.5" rx="0.25" /><rect class="blue" x="533.6" y="4.8" width="18.4" height="45.2" rx="0.25" /><rect class="blue" x="554.1" y="4.8" width="18.4" height="45.2" rx="0.25" /><rect class="blue" x="574.6" y="33.1" width="18.4" height="16.9" rx="0.25" /><rect class="blue" x="595.1" y="24.6" width="18.4" height="25.4" rx="0.25" /><rect class="blue" x="615.7" y="1.6" width="18.4" height="48.4" rx="0.25" /><rect class="blue" x="636.2" y="37.4" width="18.4" height="12.6" rx="0.25" /><rect class="blue" x="656.7" y="48.9" width="18.4" height="1.1" rx="0.25" /><rect class="blue" x="677.2" y="3.7" width="18.4" height="46.3" rx="0.25" /><rect class="blue" x="697.7" y="39.4" width="18.4" height="10.6" rx="0.25" /><rect class="blue" x="718.3" y="23.5" width="18.4" height="26.5" rx="0.25" /><rect class="blue" x="738.8" y="48.7" width="18.4" height="1.3" rx="0.25" /><rect class="blue" x="759.3" y="44.8" width="18.4" height="5.2" rx="0.25" /><rect class="blue" x="779.8" y="18.5" width="18.4" height="31.5" rx="0.25" /><rect class="blue" x="800.4" y="47.4" width="18.4" height="2.6" rx="0.25" /><rect class="blue" x="820.9" y="35.9" width="18.4" height="14.1" rx="0.25" /><rect class="blue" x="841.4" y="36.1" width="18.4" height="13.9" rx="0.25" /><rect class="blue" x="861.9" y="9.9" width="18.4" height="40.1" rx="0.25" /><rect class="blue" x="882.4" y="8.0" width="18.4" height="42.0" rx="0.25" /><rect class="blue" x="903.0" y="46.5" width="18.4" height="3.5" rx="0.25" /><rect class="blue" x="923.5" y="37.6" width="18.4" height="12.4" rx="0.25" /><rect class="blue" x="944.0" y="28.5" width="18.4" height="21.5" rx="0.25" /><rect class="blue" x="964.5" y="0.9" width="18.4" height="49.1" rx="0.25" /><rect class="blue" x="985.0" y="45.6" width="18.4" height="4.4" rx="0.25" /><rect class="blue" x="1005.6" y="39.1" width="18.4" height="10.9" rx="0.25" /><line style="opacity:1; stroke:var(--chart-red); stroke-dasharray: 0.0 0.0; stroke-width:0.5;" x1="0" y1="25.0" x2="1024.0" y2="25.0" /> <line style="opacity:1; stroke:var(--chart-gray); stroke-dasharray: 0.0 0.0; stroke-width:1.0;" x1="0" y1="49.5" x2="1024.0" y2="49.5" /> </g>  </g>  </svg>';
+        
+
+        // START_TIME = Datetime.now().getTime();
+
+        
+
+        // for (Integer i = 0; i < 100; i++) {
+        //     x2 = EncodingUtil.base64Encode(Blob.valueof(x + '_' + i));
+        // }
+
+        String output = getChartSVG();
+        
+
+        // System.debug('RUN_TIME: ' + runTime + 'ms');
+        // return 'RUN_TIME: ' + runTime + 'ms';
+
+        // List<FormulaEvaluator.ContextWrapper> context = new List<FormulaEvaluator.ContextWrapper>();
+        // context.add(new FormulaEvaluator.ContextWrapper('$Record', '003Hs00004f536QIAQ'));
+        // context.add(new FormulaEvaluator.ContextWrapper('$Record.Account', '001Hs00002vtXNmIAM'));
+        // context.add(new FormulaEvaluator.ContextWrapper('itemOne', '30'));
+        // context.add(new FormulaEvaluator.ContextWrapper('itemTwo', '45'));
+        // String stringContext = JSON.serialize(context);
+
+        // String output = '';//FormulaEvaluator.parseFormula('$User.alias+"Test"', stringContext);
+        // output = FormulaEvaluator.parseFormula('$User.Name', stringContext);
+        // output = FormulaEvaluator.parseFormula('$User.Name', stringContext);
+        // output = FormulaEvaluator.parseFormula('$User.Name', stringContext);
+
+        // Long runTime = Datetime.now().getTime() - START_TIME;
+
+        // return 'CPU: ' + Limits.getCpuTime() + '\nrunTime: ' + runTime + '\n' + output;
+        return output;
     }
 
     public String getChartSVG() {
@@ -117,10 +197,9 @@ public class MiniChartsRenderController {
 
     private void addResponseHeaders() {
         ApexPages.currentPage().getHeaders().put('X-Powered-By', 'https://microcharts.app');
-
-        if (MiniChartsRenderController.DEBUG) {
-            ApexPages.currentPage().getHeaders().put('X-Debug-Mode', 'True');
-        }
+        
+        // Prevent direct viewing
+        // ApexPages.currentPage().getHeaders().put('Refresh', '0;url=denied');
     }
     
     private void parseParams() {
@@ -188,6 +267,13 @@ public class MiniChartsRenderController {
         // return json.serialize(pages) + '\n\n' + 'getCpuTime: ' + Limits.getCpuTime();
         return 'getCpuTime: ' + Limits.getCpuTime();
         
+      }
+
+      public String xxx { 
+        get; 
+        set { 
+          System.debug('!!!!!!!' + value);
+        }
       }
 }
 

@@ -1,3 +1,5 @@
+<!-- https://minicharts-dev-ed- -mc-dev.develop.vf.force.com/apex/minicharts_Test_Chart?oauth_token=00DHs000001xXNl%21AQcAQKCA6AykxHsXEOxUZE1PUQwMlR0v_xEtwlPZLjnuZQgrfafTyeH.nfC1Gr_d9VIFdlaUaotCCtiOzLThf6s8NsAChPRA -->
+
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!--         DO NOT EDIT CHARTS OUTSIDE OF MINICHARTS STUDIO         -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -25,23 +27,64 @@
 <!--  MTIwLCJoZWlnaHQiOiA1MCwibmFtZSI6ICJUZXN0IENoYXJ0Iiwid2lkdGgiO  -->
 <!--  iAxMjAsImhlaWdodCI6IDUwCn0e=                                   -->
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
+<!-- contentType="image/svg+xml" -->
 <apex:page standardController="Account" contentType="image/svg+xml"
     readOnly="true" cache="false" extensions="MiniChartsRenderController"
     showHeader="false" applyBodyTag="false" applyHtmlTag="false">
-<apex:variable var="mcLinkedField" value="{!Account.mc_Dial_Chart__c}" />
-<c:MiniChartsFormula id="a" type="Text" formula="'aaaQWERTY-' + {!Account.name}" />
-<c:MiniChartsFormula id="cc" type="Number" formula="{!'bbb'+'QWERTY'}" />
+
+    <apex:variable var="mcLinkedField" value="{!Account.mc_Dial_Chart__c}" />
+
+    <apex:variable var="a" value="aaaQWERTY-{!Account.name}" />
+    <c:MiniChartsFormula id="a" type="Text" formula="{!a}" />
+
+    <apex:variable var="bb" value="{!'bbb'+'QWERTY' + '__' + a}" />
+    <c:MiniChartsFormula id="bb" type="Number" formula="{!bb}" />
+
+    <c:MiniChartsFormula id="theme" type="Text" formula="{!$User.UIThemeDisplayed +'::'+$User.UITheme}" />
+    
+    <!-- This has a value on experience sites -->
+    <c:MiniChartsFormula id="network" type="Text" formula="{!$Network.Name}" />
+    <c:MiniChartsFormula id="site" type="Text" formula="{!$Site.Name}" />
+    <c:MiniChartsFormula id="userType" type="Text" formula="{!Text($User.UserType)}" />
+    <c:MiniChartsFormula id="url" type="Text" formula="{!$CurrentPage.URL}" />
+    
+    <c:MiniChartsFormula id="soql_abc" type="Text" formula="Select Name from Acount where Id={!Account.Id} limit 1" />
 {!renderChart}
 </apex:page>
+<!-- <svg xmlns="http://www.w3.org/2000/svg"
+width="100%"
+height="50"
+viewBox="0 0 5000 50"
+preserveAspectRatio="xMinYMin slice"
+>
 
+<g style="transform:translate(50px, 0)">
+<image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgICAgICAgICB3aWR0aD0iMTAyNCIKICAgICAgICAgIGhlaWdodD0iNTAiCiAgICAgICAgICB2aWV3Qm94PSIwIDAgMTAyNCA1MCIKICAgICAgICAgIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiCiAgICAgICAgICA+Cgo8c3R5bGU+c3ZnIHsKCiAgICAgLS1jaGFydC1ibGFjazogIzE4MTgxODsKICAgICAtLWNoYXJ0LWdyYXk6ICM3MDZlNmI7CiAgICAgLS1jaGFydC1wdXJwbGU6ICM5ZDUzZjI7CiAgICAgLS1jaGFydC1ncmVlbjogIzA0ODQ0YjsKICAgICAtLWNoYXJ0LXJlZDogI2FhMjQyMjsKICAgICAtLWNoYXJ0LXllbGxvdzogI2ZjYzAwMzsKICAgICAtLWNoYXJ0LW9yYW5nZTogI2YzODMwMzsKICAgICAtLWNoYXJ0LWJsdWU6ICMzMjk2ZWQ7CiAgICAgLS1jaGFydC1kYXJrLWJsdWU6ICMwMTc2RDM7CiAgICAgLS1pY29uLWRpc2FibGVkOiAjZGFkNmQwOwogICAgIC0tdGV4dC1ibGFjazogIzE4MTgxODsKICAgICAtLXRleHQtZ3JheTogIzcwNmU2YjsKICAgICAtLXRleHQtcHVycGxlOiAjOWQ1M2YyOwogICAgIC0tdGV4dC1ncmVlbjogIzJlODQ0YTsKICAgICAtLXRleHQtcmVkOiAjYmEwNTE3OwogICAgIC0tdGV4dC15ZWxsb3c6ICNmY2MwMDM7CiAgICAgLS10ZXh0LW9yYW5nZTogI2YzODMwMzsKICAgICAtLXRleHQtYmx1ZTogIzAxNzZEMzsKICAgICAtLWhpZ2hsaWdodC1yZWQ6ICNmZmRjZGI7CiAgICAgLS1oaWdobGlnaHQtZ3JlZW46ICNkZGYzZDM7CiAgICAgLS1oaWdobGlnaHQteWVsbG93OiAjZmZmNmI5OwogICAgIC0taGlnaGxpZ2h0LW9yYW5nZTogI2ZmZTFjMTsKICAgICAtLWhpZ2hsaWdodC1ibHVlOiAjZDRlN2ZmOwogICAgIC0taGlnaGxpZ2h0LXB1cnBsZTogI2VjZGNmZjsKICAgICAtLWhpZ2hsaWdodC1ncmF5OiAjZWVlZGVkOwogICAgIC0tYmFkZ2UtcmVkOiAjYzIzOTM0OwogICAgIC0tYmFkZ2UtZ3JlZW46ICMwNTg0NGI7Cn0KCgoKbGluZSB7IHN0cm9rZTpyZ2IoMjQsIDI0LCAyNCk7IHN0cm9rZS13aWR0aDogMC41OyB9IHRleHQge3N0cm9rZTpub25lOyBmaWxsOnJnYigyNCwgMjQsIDI0KTsgZm9udC1zaXplOjEycHg7IHRleHQtcmVuZGVyaW5nOiBvcHRpbWl6ZUxlZ2liaWxpdHk7IGRvbWluYW50LWJhc2VsaW5lOiBoYW5naW5nOyBmb250LWZhbWlseTotYXBwbGUtc3lzdGVtLCAic3lzdGVtLXVpIiwgIlNlZ29lIFVJIiwgUm9ib3RvLCBIZWx2ZXRpY2EsIEFyaWFsLCBzYW5zLXNlcmlmLCAiQXBwbGUgQ29sb3IgRW1vamkiLCAiU2Vnb2UgVUkgRW1vamkiLCAiU2Vnb2UgVUkgU3ltYm9sIiB9PC9zdHlsZT4KCiAgICAgPHN0eWxlPnN2ZyAjZmlsbEdyYWRpZW50IHN0b3A6bnRoLWNoaWxkKDEpe3N0b3AtY29sb3I6IzA0ODQ0Yn1zdmcgI2ZpbGxHcmFkaWVudCBzdG9wOm50aC1jaGlsZCgyKXtzdG9wLWNvbG9yOiNhYTI0MjJ9LkJhckNoYXJ0IHJlY3R7ZmlsbDojMDAwO3N0cm9rZTpub25lfS5CYXJDaGFydCByZWN0LnB1cnBsZXtmaWxsOiM5ZDUzZjJ9LkJhckNoYXJ0IHJlY3QuYmx1ZXtmaWxsOiMzMjk2ZWR9LkJhckNoYXJ0IHJlY3QuZGFyay1ibHVle2ZpbGw6IzAwNzFjZH0uQmFyQ2hhcnQgcmVjdC5ncmVlbntmaWxsOiMwNDg0NGJ9LkJhckNoYXJ0IHJlY3QucmVke2ZpbGw6I2FhMjQyMn0uQmFyQ2hhcnQgcmVjdC55ZWxsb3d7ZmlsbDojZmNjMDAzfS5CYXJDaGFydCByZWN0Lm9yYW5nZXtmaWxsOiNmMzgzMDN9LnJlZC1zdHJva2V7c3Ryb2tlOiNhYTI0MjJ9c3Zney0tdGVzdC1jb2xvcjogZ3JlZW59PC9zdHlsZT4KICAgICA8ZyBjbGFzcz0iQmFyQ2hhcnQiPgogICAgIDxyZWN0IGNsYXNzPSJibHVlIiB4PSIwLjAiIHk9IjM2LjQiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjEzLjYiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSIyMC41IiB5PSI0Mi43IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSI3LjMiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI0MS4wIiB5PSIzOC44IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIxMS4yIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNjEuNiIgeT0iNDEuMCIgd2lkdGg9IjE4LjQiIGhlaWdodD0iOS4wIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iODIuMSIgeT0iMzUuOSIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMTQuMSIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjEwMi42IiB5PSIxOC4zIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIzMS43IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iMTIzLjEiIHk9IjIuMiIgd2lkdGg9IjE4LjQiIGhlaWdodD0iNDcuOCIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjE0My43IiB5PSI0OS4xIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIwLjkiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSIxNjQuMiIgeT0iNC45IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSI0NS4xIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iMTg0LjciIHk9IjcuNSIgd2lkdGg9IjE4LjQiIGhlaWdodD0iNDIuNSIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjIwNS4yIiB5PSI0OS45IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIwLjEiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSIyMjUuNyIgeT0iNDIuNSIgd2lkdGg9IjE4LjQiIGhlaWdodD0iNy41IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iMjQ2LjMiIHk9IjAuMCIgd2lkdGg9IjE4LjQiIGhlaWdodD0iNTAuMCIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjI2Ni44IiB5PSIxNy42IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIzMi40IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iMjg3LjMiIHk9IjM5LjMiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjEwLjciIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSIzMDcuOCIgeT0iMjYuMiIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMjMuOCIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjMyOC4zIiB5PSIzMy44IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIxNi4yIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iMzQ4LjkiIHk9IjMxLjkiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjE4LjEiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSIzNjkuNCIgeT0iNi4yIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSI0My44IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iMzg5LjkiIHk9IjEzLjIiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjM2LjgiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI0MTAuNCIgeT0iMTUuMyIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMzQuNyIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjQzMS4wIiB5PSIxNC4wIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIzNi4wIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNDUxLjUiIHk9IjQxLjgiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjguMiIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjQ3Mi4wIiB5PSIzOS4zIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIxMC43IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNDkyLjUiIHk9IjM4LjUiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjExLjUiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI1MTMuMCIgeT0iMzkuNCIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMTAuNiIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjUzMy42IiB5PSI5LjYiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjQwLjQiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI1NTQuMSIgeT0iMTAuMiIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMzkuOCIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjU3NC42IiB5PSIyNi40IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIyMy42IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNTk1LjEiIHk9IjM1LjUiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjE0LjUiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI2MTUuNyIgeT0iMy4wIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSI0Ny4wIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNjM2LjIiIHk9IjMzLjAiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjE3LjAiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI2NTYuNyIgeT0iMTcuOSIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMzIuMSIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjY3Ny4yIiB5PSI0My44IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSI2LjIiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI2OTcuNyIgeT0iMjEuNCIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMjguNiIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjcxOC4zIiB5PSIxNC4xIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIzNS45IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNzM4LjgiIHk9IjQ2LjIiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjMuOCIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9Ijc1OS4zIiB5PSIzMC40IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIxOS42IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iNzc5LjgiIHk9IjM3LjIiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjEyLjgiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI4MDAuNCIgeT0iNDAuMyIgd2lkdGg9IjE4LjQiIGhlaWdodD0iOS43IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iODIwLjkiIHk9IjE4LjgiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjMxLjIiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI4NDEuNCIgeT0iMTUuMSIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMzQuOSIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9Ijg2MS45IiB5PSIzNS42IiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIxNC40IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iODgyLjQiIHk9IjQ3LjkiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjIuMSIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9IjkwMy4wIiB5PSIxMC4wIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSI0MC4wIiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iOTIzLjUiIHk9IjEwLjkiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjM5LjEiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSI5NDQuMCIgeT0iMzkuNCIgd2lkdGg9IjE4LjQiIGhlaWdodD0iMTAuNiIgcng9IjAuMjUiIC8+PHJlY3QgY2xhc3M9ImJsdWUiIHg9Ijk2NC41IiB5PSIyOC4zIiB3aWR0aD0iMTguNCIgaGVpZ2h0PSIyMS43IiByeD0iMC4yNSIgLz48cmVjdCBjbGFzcz0iYmx1ZSIgeD0iOTg1LjAiIHk9IjE4LjciIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjMxLjMiIHJ4PSIwLjI1IiAvPjxyZWN0IGNsYXNzPSJibHVlIiB4PSIxMDA1LjYiIHk9IjE2LjYiIHdpZHRoPSIxOC40IiBoZWlnaHQ9IjMzLjQiIHJ4PSIwLjI1IiAvPjxsaW5lIHN0eWxlPSJvcGFjaXR5OjE7IHN0cm9rZTp2YXIoLS1jaGFydC1yZWQpOyBzdHJva2UtZGFzaGFycmF5OiAwLjAgMC4wOyBzdHJva2Utd2lkdGg6MC41OyIgeDE9IjAiIHkxPSIyNS4wIiB4Mj0iMTAyNC4wIiB5Mj0iMjUuMCIgLz4KICAgICA8bGluZSBzdHlsZT0ib3BhY2l0eToxOyBzdHJva2U6dmFyKC0tY2hhcnQtZ3JheSk7IHN0cm9rZS1kYXNoYXJyYXk6IDAuMCAwLjA7IHN0cm9rZS13aWR0aDoxLjA7IiB4MT0iMCIgeTE9IjQ5LjUiIHgyPSIxMDI0LjAiIHkyPSI0OS41IiAvPgogICAgIDwvZz4KCiAgICAgPC9zdmc+" x="0" y="0" height="50" style="width:calc(max(150px, 100vw) - 75px)" />
+</g>
+
+
+<svg
+     viewBox="0 0 50 50" preserveAspectRatio="xMinYMin meet"
+     width="50" height="50">
+     <circle id="foo" cx="25" cy="25" r="25" style="fill:red;" />
+</svg>
+
+<g style="transform:translate(calc(max(150px, 100vw) - 25px),calc(100vh - 25px))">
+     <circle id="foo" cx="12.5" cy="12.5" r="12.5" style="fill:purple;" />
+</g>
+
+</svg>
+
+</apex:page> -->
+
+<!-- 20x20 -->
 
 <!--
 @miniChartsStudio
 {
     "name": "Test Chart",
     
-    "width": 120,
+    "width": 1024,
     "height": 50,
     "margin": 2.0,
 
@@ -49,25 +92,7 @@
         {
             "type": "BarChart",
             "pos": [-2,-2],
-            "size": [62,27],
-            "props": {
-                "a":"b",
-                "c":"16"
-            }
-        },
-        {
-            "type": "BarChart",
-            "pos": [60,-2],
-            "size": [62,27],
-            "props": {
-                "a":"b",
-                "c":"16"
-            }
-        },
-        {
-            "type": "BarChart",
-            "pos": [-2,25],
-            "size": [124,27],
+            "size": [1028,54],
             "props": {
                 "a":"b",
                 "c":"16"

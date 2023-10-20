@@ -31,16 +31,19 @@ public class MiniChartsStudioChartConfig {
     public List<Component> components;
 
     public static MiniChartsStudioChartConfig getConfig() {
-        String pageName = ApexPages.currentPage().getUrl().substringAfter('apex/').split('\\?')[0];
+        String namespacePrefix = MiniChartsRenderController.namespace;
+        String pageName = ApexPages.currentPage().getUrl().substringAfter('apex/').substringAfter(namespacePrefix + '__').split('\\?')[0];
         
-        List<ApexPage> vfPages = [select name, markup, Description from ApexPage where name =: pageName limit 1];
+        List<ApexPage> vfPages = [select name, markup, Description from ApexPage where name =: pageName and NamespacePrefix =: namespacePrefix limit 1];
+
         if (vfPages.size() < 1) {
+            // TODO: Handle error
             return null;
         }
         
         String chartName = vfPages[0].name;
 
-        MiniChartsStudioChartConfig chartConfig = null;//(MiniChartsStudioChartConfig)MiniChartsCache.get('chartConfig', chartName);
+        MiniChartsStudioChartConfig chartConfig = (MiniChartsStudioChartConfig)MiniChartsCache.get('chartConfig', chartName);
 
         if (chartConfig == null) {
             chartConfig = parseMarkup(chartName, vfPages[0].markup);
