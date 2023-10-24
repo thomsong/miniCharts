@@ -46,6 +46,7 @@ public with sharing class MiniChartsSVGHelper {
         
         return 'svg {\n' + String.join(svgVars, ';\n') + '}\n';
     }
+
     public static String composeChartSVG(Integer width, Integer height, String style, String body) {
         String DEFAULT_STYLE = '';
         DEFAULT_STYLE += getColorVarsSVG() + '\n';
@@ -59,7 +60,8 @@ public with sharing class MiniChartsSVGHelper {
         String SVG = '<!--  miniCharts v0.1 Generated Chart - https://miniCharts.app  -->\n\n';
         
         // SVG += '<svg xmlns="http://www.w3.org/2000/svg"  width="' + '100%' + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">\n';
-        SVG += '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + preserveAspectRatio + '" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">\n';
+        // SVG += '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + preserveAspectRatio + '" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">\n';
+        SVG += '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="' + preserveAspectRatio + '" width="400" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '">\n';
 
         if (style != null && style != '') {
             SVG += DEFAULT_STYLE + '<style>\n' + style + '\n</style>\n';

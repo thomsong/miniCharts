@@ -30,7 +30,8 @@
 <!-- contentType="image/svg+xml" -->
 <apex:page standardController="Account" contentType="image/svg+xml"
     readOnly="true" cache="false" extensions="MiniChartsRenderController"
-    showHeader="false" applyBodyTag="false" applyHtmlTag="false">
+    showHeader="false" applyBodyTag="false" applyHtmlTag="false" sidebar="false"
+    standardStylesheets="false">
 
     <apex:variable var="mcLinkedField" value="{!Account.mc_Dial_Chart__c}" />
 

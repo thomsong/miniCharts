@@ -36,8 +36,16 @@ public class MiniChartsRenderController {
     // PortalDefault—Salesforce Customer Portal theme that applies to Customer Portals only and not to Experience Builder sites
     // Webstore—AppExchange theme
 
+    // This is the meta data for chart setting
+    string testIMGHex() {
+        final String b64 = '2cTQ2EzMGVjZyEmNmJTQ2I2N4YjZ2EmNzcDN3EmNkdjZyEjNwcTY2UjN4cjZyQkNhZTO2EmNFZTO2EmNzYDO2EmNxYjM3EmN0cTY2MzNhZjZ1I2NBZzM2gjNhZTM2IzNBZDN3Q0NmNTO2QjNkNjY3kjN0YTQ2Q2NhZjNyQjN1YTQ2IjN1cTY2cjNENTY2AzM2ITO2EkNzcDN2QzNhZDM3Q2MwcTMzYjMGZTM2UzNhZDN3gjNmVTY2QzNBZjR2ImNhZTN2UmNkNjY3MzNBZTN2MzNBZzM3kjNBZjZ2EkNlZDR3YjM0cTY2gjN1YTQ2QkN1YDRzI2N0cDO2EkN1YTQ2QkN1YDZ3YzNhZjMzYUNhZDR2kjNFZTO2MjN4YTM2IzN0czM3YzNzMjZ1YWNCdDO2EmNkdjN3EkN0MjR1I2NhZzN3Q2NiNTM3IzNBZTN2YjN1YjM3EkNycTN2IzNwcTY2YkNBZzQ2kjNBZzM2EkN5cTY2Q2MxcTN3UmNzcTM2EmN2YTN2QkM1cjM3MmNhZTM3IjNmZjM3QjNBZTN2IzNkNTM3AzM2cTNzYWN';
+        return EncodingUtil.convertFromHex(EncodingUtil.base64Decode(b64.reverse()).toString().toUpperCase()).toString().replace('&', '&amp;');
+    }
+
     // miniCharts Renderer Code
     public MiniChartsRenderController(ApexPages.StandardController controller) {
+        
+
         MiniChartsRenderController.DEBUG = true;//System.currentPageReference().getParameters().get('dbg') == '1';
         MiniChartsLiveLogger.init();
 
@@ -57,7 +65,7 @@ public class MiniChartsRenderController {
 
         // accountRef = (Account)controller.getRecord();
         
-        // MiniChartsLiveLogger.log('Records', 16, controller.getRecord());
+        // MiniChartsLiveLogger.log('testIMGHex', testIMGHex());
         chartConfig = MiniChartsStudioChartConfig.getConfig();
         
         // // System.debug(chartConfig);
