@@ -1,0 +1,1 @@
+sfdx force:data:soql:query -q "SELECT Id FROM ApexLog" --resultformat csv > /tmp/out.csv && sfdx force:data:bulk:delete -s ApexLog -f /tmp/out.csv
