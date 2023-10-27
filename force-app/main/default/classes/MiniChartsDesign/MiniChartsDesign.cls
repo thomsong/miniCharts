@@ -1,3 +1,4 @@
-public interface MiniChartsDesign {
+global interface MiniChartsDesign {
+    string getStyle();
     string render();
 }

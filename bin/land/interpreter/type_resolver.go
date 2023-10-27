@@ -129,8 +129,7 @@ func (r *TypeResolver) ResolveVariable(names []string) (*ast.Object, error) {
 				return val, nil
 			}
 		}
-		x := 5/(len(names)-1)
-		x++;
+
 		return nil, errors.Errorf("%s is not found in this scope8", names[0])
 	} else {
 		name := names[0]

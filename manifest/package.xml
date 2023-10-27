@@ -26,7 +26,7 @@
         <name>ApexComponent</name>
     </types>
     <types>
-        <members>*</members>
+        <members>miniCharts_Test_Chart</members>
         <name>ApexPage</name>
     </types>
     <types>

@@ -40,17 +40,59 @@ const processClass = (savedFile) => {
 
   // console.log(clsContents);
 
-  const newClsContent = clsContents
+  let newClsContent = clsContents
     .split("\n")
     .map((line) => {
-      if (line.includes("        this.COMPILED_CSS_STYLE =")) {
-        return "        this.COMPILED_CSS_STYLE = '" + compiledStyle + "';";
+      if (line.includes("public string getStyle() {return '")) {
+        return "    public string getStyle() {return '" + compiledStyle + "';}";
       }
       return line;
     })
     .join("\n");
 
-  // console.log(compiledStyle);
+  let renderCode = newClsContent.substring(
+    newClsContent.indexOf("    private String RENDER_TEMPLATE() {"),
+    newClsContent.lastIndexOf(" /* END RENDER_TEMPLATE */")
+  );
+
+  renderCode = renderCode
+    .split("\n")
+    .map((line) => {
+      if (line.trim().startsWith("//")) {
+        return null;
+      }
+
+      if (line.trim().startsWith("'")) {
+        return "'" + line.trim().substring(1).trim();
+      }
+
+      if (line.trim().startsWith("+ '")) {
+        return "+'" + line.trim().substring(3).trim();
+      }
+
+      return line.trimEnd();
+    })
+    .filter((line) => {
+      return line ? line.trim() != "" : false;
+    })
+    .join("\n")
+    .replaceAll("'\n+'", "")
+    .replaceAll("output\n+'", "output + '")
+    .replaceAll("=\n'", "= '")
+
+    .replaceAll("';\n        output += '", "");
+
+  newClsContent =
+    newClsContent.split("/* COMPRESSED RENDER */")[0] +
+    "/* COMPRESSED RENDER */\n" +
+    renderCode.replace(
+      "private String RENDER_TEMPLATE()",
+      "public String render()"
+    ) +
+    "\n}";
+
+  // console.log(renderCode);
+
   // process.exit();
   fs.writeFileSync(clsPath, newClsContent);
 
@@ -63,21 +105,26 @@ let deployCMD =
   "sfdx force:source:deploy -p " +
   path.join(__dirname, "/../../force-app/main/default/classes");
 
-if (savedFile.includes("/common/")) {
-  // Get all scss files that need to be recompiled
-  const allFiles = getAllFiles("force-app/main/default/classes/").filter(
-    (filePath) => filePath.endsWith(".scss") && !filePath.includes("/common/")
-  );
+// if (savedFile.includes("/land/")) {
+//   execSync("osascript scripts/refresh_chrome.scpt");
+//   return;
+// }
 
-  for (let i = 0; i < allFiles.length; i++) {
-    processClass(allFiles[i]);
-  }
-} else {
-  const clsPath = processClass(savedFile);
-  deployCMD = "sf force:source:deploy -p " + clsPath;
-}
+// if (savedFile.includes("/common/")) {
+//   // Get all scss files that need to be recompiled
+//   const allFiles = getAllFiles("force-app/main/default/classes/").filter(
+//     (filePath) => filePath.endsWith(".scss") && !filePath.includes("/common/")
+//   );
 
-console.log("Deploying...");
-execSync(deployCMD);
+//   for (let i = 0; i < allFiles.length; i++) {
+//     processClass(allFiles[i]);
+//   }
+// } else {
+const clsPath = processClass(savedFile);
+// deployCMD = "sf force:source:deploy -p " + clsPath;
+// }
+
+// console.log("Deploying...");
+// execSync(deployCMD);
 console.log("Done. Refreshing Browser...");
 execSync("osascript scripts/refresh_chrome.scpt");

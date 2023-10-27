@@ -4,6 +4,8 @@
     "**/bower_components": true,
     "**/.sfdx": true
   },
+
+  
   
   "salesforcedx-vscode-core.retrieve-test-code-coverage": false,
   "salesforcedx-vscode-core.show-cli-success-msg": false,
@@ -29,5 +31,14 @@
             "cmd": "node scripts/js/compileSCSS.js ${file}"
         },
     ]
-  }
+  },
+
+  "filewatcher.commands": [
+    {
+        "match": "Design\\.cls",
+        // "isAsync": true,
+        "vscodeTask": "workbench.action.files.revert",
+        "event": "onFolderChange"
+    }		
+  ]
 }

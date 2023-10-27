@@ -1,4 +1,4 @@
-public class MiniChartsApexFormula {
+public with sharing class MiniChartsApexFormula {
     public static Map<String,String> formulaValues = new Map<String,String>();
     
     // Formula Data Types

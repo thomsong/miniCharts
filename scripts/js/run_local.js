@@ -1,7 +1,8 @@
-const colors = require("colors");
-const spawn = require("child_process").spawn;
-const exec = require("child_process").exec;
-const fs = require("fs");
+var http = require("http");
+var colors = require("colors");
+var spawn = require("child_process").spawn;
+var exec = require("child_process").exec;
+var fs = require("fs");
 
 var walk = function (dir) {
   var results = [];
@@ -29,20 +30,29 @@ var landBinDir = projectRoot + "/bin/land/";
 var args = {};
 for (var i = 2; i < process.argv.length; i++) {
   var argParts = process.argv[i].split("=");
-  args[argParts[0]] = argParts[1];
+  var key = argParts[0].replace(/^-*/g, "");
+  if (!argParts[1]) {
+    args[key] = true;
+  } else {
+    args[key] = argParts[1];
+  }
 }
 
 args.GOPATH = "/tmp/.gocache";
 args.GOCACHE = "/tmp/.gocache";
 
 var landGoCmd = "/opt/homebrew/bin/go run .";
-var landCompiledCmd = "land";
+var landCompiledCmd = "./land";
 
-var landExecCmd = false ? landCompiledCmd : landGoCmd;
+var landExecCmd = true ? landCompiledCmd : landGoCmd;
 landExecCmd += " " + run_mode;
 
+var serverMode = args["server"] ? run_mode == "run" : false;
+
 console.log("*************************************".green);
-if (run_mode == "run") {
+if (serverMode) {
+  console.log("*            APEX SERVER            *".green);
+} else if (run_mode == "run") {
   console.log("*             RUN APEX              *".green);
 } else {
   console.log("*             RUN TESTS             *".green);
@@ -88,34 +98,62 @@ if (run_mode == "run") {
   const params = landExecCmd.split(" ");
   const cmd = params.shift();
 
-  // console.log(landExecCmd);
+  let output = "";
+  function run() {
+    output = "";
 
-  await new Promise((resolve) => {
-    land = spawn(cmd, params, { cwd: landBinDir, env: args });
+    return new Promise((resolve) => {
+      land = spawn(cmd, params, { cwd: landBinDir, env: args });
 
-    land.stdout.on("data", function (data) {
-      const strData = data.toString();
-      process.stdout.write(strData);
+      land.stdout.on("data", function (data) {
+        const strData = data.toString();
+
+        if (serverMode) {
+          output += strData;
+        } else {
+          process.stdout.write(strData);
+        }
+      });
+
+      land.stderr.on("data", function (data) {
+        if (data.toString().startsWith("exit status")) {
+          return;
+        }
+
+        process.stderr.write(data.toString().brightRed);
+      });
+
+      land.on("exit", function (code) {
+        resolve();
+      });
     });
+  }
 
-    land.stderr.on("data", function (data) {
-      if (data.toString().startsWith("exit status")) {
-        return;
-      }
+  if (serverMode) {
+    var PORT = 8080;
 
-      process.stderr.write(data.toString().brightRed);
-    });
+    http
+      .createServer(async function (req, res) {
+        if (req.url != "/") {
+          res.writeHead(404);
+          res.end();
+          return;
+        }
 
-    land.on("exit", function (code) {
-      // if (code) {
-      //   console.error(
-      //     ("child process exited with code " + code.toString()).brightRed
-      //   );
-      // }
+        console.log("Refresh...");
 
-      resolve();
-    });
-  });
+        await run();
+        res.writeHead(200, { "Content-Type": "image/svg+xml" });
+        res.write(output); //write a response to the client
+        res.end(); //end the response
+      })
+      .listen(PORT); //the server object listens on port 8080
+
+    console.log("Listening at http://localhost:" + PORT);
+    return;
+  }
+
+  await run();
 
   console.log("\n*************************************".green);
 })();
