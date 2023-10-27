@@ -1,4 +1,4 @@
-public class MiniChartsLineChartDesign extends MiniChartsDesign {
+public class MiniChartsLineChartDesign extends MiniChartsDesignX {
     public MiniChartsLineChartDesign() {
         this.COMPILED_CSS_STYLE = 'svg.theme-1 #fillGradient stop:nth-child(1){stop-color:#04844b}svg.theme-1 #fillGradient stop:nth-child(2){stop-color:#aa2422}.sparkline path{stroke:#000;stroke-linejoin:round;stroke-linecap:round;stroke-width:1.5;fill:none}.sparkline path.filled{fill:#000;opacity:.2;stroke:none !important}.sparkline path.purple{stroke:#9d53f2}.sparkline path.purple.filled{fill:#9d53f2}.sparkline path.blue{stroke:#3296ed}.sparkline path.blue.filled{fill:#3296ed}.sparkline path.green{stroke:#04844b}.sparkline path.green.filled{fill:#04844b}.sparkline path.red{stroke:#aa2422}.sparkline path.red.filled{fill:#aa2422}.sparkline path.yellow{stroke:#fcc003}.sparkline path.yellow.filled{fill:#fcc003}.sparkline path.red-to-green{stroke:url(#fillGradient)}.sparkline path.red-to-green.filled{fill:url(#fillGradient)}line{stroke:#000;opacity:.75;stroke-width:.25}';
     }

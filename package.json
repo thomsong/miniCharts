@@ -45,6 +45,7 @@
   "dependencies": {
     "colors": "^1.4.0",
     "dart-sass": "^1.25.0",
+    "http-proxy": "^1.18.1",
     "node-sass": "^9.0.0",
     "run-applescript": "^6.1.0"
   }

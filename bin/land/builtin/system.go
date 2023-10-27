@@ -14,6 +14,10 @@ const (
 	WarningColor = "\033[1;33m%s\033[0m"
 	ErrorColor   = "\033[1;31m%s\033[0m"
 	DebugColor   = "\033[0;36m%s\033[0m"
+	SuccessColor   = "\033[1;32m%s\033[0m"
+
+	GrayColor   = "\033[2;37m%s\033[0m"
+	WhiteColor   = "\033[1;37m%s\033[0m"
 )
 
 type EqualChecker interface {

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"strings"
@@ -16,6 +17,7 @@ import (
 
 	"github.com/Songmu/prompter"
 	"github.com/chzyer/readline"
+	"github.com/facebookgo/symwalk"
 	"github.com/fsnotify/fsnotify"
 	"github.com/mattn/go-colorable"
 	"github.com/tzmfreedom/land/ast"
@@ -201,7 +203,7 @@ var testCommand = cli.Command{
 		// fmt.Printf("File: %s\n", c.String("file"))
 		// fmt.Printf("Action: %s\n", c.String("action"))
 
-		var cnt = 0
+		cnt := 0
 		for _, classType := range classTypes {
 			for _, methods := range classType.StaticMethods.All() {
 				for _, m := range methods {
@@ -223,25 +225,94 @@ var testCommand = cli.Command{
 		}
 
 		var i = 1
+		
+		var ok = false
+		var ms = int64(0)
+
+		passCnt := 0
+		failCnt := 0
+		totalMs := int64(0)
+
 		for _, classType := range classTypes {
 			for _, methods := range classType.StaticMethods.All() {
 				for _, m := range methods {
 
 					if c.String("action") == "" {
 						if m.IsTestMethod() {
-							runTest(classTypes, classType, m, i, cnt)
+							ok, ms, _ = runTest(classTypes, classType, m, i, cnt)
 							i++
+
+							totalMs += ms
+
+							if ok == true {
+								passCnt++;
+							} else {
+								failCnt++;
+							}
 						}
 					} else {
 						if strings.ToLower(c.String("action")) == strings.ToLower(m.Name) && m.IsTestMethod() {
-							runTest(classTypes, classType, m, i, cnt)
+							ok, ms, _ = runTest(classTypes, classType, m, i, cnt)
 							i++
+
+							totalMs += ms
+
+							if ok == true {
+								passCnt++;
+							} else {
+								failCnt++;
+							}
 						}
 					}
-					
+
 				}
 			}
 		}
+
+		stdout := colorable.NewColorableStdout()
+		
+		fmt.Println();
+		if cnt == 0 {
+			fmt.Println("No Tests Run")
+		} else {
+			passRate := float64(passCnt) / float64(cnt)
+			failRate := float64(failCnt) / float64(cnt)
+
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprintln("TEST SUMMARY"))
+			fmt.Fprintf(stdout, builtin.DebugColor, fmt.Sprintln("───────────────────  ─────────────"))
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprint("Outcome              "))
+			if failCnt > 0 {
+				fmt.Fprintf(stdout, builtin.ErrorColor, fmt.Sprintln("Failed"))
+			} else {
+				fmt.Fprintf(stdout, builtin.SuccessColor, fmt.Sprintln("Passed"))
+			}
+
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprint("Tests Ran            "))
+			fmt.Fprintf(stdout, builtin.SuccessColor, fmt.Sprintln(cnt))
+			
+			clr := builtin.SuccessColor
+			if passRate == 0 {
+				clr = builtin.ErrorColor
+			}
+
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprint("Pass Rate            "))
+			fmt.Fprintf(stdout, clr, fmt.Sprintln(strconv.Itoa(passCnt) + " (" + fmt.Sprintf("%.0f", passRate*100) + "%)"))
+			
+			clr = builtin.SuccessColor
+			if failCnt > 0 {
+				clr = builtin.ErrorColor
+			}
+
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprint("Fail Rate            "))
+			fmt.Fprintf(stdout, clr, fmt.Sprintln(strconv.Itoa(failCnt) + " (" + fmt.Sprintf("%.0f", failRate*100) + "%)"))
+
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprint("Test Execution Time  "))
+			fmt.Fprintf(stdout, builtin.WhiteColor, fmt.Sprintln(strconv.Itoa(int(totalMs)) + "ms"))
+		}
+		
+		fmt.Println()
+
+
 		return nil
 	},
 }
@@ -478,7 +549,8 @@ func parseFileOption(c *cli.Context) ([]string, error) {
 	} else if dir != "" {
 		files = []string{}
 
-		err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		err := symwalk.Walk(dir, func(path string, info os.FileInfo, err error) error {
+			// fmt.Println(path)
 			if err != nil {
 				fmt.Println(err)
 				return err
@@ -684,7 +756,7 @@ func interactiveRun(classTypes []*ast.ClassType, files []string) error {
 			execFile(code, env)
 		}
 	}
-	return nil
+	// return nil
 }
 
 func createTempClass(statement string) string {
@@ -746,7 +818,7 @@ func watchAndRunTest(classTypes []*ast.ClassType, directory string) error {
 		}
 	}
 
-	return err
+	// return err
 }
 
 func runAction(interpreter *interpreter.Interpreter, expression []string) error {
@@ -892,45 +964,64 @@ func reloadAll(interpreter *interpreter.Interpreter, files []string) error {
 	return nil
 }
 
-func runTest(classTypes []*ast.ClassType, classType *ast.ClassType, m *ast.Method, i int, cnt int) error {
-	// fmt.Println("1111111111")
-	action := fmt.Sprintf("%s#%s", classType.Name, m.Name)
-	fmt.Printf("Test %d/%d - %s: ", i, cnt, action)
+func runTest(classTypes []*ast.ClassType, classType *ast.ClassType, m *ast.Method, i int, cnt int) (bool, int64, error) {
+	stdout := colorable.NewColorableStdout()
+
+	ms := time.Now().UnixMilli()
+
+	action := classType.Name + "#" +  m.Name;
+	
+	leftPadding := len(fmt.Sprintf("%d/%d - ",cnt,cnt)) + 2
+	tabPadding := 3
+
+	fmt.Fprintf(stdout, builtin.DebugColor, fmt.Sprintf("%d/%d", i, cnt))
+	fmt.Fprintf(stdout, " - ")
+
+	fmt.Fprintf(stdout, builtin.DebugColor, classType.Name + "." +  m.Name + "... ")
 
 	var ret *interpreter.Interpreter
 	err := run(action, classTypes, func(i *interpreter.Interpreter) {
 		ret = i
 		i.Extra["stdout"] = new(bytes.Buffer)
 	})
+
+	ms = time.Now().UnixMilli() - ms
+
 	if err != nil {
-		return err
+		return false, ms, err
 	}
 	
-	stdout := colorable.NewColorableStdout()
 	errors := ret.Extra["errors"].([]*builtin.TestError)
 	if len(errors) > 0 {
-		fmt.Println("")
+		fmt.Fprintf(stdout, builtin.ErrorColor, "Fail")
+		fmt.Fprintf(stdout, builtin.WhiteColor, " (" + strconv.Itoa(int(ms)) + "ms)\n")
+
 		for _, error := range errors {
 			loc := error.Node.GetLocation()
-			str := fmt.Sprintf("  %s at %d:%d\n", loc.FileName, loc.Line, loc.Column)
+			str := strings.Repeat(" ", leftPadding) + fmt.Sprintf("%s at %d:%d\n", loc.FileName, loc.Line, loc.Column)
 			fmt.Fprintf(stdout, builtin.NoticeColor, str)
 			if error.Message != "" {
-				str = fmt.Sprintf("    Failure/Error: %s", error.Message)
+				str = strings.Repeat(" ", leftPadding+tabPadding) + fmt.Sprintf("%s:", error.Message)
 			} else {
-				str = fmt.Sprintf("    Failure/Error: %s", ast.ToString(error.Node))
+				str = strings.Repeat(" ", leftPadding+tabPadding) + fmt.Sprintf("%s:", ast.ToString(error.Node))
 			}
 
 			if error.Condition != "" {
-				str += "\n" + error.Condition
+				str += "\n" + strings.Repeat(" ", leftPadding+(tabPadding*2)) + strings.Join(strings.Split(error.Condition, "\n"), "\n" + strings.Repeat(" ", leftPadding+(tabPadding*2))) 
 			}
 			str += "\n"
 
 			fmt.Fprintf(stdout, builtin.ErrorColor, str)
+			fmt.Println()
 		}
 	} else {
-		fmt.Fprintf(stdout, builtin.InfoColor, "pass\n")
+		fmt.Fprintf(stdout, builtin.SuccessColor, "Pass")
+		fmt.Fprintf(stdout, builtin.WhiteColor, " (" + strconv.Itoa(int(ms)) + "ms)\n")
 	}
-	fmt.Println("")
 
-	return nil
+	if len(errors) > 0 {
+		return false, ms, nil
+	} else {
+		return true, ms, nil
+	}
 }

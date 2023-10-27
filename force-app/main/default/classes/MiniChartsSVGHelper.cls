@@ -1,5 +1,4 @@
 public with sharing class MiniChartsSVGHelper {
-   
     public static String composeChartSVG( Integer[] canvasSize, String body) {
         return MiniChartsSVGHelper.composeChartSVG(canvasSize[0], canvasSize[1], null, body);
     }

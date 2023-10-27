@@ -1,4 +1,4 @@
-public virtual class MiniChartsBaseChartDesign extends MiniChartsDesign {
+public virtual class MiniChartsBaseChartDesign extends MiniChartsDesignX {
     protected Double[] dataPoints = null;
 
     protected Decimal dataPointCount = 0;

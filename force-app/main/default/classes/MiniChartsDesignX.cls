@@ -1,4 +1,4 @@
-public virtual class MiniChartsDesign {
+public virtual class MiniChartsDesignX {
     protected Map<String, Object> params = null;
 
     protected Integer[] chartSize = null;
@@ -7,7 +7,6 @@ public virtual class MiniChartsDesign {
     protected String style = '';
     protected String body = '';
 
-    public MiniChartsDesign() {}
 
     public virtual String render(Map<String, Object> params, Integer[] chartSize) {
         String svgOutput = '';

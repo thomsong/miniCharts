@@ -43,15 +43,15 @@ landExecCmd += " " + run_mode;
 
 console.log("*************************************".green);
 if (run_mode == "run") {
-  console.log("*             RUN APEX             *".green);
+  console.log("*             RUN APEX              *".green);
 } else {
   console.log("*             RUN TESTS             *".green);
 }
-console.log("*************************************".green);
+console.log("*************************************\n".green);
 
 if (run_mode == "run") {
   landExecCmd += " -d " + localSrcDir;
-  landExecCmd += ' -a "Land#run"';
+  landExecCmd += " -a Land#run";
 } else {
   if (process.argv[2]) {
     const parts = process.argv[2].split(".");
@@ -85,12 +85,11 @@ if (run_mode == "run") {
 }
 
 (async () => {
-  // new Promise((resolve) => setTimeout(resolve, 1000));
-
   const params = landExecCmd.split(" ");
   const cmd = params.shift();
 
-  console.log();
+  // console.log(landExecCmd);
+
   await new Promise((resolve) => {
     land = spawn(cmd, params, { cwd: landBinDir, env: args });
 
@@ -118,5 +117,5 @@ if (run_mode == "run") {
     });
   });
 
-  console.log("*************************************".green);
+  console.log("\n*************************************".green);
 })();

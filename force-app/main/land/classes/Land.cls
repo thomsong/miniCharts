@@ -1,47 +1,43 @@
 public class Land {
-    @IsTest
-    public static void testClassHereNow() {
-        System.debug('test.test');
-        for(Integer i=0; i<500000; i++) {
-            String x = 'abc' + 5;
-        }
-        Assert.areEqual(true, false, 'asset msg');
-    }
+    // @IsTest
+    // public static void testClassHereNow() {
+    //     System.debug('test.test');
+    //     // for(Integer i=0; i<2000; i++) {
+    //         // String x = 'abc' + 5;
+    //     // }
+    //     Assert.areEqual(true, false);
+    // }
 
-    @IsTest
-    public static void testClassHereNow2() {
-        System.debug('Wait long time...');
-        for(Integer i=0; i<500000; i++) {
-            String x = 'abc' + 5;
-        }
-        Assert.areNotEqual(true, false, 'asset msg');
-    }
+    // @IsTest
+    // public static void testClassHereNow2() {
+    //     System.debug('Wait long time...');
+    //     // for(Integer i=0; i<500000; i++) {
+    //     //     String x = 'abc' + 5;
+    //     // }
+    //     // Assert.areNotEqual(true, false, 'asset msg');
+    // }
 
     public static void run() {
+        System.debug('Land.run() Called');
         // long START_TIME = Datetime.now().getTime();
 
+        String chartType = Env.get('chart') + 'Design';
 
-        // if (chartType == '') {
-        //     System.debug('Missing Chart Type Argument: npm run land chart=name');
-        //     return;
-        // }
+        if (chartType == '') {
+            System.debug('Missing Chart Type Argument: npm run land -- chart=name');
+            return;
+        }
         
-        System.debug('------------------------------------------------');
+        // System.debug('------------------------------------------------');
 
-        // System.debug(MiniChartsCache.class.getName());
-        // System.debug(Type.forName('MiniChartsCache').getName());//mc_dev
-        // System.debug(Type.forName('xMiniChartsCache') == null);//mc_dev
-// return;
-        // Type t = Type.forName( chartType);
-        // if (t == null) {
-        //     System.debug( 'Invalid Chart Class: ' + chartType);    
-        //     return;
-        // }
-        // Callable c = (Callable)t.newInstance();
+        Type t = Type.forName( chartType);
+        if (t == null) {
+            System.debug( 'Invalid Chart Class: ' + chartType);    
+            return;
+        }
+        MiniChartsDesign design = (MiniChartsDesign)t.newInstance();
 
-        // Map<String, Object> args = new Map<String, Object>();
-        // args.put('name', 'Greg');
-        // args.put('age', 6);
+        System.debug('Render: ' + design.render());
 
         // // List<ApexTypeImplementor> interfaceImpls = [
         // //     SELECT ApexClassId, InterfaceApexClassId, ClassName, InterfaceName, ClassNamespacePrefix, InterfaceNamespacePrefix, DurableId

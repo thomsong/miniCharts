@@ -13,6 +13,11 @@
     "editor.formatOnSave": true
   },
 
+  "go.enableCodeLens": {
+    "references": false,
+    "runtest": false
+  },
+
   "emeraldwalk.runonsave": {
     "commands": [
         {

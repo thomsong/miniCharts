@@ -1,10 +1,13 @@
 module github.com/tzmfreedom/land
 
+go 1.21.3
+
 require (
 	github.com/Songmu/prompter v0.0.0-20150725163906-b5721e8d5566
 	github.com/antlr/antlr4 v0.0.0-20181218183524-be58ebffde8e
 	github.com/chzyer/readline v0.0.0-20160726135117-62c6fe619375
 	github.com/dustin/go-humanize v1.0.0
+	github.com/facebookgo/symwalk v0.0.0-20150726040526-42004b9f3222
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/google/go-cmp v0.2.0
 	github.com/joho/godotenv v1.3.0
@@ -20,3 +23,5 @@ require (
 	gopkg.in/urfave/cli.v1 v1.20.0
 	gopkg.in/yaml.v2 v2.2.2
 )
+
+require gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 // indirect

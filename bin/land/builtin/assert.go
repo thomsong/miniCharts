@@ -32,7 +32,7 @@ func init() {
 								node := extra["node"].(ast.Node)
 								
 								errors := extra["errors"].([]*TestError)
-								conditionMsg := fmt.Sprintf("      expected: %s\n      actual:   %s", String(expected), String(actual))
+								conditionMsg := fmt.Sprintf("expected: %s\nactual:   %s", String(expected), String(actual))
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  "",
@@ -64,7 +64,7 @@ func init() {
 								node := extra["node"].(ast.Node)
 								
 								errors := extra["errors"].([]*TestError)
-								conditionMsg := fmt.Sprintf("      expected: %s\n      actual:   %s", String(expected), String(actual))
+								conditionMsg := fmt.Sprintf("expected: %s\nactual:   %s", String(expected), String(actual))
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  msg,
@@ -95,7 +95,7 @@ func init() {
 								node := extra["node"].(ast.Node)
 								
 								errors := extra["errors"].([]*TestError)
-								conditionMsg := fmt.Sprintf("      expected: %s\n      actual:   %s", String(expected), String(actual))
+								conditionMsg := fmt.Sprintf("expected: %s\nactual:   %s", String(expected), String(actual))
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  "",
@@ -127,7 +127,7 @@ func init() {
 								node := extra["node"].(ast.Node)
 								
 								errors := extra["errors"].([]*TestError)
-								conditionMsg := fmt.Sprintf("      expected: %s\n      actual:   %s", String(expected), String(actual))
+								conditionMsg := fmt.Sprintf("expected: %s\nactual:   %s", String(expected), String(actual))
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  msg,
@@ -203,7 +203,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  "",
-									Condition: "      expected: false\n      actual:   true",
+									Condition: "expected: false\nactual:   true",
 								})
 							}
 
@@ -229,7 +229,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  msg,
-									Condition: "      expected: false\n      actual:   true",
+									Condition: "expected: false\nactual:   true",
 								})
 							}
 
@@ -253,7 +253,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  "",
-									Condition: "      expected: true\n      actual:   false",
+									Condition: "expected: true\nactual:   false",
 								})
 							}
 
@@ -279,7 +279,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  msg,
-									Condition: "      expected: true\n      actual:   false",
+									Condition: "expected: true\nactual:   false",
 								})
 							}
 
@@ -297,7 +297,7 @@ func init() {
 						NativeFunction: func(this *ast.Object, parameter []*ast.Object, extra map[string]interface{}) interface{} {
 							actual := parameter[0]
 							node := extra["node"].(ast.Node)
-							conditionMsg := fmt.Sprintf("      expected: null\n      actual:   %s", String(actual))
+							conditionMsg := fmt.Sprintf("expected: null\nactual:   %s", String(actual))
 							if (actual.ClassType.Name != "null") {
 								errors := extra["errors"].([]*TestError)
 								extra["errors"] = append(errors, &TestError{
@@ -323,7 +323,7 @@ func init() {
 							msg := parameter[1].StringValue()
 							
 							node := extra["node"].(ast.Node)
-							conditionMsg := fmt.Sprintf("      expected: null\n      actual:   %s", String(actual))
+							conditionMsg := fmt.Sprintf("expected: null\nactual:   %s", String(actual))
 							if (actual.ClassType.Name != "null") {
 								errors := extra["errors"].([]*TestError)
 								extra["errors"] = append(errors, &TestError{
@@ -353,7 +353,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  "",
-									Condition: "      expected: not null\n      actual:   null",
+									Condition: "expected: not null\nactual:   null",
 								})
 							}
 
@@ -379,7 +379,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  msg,
-									Condition: "      expected: not null\n      actual:   null",
+									Condition: "expected: not null\nactual:   null",
 								})
 							}
 
@@ -407,7 +407,7 @@ func init() {
 								extra["errors"] = append(errors, &TestError{
 									Node: node,
 									Message:  fmt.Sprintf("%s",expectedType.ClassType.Name),
-									Condition: "      expected: true\n      actual:   false",
+									Condition: "expected: true\nactual:   false",
 								})
 							
 
