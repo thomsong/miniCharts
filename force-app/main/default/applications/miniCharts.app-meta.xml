@@ -23,6 +23,7 @@
     <label>miniCharts</label>
     <navType>Standard</navType>
     <tabs>standard-home</tabs>
+    <tabs>Test_List</tabs>
     <tabs>miniCharts_Setup</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
