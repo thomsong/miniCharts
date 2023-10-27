@@ -1,7 +1,0 @@
-vendor/
-example.cls
-.idea/
-*.js
-.env
-sobjects.yml
-database.sqlite3

@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "description": "miniCharts",
   "scripts": {
+    "land": "RUN_MODE=run node ./scripts/js/run_local.js",
+    "land::test": "RUN_MODE=test node ./scripts/js/run_local.js",
     "lint": "eslint **/{aura,lwc}/**",
     "test": "npm run test:unit",
     "test:unit": "sfdx-lwc-jest",
@@ -41,6 +43,7 @@
     ]
   },
   "dependencies": {
+    "colors": "^1.4.0",
     "dart-sass": "^1.25.0",
     "node-sass": "^9.0.0",
     "run-applescript": "^6.1.0"

@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <style>
+        .title {
+            font-family: 'Pacifico', cursive;
+        }
+        pre {
+            line-height: 2rem;
+        }
+    </style>
+    <!-- jQuery -->
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"></script>
+    <script>
+        $(function(){
+            var editor = ace.edit("editor");
+            editor.session.setMode("ace/mode/apex");
+            var Base64 = {
+                encode: function(str) {
+                    return btoa(unescape(encodeURIComponent(str)));
+                },
+                decode: function(str) {
+                    return decodeURIComponent(escape(atob(str)));
+                }
+            };
+
+            var snippetId = location.hash.substring(1)
+            if (snippetId != "") {
+                $.get({
+                    url: "/code/" + snippetId,
+                    dataType: 'json',
+                }).then(function(result) {
+                    editor.setValue(Base64.decode(result.code));
+                });
+            } else {
+                var messages = [];
+                messages.push("System.debug('Hello Trailbrazers!!');");
+                messages.push("");
+                messages.push("String s = 'Here is Land Playground.';");
+                messages.push("System.debug(s);");
+                messages.push("");
+                messages.push("if (true) {");
+                messages.push("    System.debug('Land is Salesforce Apex Execution Environment on Local System.');");
+                messages.push("} else {");
+                messages.push("    System.debug('boo!');");
+                messages.push("}");
+                messages.push("");
+                messages.push("List<String> messages = new List<String>{");
+                messages.push("    'With Land, you can execute Apex on Local, not Cloud!!',");
+                messages.push("    'This is WIP Project.',");
+                messages.push("    'If you find bugs, please fill an issue or send pull request.'");
+                messages.push("};");
+                messages.push("");
+                messages.push("for (Integer i = 0; i < 3; i++) {");
+                messages.push("    System.debug(messages[i]);");
+                messages.push("}");
+                messages.push("");
+                messages.push("List<Account> accounts = [SELECT Id, Field1__c, Website FROM Account WHERE Name = 'Astro'];");
+                messages.push("System.debug(accounts[0].WebSite);");
+                messages.push("System.debug(accounts[0].Field1__c);");
+                editor.setValue(messages.join("\n"));
+            }
+            var $snippet = $("#snippet-url");
+
+            $("#eval").click(function(){
+                var code = editor.getValue();
+                $.post({
+                    url: "/eval",
+                    data: JSON.stringify({
+                        Method: "action",
+                        String: Base64.encode(code)
+                    }),
+                    dataType: 'json',
+                }).then(function(result){
+                    if (result.String !== "") {
+                        $("#result").text(Base64.decode(result.String));
+                    }
+                }, function(result) {
+                    var res = result.responseJSON
+                    if (res.Error !== "") {
+                        alert(res.Error);
+                    }
+                });
+                return false;
+            });
+
+            $("#save").click(function(){
+                var path = "/code";
+                if (snippetId != "") {
+                    path += "/" + snippetId;
+                }
+                var code = editor.getValue();
+                $.post({
+                    url: path,
+                    data: JSON.stringify({
+                        code: Base64.encode(code)
+                    }),
+                    dataType: 'json',
+                }).then(function(result){
+                    location.hash = snippetId = result.id;
+                    $snippet.val(location.protocol + "//" + location.host + "/#" + result.id);
+                    $snippet.show();
+                });
+                return false;
+            });
+        });
+    </script>
+    <title>Land playground</title>
+</head>
+<body>
+<div >
+    <div class="row">
+      <h1 class="col-sm-12 title" style="padding: 10px 40px;">Land Playground</h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <form class="col-sm-12">
+                <input type="text" id="snippet-url" class="col-sm-12" style="display: none;"/>
+                <div id="editor" style="height: 550px; font-size: 0.9rem;" class="form-control"></div>
+            </form>
+            <div class="col-sm-12" style="margin-top: 10px; text-align: right;" >
+                <button id="eval" type="submit" class="btn btn-primary">
+                    <i class="fas fa-play"></i><span style="margin-left: 10px;">Run</span>
+                </button>
+                <button id="save" type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i><span style="margin-left: 10px;">Save</span>
+                </button>
+            </div>
+        </div>
+        <pre id="result" class="col-sm-6"></pre>
+    </div>
+    <!-- Content here -->
+</div>
+</body>
+</html>

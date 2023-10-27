@@ -1,4 +1,0 @@
-select name, Markup, Description from ApexPage where name like 'miniCharts_%'
-
-
-String myBase64String = EncodingUtil.base64Encode(Blob.valueof(myString));

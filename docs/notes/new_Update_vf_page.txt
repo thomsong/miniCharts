@@ -1,0 +1,22 @@
+
+MetadataService.MetadataPort service = new MetadataService.MetadataPort();
+service.SessionHeader = new MetadataService.SessionHeader_element();
+service.SessionHeader.sessionId = UserInfo.getSessionId();
+
+MetadataService.ApexPage apexPage = new MetadataService.ApexPage();
+apexPage.apiVersion = 58;
+apexPage.fullName = 'mPagex';
+apexPage.label = 'mPagex Page2';
+apexPage.content = EncodingUtil.base64Encode(Blob.valueOf(
+    '<apex:page>{!$User.Id + \'' + Math.random() + '\'}</apex:page>'));
+
+List<MetadataService.SaveResult> results = service.updateMetadata(new MetadataService.Metadata[] { apexPage });
+
+MetadataService.SaveResult saveResult = results[0];
+System.debug(saveResult);
+
+if(saveResult==null || saveResult.success) {
+    System.debug('Success!!!');
+} else if(saveResult.errors!=null) {
+    System.debug(saveResult.errors);
+}
