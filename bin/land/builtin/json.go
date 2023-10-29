@@ -117,6 +117,7 @@ func deserializeJson(value interface{}) *ast.Object {
 	if value == nil {
 		return Null
 	}
+
 	switch typedValue := value.(type) {
 	case string:
 		return NewString(typedValue)
@@ -125,6 +126,9 @@ func deserializeJson(value interface{}) *ast.Object {
 	case int64:
 		return NewInteger(typedValue)
 	case float64:
+		if typedValue == float64(int64(typedValue)) {
+			return NewInteger(int64(typedValue))
+		}
 		return NewDouble(typedValue)
 	case bool:
 		return NewBoolean(typedValue)

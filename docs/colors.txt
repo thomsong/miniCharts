@@ -1,0 +1,50 @@
+https://www.figma.com/file/e7mAbbDZZUKlF1eb5ZaU4i/Foundation%3A-Color-%7C-Lightning-Design-System-(Community)?type=design&node-id=0-5&mode=design&t=xFqfWzqrEv3kUhR9-0
+
+red: #ba0516
+green: #2e844a
+light-green: #41b658
+light-gray: #e5e5e5
+dark-gray: #706e6b
+blue: #0076d3
+orange: #ff9a3c
+
+-----
+blue: #d5f6fe
+b2: #a8e3fd
+b3: #60caf4
+b4: #0f91d6
+b5: #084d96
+
+dark-blue: #06386a / #092953 / #10549e
+blue: #1694d1
+light-blue: #0b99ff
+xlight-blue: #80caff / #43b7e7
+xxlight-blue: #cae6fc
+
+light-pink-purple: #c57eb6
+purple: #8a38f5
+dark-purple: #6b01b8
+purple-2: #583d92
+purple-3: #4d357e
+
+
+dark-green: #4a6639 / #4a7632
+
+organe: #ff8b1f
+dark-orange: #c77205
+x-dark-orange: #d76e1f
+x-dark-orange2: #cc3201
+
+yellow: #ffcd2a* / #ffc700 / #ffd966
+yellow-dark-text: #332908
+
+pink: #ea6cb8
+dark-pink: #da0063
+
+turqois: #06e1cb
+dark-turqois: #10a689
+
+gray: #797979
+
+light-brown: #cb8244
+brown: #713421

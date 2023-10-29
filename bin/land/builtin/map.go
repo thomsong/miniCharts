@@ -39,7 +39,7 @@ func createMapType() *ast.ClassType {
 					if v := values[key]; v != nil {
 						return v
 					}
-					return nil
+					return Null
 				},
 			),
 		},

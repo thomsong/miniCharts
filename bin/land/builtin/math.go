@@ -41,6 +41,19 @@ func init() {
 		},
 	)
 	staticMethods.Set(
+		"round",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"round",
+				IntegerType,
+				[]*ast.Parameter{doubleTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return NewInteger(int64(math.Round(params[0].DoubleValue())))
+				},
+			),
+		},
+	)
+	staticMethods.Set(
 		"random",
 		[]*ast.Method{
 			ast.CreateMethod(

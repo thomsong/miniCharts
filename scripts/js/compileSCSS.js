@@ -105,10 +105,10 @@ let deployCMD =
   "sfdx force:source:deploy -p " +
   path.join(__dirname, "/../../force-app/main/default/classes");
 
-// if (savedFile.includes("/land/")) {
-//   execSync("osascript scripts/refresh_chrome.scpt");
-//   return;
-// }
+if (savedFile.endsWith("Harness.cls")) {
+  execSync("osascript scripts/refresh_chrome.scpt");
+  return;
+}
 
 // if (savedFile.includes("/common/")) {
 //   // Get all scss files that need to be recompiled
