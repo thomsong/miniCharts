@@ -13,9 +13,24 @@
 
   --bar-height: 16px;
 
-  /* One Row High */
+  /* Two Row High */
+  &.sz2 {
+    // --bar-height: 40px;
+  }
+
+  /* Three Row High */
   &.sz3 {
-    --bar-height: 30px;
+    // --bar-height: 60px;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    // Optional
+    // max-width: 100px;
   }
 
   /* Title */
@@ -59,12 +74,6 @@
       height: 0.8rem;
       letter-spacing: min(0rem, max(-0.1rem, calc(calc(1cqw) - 0.1rem)));
     }
-  }
-
-  .body-cnt {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
   .pb-container {
@@ -146,16 +155,16 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: 100%;
+      width: calc(100% - var(--pct)); /*100%;*/
       height: 100%;
       background-color: var(--bg-color);
 
-      @keyframes a-fill-1 {
-        to {
-          width: calc(100% - var(--pct));
-        }
-      }
-      animation: 0.5s ease-out forwards a-fill-1;
+      // @keyframes a-fill-1 {
+      //   to {
+      //     width: calc(100% - var(--pct));
+      //   }
+      // }
+      // animation: 0.5s ease-out forwards a-fill-1;
     }
 
     .fill {
