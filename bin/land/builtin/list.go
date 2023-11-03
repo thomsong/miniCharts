@@ -200,4 +200,5 @@ func createListType() {
 func init() {
 	createListType()
 	primitiveClassMap.Set("list", ListType)
+	// primitiveClassMap.Set("set", ListType)
 }

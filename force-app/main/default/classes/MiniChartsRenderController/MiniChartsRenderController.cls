@@ -105,6 +105,8 @@ global with sharing class MiniChartsRenderController {
     }
 
     public String getRenderChart() {
+        MiniChartsRenderer renderer = new MiniChartsRenderer();
+        return renderer.renderSVG();
         
         // System.debug();
         // Map<String, String> params = ApexPages.currentPage().getParameters();
@@ -135,7 +137,7 @@ global with sharing class MiniChartsRenderController {
         //     x2 = EncodingUtil.base64Encode(Blob.valueof(x + '_' + i));
         // }
 
-        String output = getChartSVG();
+        // String output = getChartSVG();
         
 
         // System.debug('RUN_TIME: ' + runTime + 'ms');
@@ -156,7 +158,7 @@ global with sharing class MiniChartsRenderController {
         // Long runTime = Datetime.now().getTime() - START_TIME;
 
         // return 'CPU: ' + Limits.getCpuTime() + '\nrunTime: ' + runTime + '\n' + output;
-        return output;
+        // return output;
     }
 
     public String getChartSVG() {

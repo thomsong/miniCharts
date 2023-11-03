@@ -1,4 +1,47 @@
 .TextDesign {
   .body {
+    width: 100%;
+  }
+
+  .lbl {
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    text-align: left;
+    -webkit-line-clamp: 1;
+  }
+
+  &.sz2 .lbl {
+    -webkit-line-clamp: 2;
+  }
+
+  &.sz3 .lbl {
+    -webkit-line-clamp: 3;
+  }
+
+  &.tm,
+  &.mm,
+  &.rm {
+    .lbl {
+      text-align: center;
+    }
+  }
+
+  &.tr,
+  &.mr,
+  &.rr {
+    .lbl {
+      text-align: right;
+    }
+  }
+
+  svg.icn {
+    vertical-align: text-top;
+    margin-right: 2px;
+    --icn-sz: 14px;
+    width: var(--icn-sz);
+    max-width: var(--icn-sz);
+    max-height: var(--icn-sz);
+    fill: var(--fill);
   }
 }

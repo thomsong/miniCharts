@@ -433,7 +433,7 @@ func (v *TypeChecker) VisitNew(n *ast.New) (interface{}, error) {
 					return nil, err
 				}
 				if !builtin.Equals(paramElemClass, elemClass) {
-					v.AddError(fmt.Sprintf("initialization is not match type %s != %s", elemClass.String(), paramElemClass.String()), n)
+					v.AddError(fmt.Sprintf("1initialization is not match type %s != %s", elemClass.String(), paramElemClass.String()), n)
 				}
 			}
 		}
@@ -449,16 +449,16 @@ func (v *TypeChecker) VisitNew(n *ast.New) (interface{}, error) {
 				if err != nil {
 					return nil, err
 				}
-				if builtin.Equals(paramKeyClass, keyClass) {
-					v.AddError(fmt.Sprintf("initialization is not match type %s != %s", keyClass.String(), paramKeyClass.String()), n)
+				if !builtin.Equals(paramKeyClass, keyClass) {
+					v.AddError(fmt.Sprintf("2initialization is not match type %s != %s", keyClass.String(), paramKeyClass.String()), n)
 				}
 				r, err = value.Accept(v)
 				paramValueClass := r.(*ast.ClassType)
 				if err != nil {
 					return nil, err
 				}
-				if builtin.Equals(paramValueClass, valueClass) {
-					v.AddError(fmt.Sprintf("initialization is not match type %s != %s", valueClass.String(), paramValueClass.String()), n)
+				if !builtin.Equals(paramValueClass, valueClass) {
+					v.AddError(fmt.Sprintf("3initialization is not match type %s != %s", valueClass.String(), paramValueClass.String()), n)
 				}
 			}
 		}

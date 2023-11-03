@@ -44,7 +44,7 @@ args.GOCACHE = "/tmp/.gocache";
 var landGoCmd = "/opt/homebrew/bin/go run .";
 var landCompiledCmd = "./land";
 
-var landExecCmd = false ? landCompiledCmd : landGoCmd;
+var landExecCmd = true ? landCompiledCmd : landGoCmd;
 landExecCmd += " " + run_mode;
 
 var serverMode = args["server"] ? run_mode == "run" : false;
