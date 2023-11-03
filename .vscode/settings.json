@@ -39,6 +39,12 @@
         // "isAsync": true,
         "vscodeTask": "workbench.action.files.revert",
         "event": "onFolderChange"
-    }		
+    },
+    {
+      "match": "MiniChartsRenderer\\.cls",
+      // "isAsync": true,
+      "vscodeTask": "workbench.action.files.revert",
+      "event": "onFolderChange"
+  }
   ]
 }

@@ -20,11 +20,21 @@ const getAllFiles = function (dirPath, arrayOfFiles) {
 };
 
 const processClass = (savedFile) => {
-  const baseFile = savedFile.replace(/\.[^/.]+$/, "");
+  let baseFile = savedFile.replace(/\.[^/.]+$/, "");
+
+  if (savedFile.endsWith("scss")) {
+    if (path.join(baseFile, "/..").endsWith("/style")) {
+      baseFile =
+        path.join(baseFile, "/../../") +
+        path.join(baseFile, "/../..").split("/").pop();
+    }
+  }
+
   const scssPath = baseFile + ".scss";
   const clsPath = baseFile + ".cls";
   const className = baseFile.split("/").pop();
 
+  console.log("scssPath", scssPath);
   if (fs.existsSync(scssPath) && fs.existsSync(clsPath)) {
     // Both exist, so we need to compile
   } else {
@@ -48,48 +58,56 @@ const processClass = (savedFile) => {
       }
       return line;
     })
+    .map((line) => {
+      if (line.includes("private String GLOBAL_STYLE = '")) {
+        return "    private String GLOBAL_STYLE = '" + compiledStyle + "';";
+      }
+      return line;
+    })
     .join("\n");
 
-  let renderCode = newClsContent.substring(
-    newClsContent.indexOf("    private String RENDER_TEMPLATE() {"),
-    newClsContent.lastIndexOf(" /* END RENDER_TEMPLATE */")
-  );
+  if (newClsContent.indexOf("RENDER_TEMPLATE") >= 0) {
+    let renderCode = newClsContent.substring(
+      newClsContent.indexOf("    private String RENDER_TEMPLATE() {"),
+      newClsContent.lastIndexOf(" /* END RENDER_TEMPLATE */")
+    );
 
-  renderCode = renderCode
-    .split("\n")
-    .map((line) => {
-      if (line.trim().startsWith("//")) {
-        return null;
-      }
+    renderCode = renderCode
+      .split("\n")
+      .map((line) => {
+        if (line.trim().startsWith("//")) {
+          return null;
+        }
 
-      if (line.trim().startsWith("'")) {
-        return "'" + line.trim().substring(1).trim();
-      }
+        if (line.trim().startsWith("'")) {
+          return "'" + line.trim().substring(1).trim();
+        }
 
-      if (line.trim().startsWith("+ '")) {
-        return "+'" + line.trim().substring(3).trim();
-      }
+        if (line.trim().startsWith("+ '")) {
+          return "+'" + line.trim().substring(3).trim();
+        }
 
-      return line.trimEnd();
-    })
-    .filter((line) => {
-      return line ? line.trim() != "" : false;
-    })
-    .join("\n")
-    .replaceAll("'\n+'", "")
-    .replaceAll("output\n+'", "output + '")
-    .replaceAll("=\n'", "= '")
+        return line.trimEnd();
+      })
+      .filter((line) => {
+        return line ? line.trim() != "" : false;
+      })
+      .join("\n")
+      .replaceAll("'\n+'", "")
+      .replaceAll("output\n+'", "output + '")
+      .replaceAll("=\n'", "= '")
 
-    .replaceAll("';\n        output += '", "");
+      .replaceAll("';\n        output += '", "");
 
-  newClsContent =
-    newClsContent.split("/* COMPRESSED RENDER */")[0] +
-    "/* COMPRESSED RENDER */\n" +
-    renderCode.replace(
-      "private String RENDER_TEMPLATE()",
-      "public String render()"
-    ) +
-    "\n}";
+    newClsContent =
+      newClsContent.split("/* COMPRESSED RENDER */")[0] +
+      "/* COMPRESSED RENDER */\n" +
+      renderCode.replace(
+        "private String RENDER_TEMPLATE()",
+        "public String render()"
+      ) +
+      "\n}";
+  }
 
   // console.log(renderCode);
 

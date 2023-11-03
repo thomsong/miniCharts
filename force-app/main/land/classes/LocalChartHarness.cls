@@ -243,7 +243,8 @@ public class LocalChartHarness {
     public String renderSVG() {
         Map<String, Object> chartConfig = this.getConfig();
         
-        // MiniChartsRenderer renderer = new MiniChartsRenderer();
-        return '';//renderer.renderSVG();
+        MiniChartsRenderer renderer = new MiniChartsRenderer();
+        return renderer.renderSVG();
+        // return '';
     }
 }

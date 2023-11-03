@@ -145,10 +145,7 @@
 
     --bg-color: #ddd;
 
-    background-image: linear-gradient(to right, var(--theme-3), var(--theme-1));
-    // background-image: linear-gradient(to right, var(--theme-1), var(--theme-1));
-    // background-image: linear-gradient(to right, #0176d3, #0176d3);
-    // background-image: linear-gradient(to right, #0176d3, var(--theme-1));
+    background-image: linear-gradient(to right, var(--c-t3), var(--c-t1));
     // background: #0176d3;
 
     .fill-bg {
@@ -173,11 +170,15 @@
       background-color: white;
       mix-blend-mode: screen;
 
-      border-image-source: var(--svg-battery-rounded);
-      border-image-repeat: round stretch;
+      ///* source | slice | width | outset | repeat */
 
-      border-image-slice: 3 5 3 4 fill;
-      border-image-width: 3px 5px 3px 4px;
+      // border-image-source: var(--svg-pattern);
+      // border-image-repeat: round stretch;
+
+      border-image: var(--svg-pattern);
+
+      // border-image-slice: 3 5 3 4 fill;
+      // border-image-width: 3px 5px 3px 4px;
 
       width: 100%;
       height: 100%;

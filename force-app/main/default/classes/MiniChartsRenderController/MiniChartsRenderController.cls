@@ -44,19 +44,19 @@ global with sharing class MiniChartsRenderController {
     public MiniChartsRenderController(ApexPages.StandardController controller) {
         
 
-        MiniChartsRenderController.DEBUG = true;//System.currentPageReference().getParameters().get('dbg') == '1';
-        MiniChartsLiveLogger.init();
+        // MiniChartsRenderController.DEBUG = true;//System.currentPageReference().getParameters().get('dbg') == '1';
+        // MiniChartsLiveLogger.init();
 
         // MiniChartsLiveLogger.log('getSessionID 2', UserInfo.getSessionID());
 
-        START_TIME = Datetime.now().getTime();
+        // START_TIME = Datetime.now().getTime();
 
         // System.debug('isManaged');
         // System.debug(isManaged);
         // System.debug('namespace: ' + namespace);
         // controller.addFields(new List<String>{'name'});
 
-        System.debug('MiniChartsRenderController::Constructor with ApexPages.StandardController');
+        // System.debug('MiniChartsRenderController::Constructor with ApexPages.StandardController');
         // System.debug(controller.getRecord());
 
         // TODO: document.cookie="debug_logs=debug_logs;domain=.force.com";
@@ -64,13 +64,13 @@ global with sharing class MiniChartsRenderController {
         // accountRef = (Account)controller.getRecord();
         
         // MiniChartsLiveLogger.log('testIMGHex', testIMGHex());
-        chartConfig = MiniChartsStudioChartConfig.getConfig();
+        // chartConfig = MiniChartsStudioChartConfig.getConfig();
         
         // // System.debug(chartConfig);
 
-        this.addResponseHeaders();
-        this.parseParams();
-        this.initChart();
+        // this.addResponseHeaders();
+        // this.parseParams();
+        // this.initChart();
     }
 
     // public MiniChartsRenderController() {
@@ -107,6 +107,15 @@ global with sharing class MiniChartsRenderController {
     public String getRenderChart() {
         MiniChartsRenderer renderer = new MiniChartsRenderer();
         return renderer.renderSVG();
+
+        // START_TIME = Datetime.now().getTime();
+        // Integer start_cpu = Limits.getCpuTime();
+        // List<Account> r = [select id, name from Account order by id desc limit 10]; // 10ms
+        // List<Contact> r = [select id, name from Contact order by id desc limit 10]; // 10ms
+        // Long runTime = Datetime.now().getTime() - START_TIME;
+        // return 'CPU: ' + (Limits.getCpuTime() - start_cpu) + '\nrunTime: ' + runTime + '\n';
+        
+        
         
         // System.debug();
         // Map<String, String> params = ApexPages.currentPage().getParameters();
@@ -204,7 +213,7 @@ global with sharing class MiniChartsRenderController {
     }
 
     private void addResponseHeaders() {
-        ApexPages.currentPage().getHeaders().put('X-Powered-By', 'https://microcharts.app');
+        ApexPages.currentPage().getHeaders().put('X-Rendered-By', 'https://microcharts.app');
         
         // Prevent direct viewing
         // ApexPages.currentPage().getHeaders().put('Refresh', '0;url=denied');

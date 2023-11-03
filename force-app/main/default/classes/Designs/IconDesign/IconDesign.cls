@@ -1,12 +1,9 @@
 public with sharing class IconDesign implements MiniChartsDesign {
     private String RENDER_TEMPLATE() {
-        
-        // String icon = MiniChartsUtilityIcons.getIconSVG('insert_tag_field');
-
-        Integer cmpId = MiniChartsRenderer.cmpIdx++;
+        Integer cmpId = MiniChartsRenderer.getCmpIdx();
         Integer pctFill = (math.random() * 100).intValue();
         Boolean fillVertical = false;
-        String iconName = 'star';
+        String iconName = MiniChartsIcons.getIcon('internal', 'star');
         
         String fillColor = '#fcc005';
         String emptyColor = '#ddd';
@@ -33,10 +30,10 @@ public with sharing class IconDesign implements MiniChartsDesign {
 
     /* COMPRESSED RENDER */
     public String render() {
-        Integer cmpId = MiniChartsRenderer.cmpIdx++;
+        Integer cmpId = MiniChartsRenderer.getCmpIdx();
         Integer pctFill = (math.random() * 100).intValue();
         Boolean fillVertical = false;
-        String iconName = 'star';
+        String iconName = MiniChartsIcons.getIcon('internal', 'star');
         String fillColor = '#fcc005';
         String emptyColor = '#ddd';
         return '<div class="body" style=""><div class="ico">\n<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><linearGradient id="fl-' + cmpId + '" '

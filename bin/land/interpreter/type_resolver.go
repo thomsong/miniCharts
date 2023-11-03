@@ -67,19 +67,25 @@ func (r *TypeResolver) SetVariable(names []string, setValue *ast.Object) error {
 			}
 			return setVariable(val, last, setValue)
 		}
+		
+		
 		if v, ok := r.Context.StaticField.Get("_", name); ok {
-			if val, ok := v.Get(names[1]); ok {
-				for _, f := range names[2 : len(names)-1] {
-					val, ok = val.InstanceFields.Get(f)
-					if !ok {
-						return errors.Errorf("%s is not found in this scope6", f)
-					}
-				}
+			if val, ok := v.Get(names[1]); ok {		
+				// for _, f := range names[1 : len(names)] {
+				// 	val, ok = val.InstanceFields.Get(f)
+				// 	if !ok {
+				// 		fmt.Printf("ERROR: %s is not found in this scope6", f);
+				// 		return errors.Errorf("%s is not found in this scope6", f)
+				// 	}
+				// }
+
 				last := names[len(names)-1]
-				_, ok = val.InstanceFields.Get(last)
-				if !ok {
-					return errors.Errorf("%s is not found in this scope7", last)
-				}
+				// _, ok = val.InstanceFields.Get(last)
+				// if !ok {
+				// 	fmt.Printf("ERROR: %s is not found in this scope7", last);
+				// 	return errors.Errorf("%s is not found in this scope7", last)
+				// }
+
 				return setVariable(val, last, setValue)
 			}
 		}
@@ -104,6 +110,14 @@ func (r *TypeResolver) SetVariable(names []string, setValue *ast.Object) error {
 }
 
 func setVariable(receiver *ast.Object, name string, value *ast.Object) error {
+	if value.ClassType == builtin.IntegerType {
+		receiver.Extra["value"] = int64(value.IntegerValue());
+		return nil
+	} else if value.ClassType == builtin.DoubleType {
+		receiver.Extra["value"] = value.DoubleValue();
+		return nil
+	}
+
 	v, ok := receiver.InstanceFields.Get(name)
 	if !ok {
 		panic("InstanceFields#Get failed")
@@ -111,6 +125,7 @@ func setVariable(receiver *ast.Object, name string, value *ast.Object) error {
 	if v.Final {
 		return errors.New("Final variable has already been initialized")
 	}
+
 	receiver.InstanceFields.Set(name, value)
 	return nil
 }
