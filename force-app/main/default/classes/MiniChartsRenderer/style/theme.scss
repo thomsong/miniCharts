@@ -1,5 +1,96 @@
-$colors: #3296ed, #77b9f2, #9d53f2, #c398f5, #26aba4, #4ed4cd;
+@use "sass:map";
+@use "slds" as slds;
+
+$colors-themes: (
+  default: (
+    #52b7d8,
+    #e16032,
+    #ffb03b,
+    #54a77b,
+    #4fd2d2,
+    #e287b2
+  ),
+  color-safe: (
+    #529ee0,
+    #d9a6c2,
+    #08916d,
+    #f59b00,
+    #006699,
+    #f0e442
+  ),
+  light: (
+    #3296ed,
+    #77b9f2,
+    #9d53f2,
+    #c398f5,
+    #26aba4,
+    #4ed4cd
+  ),
+  dark: (
+    #0e70c7,
+    #3296ed,
+    #7719e3,
+    #9d53f2,
+    #067d77,
+    #26aba4
+  ),
+  bluegrass: (
+    #c7f296,
+    #94e7a8,
+    #51d2bb,
+    #27aab0,
+    #116985,
+    #053661
+  ),
+  sunrise: (
+    #f5de98,
+    #f5c062,
+    #f59623,
+    #ce6716,
+    #762f3d,
+    #300561
+  ),
+  water: (
+    #96f2ee,
+    #68ceee,
+    #2d9ced,
+    #0e6ece,
+    #073e92,
+    #051c61
+  ),
+  watermelon: (
+    #f598a7,
+    #f56580,
+    #f4284e,
+    #c11c2f,
+    #5c3f22,
+    #0a611b
+  )
+);
+
+$colors: map.get($colors-themes, "light");
 
 $vars: (
-  txt-black: #181818
+  bg: var(--c-bg-drk),
+  bg-empty-fill: #ddd,
+
+  // bg: #16325c,
+  //
+  txt: slds.$palette-neutral-10,
+  // txt: slds.$palette-neutral-95,
+  //
+  txt-lbl: slds.$palette-neutral-30,
+  txt-ico: slds.$palette-neutral-50,
+
+  txt-success: slds.$palette-green-50,
+  txt-warning: slds.$palette-orange-70,
+  txt-error: slds.$palette-red-50,
+
+  // text-success PALETTE_GREEN_50
+  // text-success-inverse PALETTE_GREEN_70
+  // text-warning PALETTE_ORANGE_70
+  // text-warning-alt PALETTE_YELLOW_40
+  // text-link: BRAND_TEXT_LINK
+  // text-destructive-hover PALETTE_RED_40
+  // text-icon-default PALETTE_NEUTRAL_50
 );

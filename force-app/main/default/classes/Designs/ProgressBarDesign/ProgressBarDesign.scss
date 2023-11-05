@@ -25,8 +25,10 @@
 
   .body {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    container-type: inline-size;
+    align-items: center;
     width: 100%;
 
     // Optional
@@ -81,140 +83,143 @@
     flex-direction: row;
   }
 
-  .bar-wrapper {
+  .bar {
     display: flex;
     flex-direction: column;
     width: 100%;
     container-type: inline-size;
-    /*max-width: calc(var(--bar-height) * 6);*/
   }
 
-  .bar {
+  .fill {
     position: relative;
     height: var(--bar-height);
-
-    .fill {
-      container-type: inline-size;
-      height: 100%;
-
-      span {
-        color: white;
-        font-size: 10px;
-        letter-spacing: -0.5px;
-        padding: 0 2px;
-
-        @container (max-width: 40px) {
-          font-size: 8px;
-        }
-
-        @container (max-width: 30px) {
-          display: none;
-        }
-      }
-    }
-  }
-
-  // --pb-pattern-x-space: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%20100%20100%27%20preserveAspectRatio%3D%27none%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%0A%3Crect%20fill%3D%27black%27%20x%3D%275%27%20y%3D%270%27%20width%3D%2790%27%20height%3D%27100%27%20%2F%3E%0A%3C%2Fsvg%3E");
-  // --pb-pattern-full: url("data:image/svg+xml,%3Csvg%20viewBox%3D%270%200%20100%20100%27%20preserveAspectRatio%3D%27none%27%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%0A%3Crect%20fill%3D%27black%27%20x%3D%270%27%20y%3D%270%27%20width%3D%27100%27%20height%3D%27100%27%20%2F%3E%0A%3C%2Fsvg%3E");
-  // --pb-pattern-heart-none: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20fill%3D%27black%27%20d%3D%22M39.8%20263.8L64%20288%20256%20480%20448%20288l24.2-24.2c25.5-25.5%2039.8-60%2039.8-96C512%2092.8%20451.2%2032%20376.2%2032c-36%200-70.5%2014.3-96%2039.8L256%2096%20231.8%2071.8c-25.5-25.5-60-39.8-96-39.8C60.8%2032%200%2092.8%200%20167.8c0%2036%2014.3%2070.5%2039.8%2096z%22%2F%3E%3C%2Fsvg%3E");
-  // --pb-pattern-heart-meet: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%20-10%20512%20512%22%20preserveAspectRatio%3D%27xMidYMid%20meet%27%3E%3Cpath%20fill%3D%27black%27%20d%3D%22M39.8%20263.8L64%20288%20256%20480%20448%20288l24.2-24.2c25.5-25.5%2039.8-60%2039.8-96C512%2092.8%20451.2%2032%20376.2%2032c-36%200-70.5%2014.3-96%2039.8L256%2096%20231.8%2071.8c-25.5-25.5-60-39.8-96-39.8C60.8%2032%200%2092.8%200%20167.8c0%2036%2014.3%2070.5%2039.8%2096z%22%2F%3E%3C%2Fsvg%3E");
-
-  // --pb-battery_l: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2080%20320%22%20class%3D%22mask%22%3E%0A%3Crect%20x%3D%2210%22%20y%3D%2265%22%20width%3D%2260%22%20height%3D%22190%22%2F%3E%0A%3Crect%20width%3D%2280%22%20height%3D%2248%22%2F%3E%0A%3Crect%20y%3D%22272%22%20width%3D%2280%22%20height%3D%2248%22%2F%3E%0A%3C%2Fsvg%3E");
-  // --pb-battery_m: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2080%20320%22%20class%3D%22mask%22%3E%0A%3Crect%20x%3D%2210%22%20y%3D%2265%22%20width%3D%2260%22%20height%3D%22190%22%2F%3E%0A%3Crect%20width%3D%2280%22%20height%3D%2248%22%2F%3E%0A%3Crect%20y%3D%22272%22%20width%3D%2280%22%20height%3D%2248%22%2F%3E%0A%3C%2Fsvg%3E");
-  // --pb-battery_r: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20x%3D%220px%22%20y%3D%220px%22%20viewBox%3D%220%200%2080%20320%22%20class%3D%22mask%22%3E%0A%3Crect%20x%3D%2210%22%20y%3D%2265%22%20width%3D%2260%22%20height%3D%22190%22%2F%3E%0A%3Crect%20width%3D%2280%22%20height%3D%2248%22%2F%3E%0A%3Crect%20y%3D%22272%22%20width%3D%2280%22%20height%3D%2248%22%2F%3E%0A%3C%2Fsvg%3E");
-
-  // --pb-battery: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%3E%0A%3Crect%20x%3D%2210%22%20y%3D%227.1%22%20fill%3D%22none%22%20width%3D%222%22%20height%3D%221.6%22%2F%3E%0A%3Cpath%20d%3D%22M14%2C4.5V0h-1.9H1H0v16h1h11.2H14v-4.5h2V4.5H14z%20M12%2C14H2V2h10V14z%22%2F%3E%0A%3Crect%20x%3D%224%22%20y%3D%223%22%20width%3D%226%22%20height%3D%2210%22%2F%3E%0A%3C%2Fsvg%3E%0A");
-
-  .bar-blue {
-    background: #c9c9c9;
-
-    .fill {
-      background: #0176d3;
-      width: var(--pct);
-    }
-  }
-
-  .bar-pattern {
-    position: relative;
-    --pcount: 5;
-    /*-webkit-mask-image: linear-gradient(90deg,red, blue);*/
-    width: 100%;
     container-type: inline-size;
-
-    /*background-image: linear-gradient( to right , green 0%, color-mix(in srgb-linear, red 50%, green) var(--pct),blue var(--pct),blue 100%);*/
-
-    --bg-color: #ddd;
+    -webkit-mask-box-image: var(--svg-pattern);
 
     background-image: linear-gradient(to right, var(--c-t3), var(--c-t1));
-    // background: #0176d3;
 
-    .fill-bg {
+    &::after {
+      content: "";
       position: absolute;
-      top: 0;
       right: 0;
-      width: calc(100% - var(--pct)); /*100%;*/
+      width: calc(100% - var(--pct));
       height: 100%;
-      background-color: var(--bg-color);
+      background-color: var(--c-bg-empty-fill);
+    }
+  }
 
-      // @keyframes a-fill-1 {
-      //   to {
-      //     width: calc(100% - var(--pct));
-      //   }
+  .lbl {
+    width: 100%;
+    max-width: 42px;
+    text-align: left;
+    letter-spacing: -0.25px;
+    container-type: inline-size;
+
+    margin: 0 0 0 2px;
+    &:first-of-type {
+      margin: 0 2px 0 0;
+    }
+
+    sup {
+      font-size: 0.8em;
+      vertical-align: text-top;
+    }
+
+    sub {
+      font-size: 0.7em;
+      vertical-align: baseline;
+    }
+
+    &:not(.pct) {
+      @container (max-width: 75px) {
+        display: none;
+      }
+    }
+
+    &.pct {
+      max-width: 32px;
+      @container (max-width: 65px) {
+        display: none;
+      }
+    }
+  }
+
+  .fill-lbl {
+    /*background-color: red;*/
+    position: absolute;
+    top: 0.5px;
+    height: 100%;
+
+    left: 2px;
+    width: calc(var(--pct) - 7px);
+
+    container-type: inline-size;
+
+    display: flex;
+    align-items: center;
+
+    /*background-color: red;*/
+    /* flex-start, center, flex-end */
+    justify-content: flex-end;
+
+    span {
+      position: absolute;
+      // right: 6px;
+      width: calc(100% - 6px);
+
+      color: white;
+      -webkit-text-stroke: 3px rgba(255, 255, 255, 1);
+
+      padding: 0 3px 0 3px;
+      font-size: 10px;
+      // font-weight: 500;
+      letter-spacing: -0.5px;
+      // padding: 0 2px;
+
+      &:last-of-type {
+        color: var(--c-txt);
+        -webkit-text-stroke: 0;
+      }
+
+      // @container (max-width: 40px) {
+      // display: none;
       // }
-      // animation: 0.5s ease-out forwards a-fill-1;
+
+      // @container (max-width: 30px) {
+      //   display: none;
+      // }
     }
 
-    .fill {
-      position: absolute;
-
-      background-color: white;
-      mix-blend-mode: screen;
-
-      ///* source | slice | width | outset | repeat */
-
-      // border-image-source: var(--svg-pattern);
-      // border-image-repeat: round stretch;
-
-      border-image: var(--svg-pattern);
-
-      // border-image-slice: 3 5 3 4 fill;
-      // border-image-width: 3px 5px 3px 4px;
-
-      width: 100%;
-      height: 100%;
-    }
-
-    .fill-lbl {
-      /*background-color: red;*/
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: var(--pct);
-
-      container-type: inline-size;
-      height: 100%;
-
-      display: flex;
-      align-items: center;
-
-      /*background-color: red;*/
-      /* flex-start, center, flex-end */
-      justify-content: flex-end;
+    & {
+      left: unset;
+      right: 2px;
+      width: calc(100% - var(--pct) - 2px);
 
       span {
-        color: white;
-        font-size: 10px;
-        letter-spacing: -0.5px;
-        padding: 0 2px;
+        display: inline;
+        right: unset;
+        left: 0px;
 
-        @container (max-width: 40px) {
-          font-size: 8px;
-        }
-
-        @container (max-width: 30px) {
-          display: none;
-        }
+        // @container (max-width: 30px) {
+        //   width: 40px;
+        //   margin-left: -42px;
+        // }
       }
+
+      text-align: left;
+    }
+
+    & {
+      left: unset;
+      right: 2px;
+      width: 100%;
+
+      span {
+        right: unset;
+        left: 0px;
+      }
+
+      text-align: right;
     }
   }
 }

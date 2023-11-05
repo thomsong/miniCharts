@@ -7,8 +7,6 @@
   }
 }
 
-// Theme Vars
-
 :root {
   --vw-100: 100vw;
   --max-vw: min(var(--cw-px), var(--vw-100));
@@ -25,7 +23,7 @@
   }
 
   // Default Font Settings
-  color: var(--c-txt-black);
+  color: var(--c-txt);
   font-size: 13px;
   line-height: 1.3;
   font-family: -apple-system, "system-ui", "Segoe UI", Roboto, Helvetica, Arial,

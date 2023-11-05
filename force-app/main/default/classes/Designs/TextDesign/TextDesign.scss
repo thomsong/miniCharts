@@ -19,6 +19,27 @@
     -webkit-line-clamp: 3;
   }
 
+  .body {
+    &.fnt-md .lbl,
+    &.fnt-lg .lbl,
+    &.fnt-xlg .lbl {
+      -webkit-line-clamp: 1;
+      font-weight: 300;
+    }
+
+    &.fnt-md .lbl {
+      font-size: 24px;
+    }
+
+    &.fnt-lg .lbl {
+      font-size: 32px;
+    }
+
+    &.fnt-xlg .lbl {
+      font-size: 40px;
+    }
+  }
+
   &.tm,
   &.mm,
   &.rm {

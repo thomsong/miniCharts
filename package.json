@@ -5,7 +5,7 @@
   "description": "miniCharts",
   "scripts": {
     "land": "RUN_MODE=run node ./scripts/js/run_local.js",
-    "land::test": "RUN_MODE=test node ./scripts/js/run_local.js",
+    "land:test": "RUN_MODE=test node ./scripts/js/run_local.js",
     "lint": "eslint **/{aura,lwc}/**",
     "test": "npm run test:unit",
     "test:unit": "sfdx-lwc-jest",

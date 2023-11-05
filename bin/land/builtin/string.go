@@ -163,6 +163,34 @@ func createStringType(c *ast.ClassType) *ast.ClassType {
 			},
 		),
 	})
+	instanceMethods.Set("startsWith", []*ast.Method{
+		ast.CreateMethod(
+			"startsWith",
+			BooleanType,
+			[]*ast.Parameter{
+				stringTypeParameter,
+			},
+			func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+				prefix := params[0].StringValue()
+				src := this.StringValue()
+				return NewBoolean(strings.HasPrefix(src, prefix))
+			},
+		),
+	})
+	instanceMethods.Set("endsWith", []*ast.Method{
+		ast.CreateMethod(
+			"endsWith",
+			BooleanType,
+			[]*ast.Parameter{
+				stringTypeParameter,
+			},
+			func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+				suffix := params[0].StringValue()
+				src := this.StringValue()
+				return NewBoolean(strings.HasSuffix(src, suffix))
+			},
+		),
+	})
 	instanceMethods.Set("length", []*ast.Method{
 		ast.CreateMethod(
 			"length",
