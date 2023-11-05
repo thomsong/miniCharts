@@ -44,7 +44,7 @@ args.GOCACHE = "/tmp/.gocache";
 var landGoCmd = "/opt/homebrew/bin/go run .";
 var landCompiledCmd = "./land";
 
-var landExecCmd = true ? landCompiledCmd : landGoCmd;
+var landExecCmd = false ? landCompiledCmd : landGoCmd;
 landExecCmd += " " + run_mode;
 
 var serverMode = args["server"] ? run_mode == "run" : false;
@@ -52,6 +52,8 @@ var serverMode = args["server"] ? run_mode == "run" : false;
 console.log("*************************************".green);
 if (serverMode) {
   console.log("*            APEX SERVER            *".green);
+} else if (run_mode == "run" && args.method) {
+  console.log("*          RUN APEX METHOD          *".green);
 } else if (run_mode == "run") {
   console.log("*             RUN APEX              *".green);
 } else {
@@ -61,6 +63,25 @@ console.log("*************************************\n".green);
 
 if (run_mode == "run") {
   landExecCmd += " -d " + localSrcDir;
+
+  let methodName = args.method ? args.method : "LocalChartHarness.renderSVG";
+  let landClass =
+    `public class Land {
+  public static void run() {
+    try {
+      string output = '';
+      output = ` +
+    methodName +
+    `();
+      System.debug(output);
+    } catch (Exception e) {
+      System.debug(LoggingLevel.ERROR, '\\n' + e.getMessage());
+    }
+  }
+}`;
+
+  fs.writeFileSync(localSrcDir + "/System/Land.cls", landClass);
+
   landExecCmd += " -a Land#run";
 } else {
   if (process.argv[2]) {
@@ -95,6 +116,7 @@ if (run_mode == "run") {
 }
 
 (async () => {
+  // console.log(landExecCmd);
   const params = landExecCmd.split(" ");
   const cmd = params.shift();
 
@@ -154,6 +176,10 @@ if (run_mode == "run") {
   }
 
   await run();
+
+  try {
+    fs.rmSync(localSrcDir + "/System/Land.cls");
+  } catch (e) {}
 
   console.log("\n*************************************".green);
 })();

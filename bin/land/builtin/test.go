@@ -4,6 +4,8 @@ import "github.com/tzmfreedom/land/ast"
 
 var testType = createTestType()
 
+var isTest = false;
+
 func createTestType() *ast.ClassType {
 	instanceMethods := ast.NewMethodMap()
 	staticMethods := ast.NewMethodMap()

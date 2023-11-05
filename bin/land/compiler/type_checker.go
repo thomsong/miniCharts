@@ -777,6 +777,10 @@ func (v *TypeChecker) VisitBlock(n *ast.Block) (interface{}, error) {
 	var r interface{}
 	var err error
 	return v.NewEnv(func() (interface{}, error) {
+		if n == nil {
+			return nil, nil
+		}
+
 		for _, stmt := range n.Statements {
 			r, err = stmt.Accept(v)
 			if err != nil {

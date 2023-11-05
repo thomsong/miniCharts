@@ -25,38 +25,74 @@ type EqualChecker interface {
 }
 
 func init() {
+	staticMethods := ast.NewMethodMap()
+	// instanceFields := ast.NewFieldMap()
+	
 	system := ast.CreateClass(
 		"System",
-		nil,
-		nil,
-		&ast.MethodMap{
-			Data: map[string][]*ast.Method{
-				"env": {
-					ast.CreateMethod(
-						"env",
-						StringType,
-						[]*ast.Parameter{
-							objectTypeParameter,
-						},
-						func(this *ast.Object, parameter []*ast.Object, extra map[string]interface{}) interface{} {
-							return NewString(os.Getenv(parameter[0].StringValue()))
-						},
-					),
+		[]*ast.Method{
+			ast.CreateMethod(
+				"System",
+				nil,
+				[]*ast.Parameter{},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return nil
 				},
-				"debug": {
-					&ast.Method{
-						Name:       "debug",
-						Modifiers:  []*ast.Modifier{ast.PublicModifier()},
-						Parameters: []*ast.Parameter{objectTypeParameter},
-						NativeFunction: func(this *ast.Object, parameter []*ast.Object, extra map[string]interface{}) interface{} {
-							o := parameter[0]
-							stdout := extra["stdout"].(io.Writer)
-							fmt.Fprintln(stdout, String(o))
-							return nil
-						},
-					},
+			),
+		},
+		nil,
+		staticMethods,
+	)
+
+	
+
+	staticMethods.Set(
+		"env",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"env",
+				StringType,
+				[]*ast.Parameter{stringTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return NewString(os.Getenv(params[0].StringValue()))
 				},
-			},
+			),
+		},
+	)
+
+	staticMethods.Set(
+		"debug",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"debug",
+				StringType,
+				[]*ast.Parameter{objectTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					o := params[0]
+					stdout := extra["stdout"].(io.Writer)
+					fmt.Fprintln(stdout, String(o))
+					return nil
+				},
+			),
+			ast.CreateMethod(
+				"debug",
+				StringType,
+				[]*ast.Parameter{stringTypeParameter, objectTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					errorLevel := params[0].StringValue()
+					o := params[1]
+					stdout := extra["stdout"].(io.Writer)
+					stderr := extra["stderr"].(io.Writer)
+
+					if errorLevel == "ERROR" {
+						fmt.Fprintln(stderr, String(o))
+					} else {
+						fmt.Fprintln(stdout, String(o))
+					}
+					
+					return nil
+				},
+			),
 		},
 	)
 

@@ -221,7 +221,7 @@ func NewConstructor(owner *ClassType, decl *ConstructorDeclaration) *Method {
 }
 
 func (m *Method) IsPublic() bool {
-	return m.Is("public")
+	return m.Is("public") || m.IsAnnotated("TestVisible")
 }
 
 func (m *Method) IsPrivate() bool {

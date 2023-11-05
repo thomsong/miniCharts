@@ -57,6 +57,7 @@ func CreateRaise(value *ast.Object) *ast.Object {
 		ClassType: RaiseType,
 		Extra: map[string]interface{}{
 			"value": value,
+			"class": "abcdef",
 		},
 	}
 }

@@ -268,6 +268,7 @@ func (v *Interpreter) VisitTry(n *ast.Try) (interface{}, error) {
 			return obj, nil
 		case builtin.RaiseType:
 			// TODO: implement
+			
 			for _, catch := range n.CatchClause {
 				raiseValue := obj.Value().(*ast.Object)
 				if builtin.Equals(catch.Type, raiseValue.ClassType) {
@@ -276,11 +277,17 @@ func (v *Interpreter) VisitTry(n *ast.Try) (interface{}, error) {
 					if err != nil {
 						return nil, err
 					}
+
+					// Only first catch should be run
+					break
+					// panic("!!!!!!!!!!");
 					// TODO: return, raise impl
 				}
 			}
 		}
 	}
+
+	// TODO: Finally
 	if n.FinallyBlock != nil {
 		if _, err = n.FinallyBlock.Accept(v); err != nil {
 			return nil, err
@@ -525,7 +532,9 @@ func (v *Interpreter) VisitNew(n *ast.New) (interface{}, error) {
 			}
 			evaluated[i] = r.(*ast.Object)
 		}
+		
 		_, constructor, err := typeResolver.SearchConstructor(classType, evaluated)
+
 		if err != nil {
 			return nil, err
 		}
@@ -1009,6 +1018,10 @@ func (v *Interpreter) VisitThrow(n *ast.Throw) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
+	// fmt.Println(n);
+	res.(*ast.Object).Extra["throw_node"] = n;
+	// fmt.Println(res.(*ast.Object).Extra);
+	// res.Extra["line"] = 15;
 	return builtin.CreateRaise(res.(*ast.Object)), nil
 }
 
@@ -1077,8 +1090,13 @@ func (v *Interpreter) VisitVariableDeclaration(n *ast.VariableDeclaration) (inte
 	for _, declarator := range n.Declarators {
 		if declarator.Expression != nil {
 			val, err := declarator.Expression.Accept(v)
+			
 			if err != nil {
-				panic(err)
+				if strings.HasPrefix(fmt.Sprint(err), "Method not found: Raise.get") {
+					return nil, nil
+				} else {
+					panic(err)
+				}
 			}
 			v.Context.Env.Define(declarator.Name, val.(*ast.Object))
 		} else {

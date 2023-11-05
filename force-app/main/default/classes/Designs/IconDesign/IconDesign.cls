@@ -1,7 +1,8 @@
 public with sharing class IconDesign implements MiniChartsDesign {
+    @TestVisible
     private String RENDER_TEMPLATE() {
         Integer cmpId = MiniChartsRenderer.getCmpIdx();
-        Integer pctFill = (math.random() * 100).intValue();
+        Integer pctFill = 20;//(math.random() * 100).intValue();
         Boolean fillVertical = false;
         String iconName = MiniChartsIcons.getIcon('internal', 'star');
         
@@ -31,7 +32,7 @@ public with sharing class IconDesign implements MiniChartsDesign {
     /* COMPRESSED RENDER */
     public String render() {
         Integer cmpId = MiniChartsRenderer.getCmpIdx();
-        Integer pctFill = (math.random() * 100).intValue();
+        Integer pctFill = 20;//(math.random() * 100).intValue();
         Boolean fillVertical = false;
         String iconName = MiniChartsIcons.getIcon('internal', 'star');
         String fillColor = '#fcc005';

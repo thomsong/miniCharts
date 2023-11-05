@@ -980,9 +980,11 @@ func runTest(classTypes []*ast.ClassType, classType *ast.ClassType, m *ast.Metho
 	fmt.Fprintf(stdout, builtin.DebugColor, classType.Name + "." +  m.Name + "... ")
 
 	var ret *interpreter.Interpreter
+	
 	err := run(action, classTypes, func(i *interpreter.Interpreter) {
 		ret = i
 		i.Extra["stdout"] = new(bytes.Buffer)
+		i.Extra["isTestRunning"] = true
 	})
 
 	ms = time.Now().UnixMilli() - ms

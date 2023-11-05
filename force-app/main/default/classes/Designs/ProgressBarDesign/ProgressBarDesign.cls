@@ -1,4 +1,5 @@
 public with sharing class ProgressBarDesign implements MiniChartsDesign {
+    @TestVisible
     private String RENDER_TEMPLATE() {
         Integer pct = Math.round(Math.random() * 100);
 

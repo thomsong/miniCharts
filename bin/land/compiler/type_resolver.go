@@ -36,6 +36,7 @@ const (
 
 func (r *TypeResolver) ResolveVariable(names []string, checkSetter bool) (*ast.ClassType, error) {
 	// TODO: return *ast.TypeRef smart solution
+	
 	if len(names) == 1 {
 		if v, ok := r.Context.Env.Get(names[0]); ok {
 			return v, nil
@@ -310,6 +311,7 @@ func FindInstanceField(classType *ast.ClassType, fieldName string, allowedModifi
 			return f, nil
 		}
 	}
+	
 	return nil, fieldNotFoundError(classType, fieldName)
 }
 
@@ -333,6 +335,7 @@ func FindStaticField(classType *ast.ClassType, fieldName string, allowedModifier
 			return f, nil
 		}
 	}
+
 	return nil, fieldNotFoundError(classType, fieldName)
 }
 

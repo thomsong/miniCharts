@@ -3,6 +3,7 @@ package builtin
 import (
 	"fmt"
 	"io"
+	"os"
 
 	"github.com/tzmfreedom/land/ast"
 )
@@ -40,8 +41,15 @@ func init() {
 								})
 
 								loc := node.GetLocation()
-								fmt.Fprintf(extra["stdout"].(io.Writer), "expected: %s, actual: %s at %d:%d\n", String(expected), String(actual), loc.Line, loc.Column)
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), "  expected: %s\n  actual:   %s\n  at %s %d:%d\n", String(expected), String(actual),loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
+
 							return nil
 						},
 					},
@@ -72,7 +80,14 @@ func init() {
 								})
 
 								loc := node.GetLocation()
-								fmt.Fprintf(extra["stdout"].(io.Writer), "expected: %s, actual: %s at %d:%d\n", String(expected), String(actual), loc.Line, loc.Column)
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+								fmt.Fprintf(extra["stderr"].(io.Writer), "  expected: %s\n  actual:   %s\n  at %s %d:%d\n", String(expected), String(actual),loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 							return nil
 						},
@@ -103,7 +118,13 @@ func init() {
 								})
 
 								loc := node.GetLocation()
-								fmt.Fprintf(extra["stdout"].(io.Writer), "expected: %s, actual: %s at %d:%d\n", String(expected), String(actual), loc.Line, loc.Column)
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), "  expected: %s\n  actual:   %s\n  at %s %d:%d\n", String(expected), String(actual),loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 							return nil
 						},
@@ -135,7 +156,14 @@ func init() {
 								})
 
 								loc := node.GetLocation()
-								fmt.Fprintf(extra["stdout"].(io.Writer), "expected: %s, actual: %s at %d:%d\n", String(expected), String(actual), loc.Line, loc.Column)
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+								fmt.Fprintf(extra["stderr"].(io.Writer), "  expected: %s\n  actual:   %s\n  at %s %d:%d\n", String(expected), String(actual),loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 							return nil
 						},
@@ -156,8 +184,12 @@ func init() {
 								Condition: "",
 							})
 
-							// loc := node.GetLocation()
-							// fmt.Fprintf(extra["stdout"].(io.Writer), "expected: %s, actual: %s at %d:%d\n", String(expected), String(actual), loc.Line, loc.Column)
+							fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+							
+							isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+							if !isTestRunning {
+								os.Exit(0)
+							}
 						
 							return nil
 						},
@@ -180,8 +212,13 @@ func init() {
 								Condition: "",
 							})
 
-							// loc := node.GetLocation()
-							// fmt.Fprintf(extra["stdout"].(io.Writer), "expected: %s, actual: %s at %d:%d\n", String(expected), String(actual), loc.Line, loc.Column)
+							fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+							fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+
+							isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+							if !isTestRunning {
+								os.Exit(0)
+							}
 						
 							return nil
 						},
@@ -205,6 +242,15 @@ func init() {
 									Message:  "",
 									Condition: "expected: false\nactual:   true",
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: false\n  actual:   true\n  at %s %d:%d\n", loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -231,6 +277,16 @@ func init() {
 									Message:  msg,
 									Condition: "expected: false\nactual:   true",
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: false\n  actual:   true\n  at %s %d:%d\n", loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -255,6 +311,15 @@ func init() {
 									Message:  "",
 									Condition: "expected: true\nactual:   false",
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: true\n  actual:   false\n  at %s %d:%d\n", loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -281,6 +346,16 @@ func init() {
 									Message:  msg,
 									Condition: "expected: true\nactual:   false",
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: true\n  actual:   false\n  at %s %d:%d\n", loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -305,6 +380,15 @@ func init() {
 									Message:  "",
 									Condition: conditionMsg,
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: null\n  actual:   %s\n  at %s %d:%d\n",String(actual), loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -331,6 +415,16 @@ func init() {
 									Message:  msg,
 									Condition: conditionMsg,
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: null\n  actual:   %s\n  at %s %d:%d\n",String(actual), loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -355,6 +449,15 @@ func init() {
 									Message:  "",
 									Condition: "expected: not null\nactual:   null",
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: not null\n  actual:   null\n  at %s %d:%d\n", loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil
@@ -381,6 +484,16 @@ func init() {
 									Message:  msg,
 									Condition: "expected: not null\nactual:   null",
 								})
+
+								loc := node.GetLocation()
+								fmt.Fprintf(extra["stderr"].(io.Writer), "System.AssertException: Assertion Failed\n")
+								fmt.Fprintf(extra["stderr"].(io.Writer), " %s\n", msg)
+								fmt.Fprintf(extra["stderr"].(io.Writer),"  expected: not null\n  actual:   null\n  at %s %d:%d\n", loc.FileName, loc.Line, loc.Column)
+
+								isTestRunning := extra["isTestRunning"] != nil && extra["isTestRunning"].(bool) == true
+								if !isTestRunning {
+									os.Exit(0)
+								}
 							}
 
 							return nil

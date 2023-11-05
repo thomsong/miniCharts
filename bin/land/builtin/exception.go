@@ -2,6 +2,7 @@ package builtin
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/tzmfreedom/land/ast"
 )
@@ -23,7 +24,19 @@ func createExceptionType() {
 				StringType,
 				[]*ast.Parameter{},
 				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
-					return this.Extra["message"]
+					// return this.Extra["message"]
+					node := this.Extra["throw_node"].(ast.Node)
+					
+					loc := node.GetLocation()
+
+					file := strings.Split(loc.FileName, "/classes/")[1]
+					// fmt.Println(this);
+					
+					
+					output := fmt.Sprintf("Uncaught %s: %s\n", this.ClassType, String(this.Extra["message"].(*ast.Object)))
+					output += fmt.Sprintf("  Class %s line %d, column %d", file, loc.Line, loc.Column);
+					
+					return NewString(output)
 				},
 			),
 		},

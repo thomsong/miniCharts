@@ -207,16 +207,21 @@ func (v *TypeRefResolver) VisitTry(n *ast.Try) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	_, err = n.FinallyBlock.Accept(v)
-	if err != nil {
-		return nil, err
+	
+	if n.FinallyBlock != nil {
+		_, err = n.FinallyBlock.Accept(v)
+		if err != nil {
+			return nil, err
+		}
 	}
+
 	for _, c := range n.CatchClause {
 		_, err := c.Accept(v)
 		if err != nil {
 			return nil, err
 		}
 	}
+
 	return ast.VisitTry(v, n)
 }
 
@@ -510,6 +515,10 @@ func (v *TypeRefResolver) VisitType(n *ast.TypeRef) (interface{}, error) {
 }
 
 func (v *TypeRefResolver) VisitBlock(n *ast.Block) (interface{}, error) {
+	if n==nil {
+		return nil, nil
+	}
+	
 	for _, stmt := range n.Statements {
 		_, err := stmt.Accept(v)
 		if err != nil {

@@ -303,9 +303,11 @@ func (r *TypeResolver) ConvertType(n *ast.TypeRef) (*ast.ClassType, error) {
 }
 
 func convertClassTypes(parameters []*ast.Object) []*ast.ClassType {
+	
 	inputParameters := make([]*ast.ClassType, len(parameters))
 	for i, parameter := range parameters {
 		inputParameters[i] = parameter.ClassType
 	}
+	
 	return inputParameters
 }

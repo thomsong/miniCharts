@@ -1,4 +1,5 @@
 public with sharing class TextDesign implements MiniChartsDesign {
+    @TestVisible
     private String RENDER_TEMPLATE() {
         return ''
         + '<div class="body fnt-md" style="">'

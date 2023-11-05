@@ -14,12 +14,15 @@ func visitChildren(v Visitor, n Node) (interface{}, error) {
 				}
 			}
 		} else if node, ok := child.(Node); ok {
+			
 			_, err := node.Accept(v)
 			if err != nil {
 				return nil, err
 			}
+			
 		}
 	}
+
 	return nil, nil
 }
 
