@@ -10,6 +10,8 @@
   "salesforcedx-vscode-core.retrieve-test-code-coverage": false,
   "salesforcedx-vscode-core.show-cli-success-msg": false,
   
+  "scss.lint.unknownAtRules": "ignore",
+  
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true

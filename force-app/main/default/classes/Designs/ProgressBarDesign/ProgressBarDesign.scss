@@ -14,14 +14,14 @@
   --bar-height: 16px;
 
   /* Two Row High */
-  &.sz2 {
-    // --bar-height: 40px;
-  }
+  // &.sz2 {
+  // --bar-height: 40px;
+  // }
 
   /* Three Row High */
-  &.sz3 {
-    // --bar-height: 60px;
-  }
+  // &.sz3 {
+  // --bar-height: 60px;
+  // }
 
   .body {
     display: flex;
@@ -114,8 +114,8 @@
     text-align: left;
     letter-spacing: -0.25px;
     container-type: inline-size;
-
     margin: 0 0 0 2px;
+
     &:first-of-type {
       margin: 0 2px 0 0;
     }
