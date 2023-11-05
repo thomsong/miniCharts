@@ -47,7 +47,7 @@
     </types>
     <types>
         <members>miniCharts_Log__b</members>
-        <members>miniCharts_Setting__mdt</members>
+        <members>config__mdt</members>
         <name>CustomObject</name>
     </types>
     <types>

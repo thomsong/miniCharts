@@ -44,7 +44,7 @@ args.GOCACHE = "/tmp/.gocache";
 var landGoCmd = "/opt/homebrew/bin/go run .";
 var landCompiledCmd = "./land";
 
-var landExecCmd = false ? landCompiledCmd : landGoCmd;
+var landExecCmd = true ? landCompiledCmd : landGoCmd;
 landExecCmd += " " + run_mode;
 
 var serverMode = args["server"] ? run_mode == "run" : false;
@@ -69,11 +69,9 @@ if (run_mode == "run") {
     `public class Land {
   public static void run() {
     try {
-      string output = '';
-      output = ` +
+      ` +
     methodName +
     `();
-      System.debug(output);
     } catch (Exception e) {
       System.debug(LoggingLevel.ERROR, '\\n' + e.getMessage());
     }

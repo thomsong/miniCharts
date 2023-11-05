@@ -240,7 +240,7 @@ public with sharing class MiniChartsRenderer {
         row.put('cmps', rowComponents);
         canvasRows.add(row);
 
-        throw new MiniChartsRenderer.RenderException('Icon dddd 2222');
+        // throw new MiniChartsRenderer.RenderException('Icon dddd 2222');
 
         /* **************** */
         config.put('rows', canvasRows);
@@ -262,9 +262,6 @@ public with sharing class MiniChartsRenderer {
         //     system.debug('finally 2');
         // }
         
-        
-        System.debug('333');
-        System.debug(chartConfig);
 
         Integer canvasWidth = (Integer)chartConfig.get('w');
         Integer canvasHeight =(Integer)chartConfig.get('h');
