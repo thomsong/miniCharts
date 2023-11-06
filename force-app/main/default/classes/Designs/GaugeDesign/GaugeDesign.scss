@@ -1,0 +1,53 @@
+.GaugeDesign {
+  --ttl-h: 0px;
+
+  &:has(.title) {
+    --ttl-h: 14px;
+  }
+
+  --gauge-height: var(--h-px);
+  --gauge-width: calc(var(--gauge-height) * 2);
+
+  --bar-thck: 5px; //10px
+
+  .body {
+    /* PASSED IN VARS */
+    --bgc: var(--c-bg-empty-fill); //#f1f1f0;
+    --fillc: #3296ed;
+    // --fillc: linear-gradient(to right, var(--c-t3) 0px, var(--c-t1) 100cqw);
+
+    container-type: inline-size;
+    width: 100%;
+    height: var(--h-px);
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      height: calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));
+      color: #595959;
+      font-size: 12px;
+    }
+  }
+
+  .gauge {
+    background-color: red;
+    width: var(--gauge-width);
+    height: var(--gauge-height);
+  }
+
+  .lbl {
+    line-height: 1;
+    color: #484846;
+
+    sup {
+      font-size: 0.8em;
+      vertical-align: text-top;
+    }
+
+    sub {
+      font-size: 0.7em;
+      vertical-align: baseline;
+    }
+  }
+}

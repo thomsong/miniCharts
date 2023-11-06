@@ -16,7 +16,7 @@ public with sharing class MiniChartsRenderer {
     private Map<String, Object> getConfig() {
         Map<String, Object> config = new Map<String, Object>();
         config.put('w', 400);
-        config.put('h', 160);
+        config.put('h', 140);
 
         List<Map<String, Object>> canvasRows = new List<Map<String, Object>>();
         
@@ -24,98 +24,11 @@ public with sharing class MiniChartsRenderer {
         List<Map<String, Object>> rowComponents;
         Map<String, Object> component;
 
-        /* **************** */
-        // Row 1.Title
-        /* **************** */
-        row = new Map<String, Object>(); 
-        rowComponents = new List<Map<String, Object>>();
-
-        row.put('h', 20);
-        
         // TextDesign
         // component = new Map<String, Object>(); 
         // component.put('t', 'TextDesign');
         // component.put('algn', 'ml');
         // rowComponents.add(component);
-
-        // IconDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'IconDesign');
-        // component.put('algn', 'ml');
-        rowComponents.add(component);
-
-        // IconDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'IconDesign');
-        // component.put('algn', 'ml');
-        rowComponents.add(component);
-
-        // IconDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'IconDesign');
-        // component.put('algn', 'ml');
-        rowComponents.add(component);
-
-        // IconDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'IconDesign');
-        // component.put('algn', 'ml');
-        rowComponents.add(component);
-
-        // IconDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'IconDesign');
-        // component.put('algn', 'ml');
-        rowComponents.add(component);
-
-        // Space Filler
-        component = new Map<String, Object>(); 
-        component.put('t', 'SpaceFiller');
-        // component.put('algn', 'ml');
-        rowComponents.add(component);
-
-        
-
-        row.put('cmps', rowComponents);
-        canvasRows.add(row);
-
-        
-
-        /* **************** */
-        // Row 1
-        /* **************** */
-        row = new Map<String, Object>(); 
-        rowComponents = new List<Map<String, Object>>();
-
-        row.put('h', 20);
-        
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
-        row.put('cmps', rowComponents);
-        canvasRows.add(row);
-
-        /* **************** */
-        // Row 2.Title
-        /* **************** */
-        row = new Map<String, Object>(); 
-        rowComponents = new List<Map<String, Object>>();
-
-        row.put('h', 40);
-        
-        // IconDesign
-        // component = new Map<String, Object>(); 
-        // component.put('t', 'IconDesign');
-        // // component.put('algn', 'ml');
-        // rowComponents.add(component);
-        
-        // TextDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'TextDesign');
-        component.put('algn', 'ml');
-        rowComponents.add(component);
 
         // TextDesign
         // component = new Map<String, Object>(); 
@@ -123,122 +36,61 @@ public with sharing class MiniChartsRenderer {
         // component.put('algn', 'mr');
         // rowComponents.add(component);
 
-        // // IconDesign
+        // ProgressBarDesign
         // component = new Map<String, Object>(); 
-        // component.put('t', 'IconDesign');
-        // // component.put('algn', 'ml');
+        // component.put('t', 'ProgressBarDesign');
         // rowComponents.add(component);
 
-        // // TextDesign
-        // component = new Map<String, Object>(); 
-        // component.put('t', 'TextDesign');
-        // component.put('algn', 'ml');
-        // rowComponents.add(component);
-
-        // // TextDesign
-        // component = new Map<String, Object>(); 
-        // component.put('t', 'TextDesign');
-        // component.put('algn', 'mr');
-        // rowComponents.add(component);
-
-        row.put('cmps', rowComponents);
-        canvasRows.add(row);
-
-        /* **************** */
-        // Row 2
-        /* **************** */
         row = new Map<String, Object>(); 
         rowComponents = new List<Map<String, Object>>();
 
         row.put('h', 20);
         
-        // ProgressBarDesign
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
+        component.put('t', 'GaugeDesign');
         rowComponents.add(component);
-
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
+        
         row.put('cmps', rowComponents);
         canvasRows.add(row);
 
-        /* **************** */
-        // Row Spacer
-        /* **************** */
-        // row = new Map<String, Object>(); 
-        // row.put('h', 10);
-        // canvasRows.add(row);
+        
+        /////////
+        row = new Map<String, Object>(); 
+        row.put('h', 10);
+        canvasRows.add(row);
+        /////////
 
-        /* **************** */
-        // Row 3
-        /* **************** */
         row = new Map<String, Object>(); 
         rowComponents = new List<Map<String, Object>>();
 
         row.put('h', 20);
         
-        // ProgressBarDesign
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
+        component.put('t', 'ProgressBarDesign'); //GaugeDesign
         rowComponents.add(component);
-
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
-        row.put('cmps', rowComponents);
-        canvasRows.add(row);
-
-        /* **************** */
-        // Row 4
-        /* **************** */
-        row = new Map<String, Object>(); 
-        rowComponents = new List<Map<String, Object>>();
-
-        row.put('h', 40);
         
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
         row.put('cmps', rowComponents);
         canvasRows.add(row);
 
-        /* **************** */
-        // Row 5
-        /* **************** */
+        /////////
+        row = new Map<String, Object>(); 
+        row.put('h', 10);
+        canvasRows.add(row);
+        /////////
+
         row = new Map<String, Object>(); 
         rowComponents = new List<Map<String, Object>>();
 
         row.put('h', 60);
         
-        // ProgressBarDesign
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
+        component.put('t', 'GaugeDesign');
         rowComponents.add(component);
-
-        // ProgressBarDesign
-        component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
-        rowComponents.add(component);
-
+        
         row.put('cmps', rowComponents);
         canvasRows.add(row);
+
+    
 
         // throw new MiniChartsRenderer.RenderException('Icon dddd 2222');
 
@@ -318,11 +170,13 @@ public with sharing class MiniChartsRenderer {
         }
 
         return '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin slice" width="' + canvasWidth + '" height="' + canvasHeight + '" viewBox="0 0 ' + canvasWidth + ' ' + canvasHeight +'" style="--cw-px:' + canvasWidth + 'px;--ch-px:' + canvasHeight + 'px;">\n'
-                + '<style>'
+                + '<style>/* <![CDATA[ */'
                     + GLOBAL_STYLE
                     + MiniChartsFillPatterns.getPatternVars()
                     + chartStyle
-                + '</style>'
+                + '/* ]]> */</style>'
+
+                
 
                 // SVG Symbol Defs
                 + MiniChartsIcons.getUsedIconSymbols()

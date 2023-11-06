@@ -2,67 +2,43 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
     @TestVisible
     private String RENDER_TEMPLATE() {
         Integer pct = Math.round(Math.random() * 100);
+        Integer target = Math.round(Math.random() * 100);
 
         String patternName = MiniChartsFillPatterns.getPattern('battery-rounded');
         
+        String progressLabel = '<div class="lbl tar tcd pct"><span>' + pct + '<sub>%</sub></span></div>';
         String output = '';
         
-        // output += '<div class="ttl fx jcc tc vatt w1 b6 h-sz1">'
-        //         + '   <span>Chart Title</span>'
-        //         + '</div>';
-
-        // output += '<div class="ttl fx jcsb tc vatt w1 b6 h-sz1">'
-        //         + '   <span>Progress Title</span>'
-        //         + '   <span>Right Tag</span>'
-        //         + '</div>';
-        
-        
-
         output += '<div class="body" style="--svg-pattern: var(' + patternName + ');--pct:' + pct + '%;">'
-                // + '   <div class="pb-container">'
-                
-                // + '      <div class="pb-lbl fxc jcc tc tar">'
-                // + '         <span>-$00.0M</span>'
+                // + '      <div class="title">'
+                // + '         <div class="lbl tal tcd"><span>Win Rate</span></div>'
+                // +           progressLabel
                 // + '      </div>'
-                + '      <div class="lbl tcd"><span><sup>$</sup>99.9<sub>M</sub></span></div>'
-                + '      <div class="bar fg">'
 
-                // + '         <div class="bar bar-blue w1">'
-                // + '            <div class="fill tar tc">'
-                // + '                 <span>$50.9K</span>'
-                // + '            </div>'
-                // + '         </div>'
-
-                // + '         <div class="bar w1">'
+                + '      <div class="bwrap">'
+                + '         <div class="bar fg">'
                 + '            <div class="fill"></div>'
-
-                // + '            <div class="fill-lbl tar tc">'
-                // + '               <span>$50.9K</span>'
-                // + '               <span>$50.9K</span>'
-                // + '            </div>'
-
-
-                // + '         </div>'
-                
-                // + '         <div class="b-lbl fx jcsb tc vatb aife fslh75 wsnp h-sz1">'
-                // + '            <span>Left</span>'
-                // + '            <span>Right</span>'
-                // + '         </div>'
-
+                + '            <div class="target" style="--target:' + target + ';"><span class="lbl">Target</span><span class="line"></span></div>'
+                + '         </div>'
+                +           progressLabel
+                // + '      <div class="lbl tar tcd"><span><sup>$</sup>19.9<sub>M</sub></span></div>'
                 + '      </div>'
-                + '      <div class="lbl tcd pct"><span>' + 100 + '<sub>%</sub></span></div>'
                 + '</div>';
         
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '.ProgressBarDesign{--ttl-h: 0px;--b-lbl-h: 0px;--bar-height: 16px}.ProgressBarDesign:has(.ttl){--ttl-h: 12px}.ProgressBarDesign:has(.b-lbl){--b-lbl-h: 11px}.ProgressBarDesign .body{display:flex;flex-direction:row;justify-content:center;container-type:inline-size;align-items:center;width:100%}.ProgressBarDesign .ttl{height:calc(var(--ttl-h) + 1px);margin-bottom:-1px;font-size:10px;line-height:10px;letter-spacing:-0.02rem}.ProgressBarDesign .pb-lbl{min-width:40px;height:var(--bar-height);font-size:10px;letter-spacing:-0.7px}.ProgressBarDesign .pb-lbl.tar{margin-right:2px}.ProgressBarDesign .pb-lbl.tal{margin-left:2px}@container (max-width: 99.9px){.ProgressBarDesign .pb-lbl{display:none}}.ProgressBarDesign .b-lbl{height:var(--b-lbl-h)}.ProgressBarDesign .b-lbl span{height:.8rem;letter-spacing:min(0rem,max(-0.1rem,1cqw - .1rem))}.ProgressBarDesign .pb-container{display:flex;flex-direction:row}.ProgressBarDesign .bar{display:flex;flex-direction:column;width:100%;container-type:inline-size}.ProgressBarDesign .fill{position:relative;height:var(--bar-height);container-type:inline-size;-webkit-mask-box-image:var(--svg-pattern);background-image:linear-gradient(to right, var(--c-t3), var(--c-t1))}.ProgressBarDesign .fill::after{content:"";position:absolute;right:0;width:calc(100% - var(--pct));height:100%;background-color:var(--c-bg-empty-fill)}.ProgressBarDesign .lbl{width:100%;max-width:42px;text-align:left;letter-spacing:-0.25px;container-type:inline-size;margin:0 0 0 2px}.ProgressBarDesign .lbl:first-of-type{margin:0 2px 0 0}.ProgressBarDesign .lbl sup{font-size:.8em;vertical-align:text-top}.ProgressBarDesign .lbl sub{font-size:.7em;vertical-align:baseline}@container (max-width: 75px){.ProgressBarDesign .lbl:not(.pct){display:none}}.ProgressBarDesign .lbl.pct{max-width:32px}@container (max-width: 65px){.ProgressBarDesign .lbl.pct{display:none}}.ProgressBarDesign .fill-lbl{position:absolute;top:.5px;height:100%;left:2px;width:calc(var(--pct) - 7px);container-type:inline-size;display:flex;align-items:center;justify-content:flex-end}.ProgressBarDesign .fill-lbl span{position:absolute;width:calc(100% - 6px);color:#fff;-webkit-text-stroke:3px #fff;padding:0 3px 0 3px;font-size:10px;letter-spacing:-0.5px}.ProgressBarDesign .fill-lbl span:last-of-type{color:var(--c-txt);-webkit-text-stroke:0}.ProgressBarDesign .fill-lbl{left:unset;right:2px;width:calc(100% - var(--pct) - 2px);text-align:left}.ProgressBarDesign .fill-lbl span{display:inline;right:unset;left:0px}.ProgressBarDesign .fill-lbl{left:unset;right:2px;width:100%;text-align:right}.ProgressBarDesign .fill-lbl span{right:unset;left:0px}';}
+    public string getStyle() {return ':root{--bgi-stripe: repeating-linear-gradient( 45deg, transparent, transparent 7px, #00000010 7px, #00000010 16px )}.ProgressBarDesign{--ttl-h: 0px;--b-lbl-h: 0px;--bar-height: calc(var(--h-px) - var(--ttl-h) - var(--b-lbl-h));--max-bar-height: var(--bar-height)}.ProgressBarDesign:has(.title){--ttl-h: 14px}.ProgressBarDesign:has(.target):not(:has(.title)){--b-lbl-h: 17px}.ProgressBarDesign:has(.target):not(:has(.title)).sz1{--b-lbl-h: 5px}.ProgressBarDesign:has(.target):has(.title).sz1{--b-lbl-h: 0px}.ProgressBarDesign:has(.target):has(.title).sz1 .target .lbl{display:none}.ProgressBarDesign:has(.target):has(.title).sz2{--b-lbl-h: 8px}.ProgressBarDesign:has(.target):has(.title).sz3{--b-lbl-h: 16px}.ProgressBarDesign .body{--bgc: var(--c-bg-empty-fill);--fillc: #3296ed;container-type:inline-size;width:100%;height:var(--h-px)}.ProgressBarDesign .body .bwrap{height:var(--bar-height);display:flex;align-items:center}.ProgressBarDesign .body .bwrap>.lbl{width:100%;max-width:42px;font-size:13px;letter-spacing:-0.4px;margin:0 0 0 3px;text-overflow:clip}.ProgressBarDesign .body .bwrap>.lbl:first-of-type{margin:0 3px 0 0}@container (max-width: 75px){.ProgressBarDesign .body .bwrap>.lbl:not(.pct){display:none}}.ProgressBarDesign .body .bwrap>.lbl.pct{max-width:30px}@container (max-width: 65px){.ProgressBarDesign .body .bwrap>.lbl.pct{display:none}}.ProgressBarDesign .body .title{display:flex;justify-content:space-between;align-items:flex-start;height:calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));color:#595959;font-size:12px}.ProgressBarDesign .bar{position:relative;display:flex;flex-direction:column;width:100%;container-type:inline-size;max-height:var(--max-bar-height)}.ProgressBarDesign .bar .fill{position:relative;height:var(--bar-height);container-type:inline-size;overflow:hidden;--rad: 9px;border-radius:var(--rad);background:var(--bgc)}.ProgressBarDesign .bar .fill.square{--rad: 0}.ProgressBarDesign .bar .fill.ptrn{-webkit-mask-box-image:var(--svg-pattern);--rad: 0}.ProgressBarDesign .bar .fill::after{content:"";position:absolute;height:100%;left:0;width:var(--pct);border-radius:var(--rad);background:var(--fillc)}.ProgressBarDesign .target{--negative-value: calc(100 - var(--target));--percent: calc(var(--target) * 1%);--negative-percent: calc(100% - var(--percent));--target-bg-color: #757575;position:absolute;top:0;left:0;width:100%;height:min(var(--max-bar-height) + 16px,var(--bar-height) + var(--b-lbl-h));display:flex;align-items:flex-end}.ProgressBarDesign .target:before{flex-grow:0;flex-shrink:clamp(.1,var(--negative-value),100);flex-basis:var(--percent);content:""}.ProgressBarDesign .target:after{flex-grow:0;flex-shrink:clamp(.1,var(--target),100);flex-basis:var(--negative-percent);content:""}.ProgressBarDesign .target .lbl{flex:0 0 auto;text-align:center;white-space:nowrap;position:relative;display:block;background:var(--target-bg-color);color:#fff;width:max-content;max-width:50cqw;line-height:1;font-size:10px;font-weight:600;outline:1.5px solid var(--target-txt-color);padding:1.5px 3px 1px 3px;border-radius:3px;z-index:2}.ProgressBarDesign .target .line{position:absolute;top:0;bottom:0px;left:calc(1%*var(--target));transform:translateX(-1px);width:0px;background:#fff;border-right:2px dashed var(--target-bg-color);outline:1px solid #fff;z-index:1}.ProgressBarDesign .lbl{line-height:1;color:#484846}.ProgressBarDesign .lbl sup{font-size:.8em;vertical-align:text-top}.ProgressBarDesign .lbl sub{font-size:.7em;vertical-align:baseline}.ProgressBarDesign.sz1 .body:has(.title){--ttl-h: 13px}.ProgressBarDesign.sz1 .body:has(.title) .bwrap>.lbl{display:none}.ProgressBarDesign.sz1 .body:has(.title) .target::after{height:var(--bar-height)}.ProgressBarDesign.sz2 .body .title .lbl:last-child,.ProgressBarDesign.sz3 .body .title .lbl:last-child{display:none}';}
 
     /* COMPRESSED RENDER */
     public String render() {
         Integer pct = Math.round(Math.random() * 100);
+        Integer target = Math.round(Math.random() * 100);
         String patternName = MiniChartsFillPatterns.getPattern('battery-rounded');
-        String output = '<div class="body" style="--svg-pattern: var(' + patternName + ');--pct:' + pct + '%;"><div class="lbl tcd"><span><sup>$</sup>99.9<sub>M</sub></span></div><div class="bar fg"><div class="fill"></div></div><div class="lbl tcd pct"><span>' + 100 + '<sub>%</sub></span></div></div>';
+        String progressLabel = '<div class="lbl tar tcd pct"><span>' + pct + '<sub>%</sub></span></div>';
+        String output = '<div class="body" style="--svg-pattern: var(' + patternName + ');--pct:' + pct + '%;"><div class="bwrap"><div class="bar fg"><div class="fill"></div><div class="target" style="--target:' + target + ';"><span class="lbl">Target</span><span class="line"></span></div></div>'
+                +           progressLabel
++'</div></div>';
         return output;
     }
 }
