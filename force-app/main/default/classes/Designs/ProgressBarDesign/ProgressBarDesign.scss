@@ -291,21 +291,6 @@
     }
   }
 
-  .lbl {
-    line-height: 1;
-    color: #484846;
-
-    sup {
-      font-size: 0.8em;
-      vertical-align: text-top;
-    }
-
-    sub {
-      font-size: 0.7em;
-      vertical-align: baseline;
-    }
-  }
-
   &.sz1 {
     &:has(.target) {
       // --b-lbl-h: 9px;

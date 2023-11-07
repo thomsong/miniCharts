@@ -1,4 +1,4 @@
 global interface MiniChartsDesign {
     string getStyle();
-    string render();
+    string render(Map<String, Object> props);
 }

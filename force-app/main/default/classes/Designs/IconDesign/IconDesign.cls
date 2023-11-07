@@ -1,6 +1,6 @@
 public with sharing class IconDesign implements MiniChartsDesign {
     @TestVisible
-    private String RENDER_TEMPLATE() {
+    private String RENDER_TEMPLATE(Map<String, Object> props) {
         Integer cmpId = MiniChartsRenderer.getCmpIdx();
         Integer pctFill = 20;//(math.random() * 100).intValue();
         Boolean fillVertical = false;
@@ -30,7 +30,7 @@ public with sharing class IconDesign implements MiniChartsDesign {
     public string getStyle() {return '.IconDesign{--ico-sz: 40px;--sz: min(20px, var(--ico-sz));max-width:var(--sz)}.IconDesign.sz2{--sz: min(40px, var(--ico-sz))}.IconDesign.sz3{--sz: min(60px, var(--ico-sz))}.IconDesign .body{display:flex;flex-direction:row;align-items:center;gap:3px}.IconDesign .ico{display:flex;justify-content:center;align-items:center}.IconDesign .ico svg{width:var(--sz);max-width:min(var(--sz),100%);max-height:min(var(--sz),100%)}';}
 
     /* COMPRESSED RENDER */
-    public String render() {
+    public String render(Map<String, Object> props) {
         Integer cmpId = MiniChartsRenderer.getCmpIdx();
         Integer pctFill = 20;//(math.random() * 100).intValue();
         Boolean fillVertical = false;

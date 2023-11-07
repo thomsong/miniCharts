@@ -68,7 +68,7 @@ const processClass = (savedFile) => {
 
   if (newClsContent.indexOf("RENDER_TEMPLATE") >= 0) {
     let renderCode = newClsContent.substring(
-      newClsContent.indexOf("    private String RENDER_TEMPLATE() {"),
+      newClsContent.indexOf("    private String RENDER_TEMPLATE("),
       newClsContent.lastIndexOf(" /* END RENDER_TEMPLATE */")
     );
 
@@ -103,8 +103,8 @@ const processClass = (savedFile) => {
       newClsContent.split("/* COMPRESSED RENDER */")[0] +
       "/* COMPRESSED RENDER */\n" +
       renderCode.replace(
-        "private String RENDER_TEMPLATE()",
-        "public String render()"
+        "private String RENDER_TEMPLATE(",
+        "public String render("
       ) +
       "\n}";
   }

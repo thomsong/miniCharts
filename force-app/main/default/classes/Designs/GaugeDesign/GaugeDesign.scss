@@ -5,16 +5,16 @@
     --ttl-h: 14px;
   }
 
-  --gauge-height: var(--h-px);
-  --gauge-width: calc(var(--gauge-height) * 2);
+  --gh: var(--h-px);
+  --gw: calc(var(--gh) * 2);
 
   --bar-thck: 5px; //10px
 
-  .body {
+  .b {
     /* PASSED IN VARS */
     --bgc: var(--c-bg-empty-fill); //#f1f1f0;
     --fillc: #3296ed;
-    // --fillc: linear-gradient(to right, var(--c-t3) 0px, var(--c-t1) 100cqw);
+    // --fillc: linear-gradient(to right, red, blue);
 
     container-type: inline-size;
     width: 100%;
@@ -30,34 +30,65 @@
     }
   }
 
-  .gauge {
-    background-color: #eee;
-    width: var(--gauge-width);
-    height: var(--gauge-height);
+  .g {
+    position: absolute;
+    top: 0;
+    height: var(--gh);
 
-    & > svg {
-      height: var(--gauge-height);
+    line {
+      stroke: var(--sc, white);
+      stroke-width: var(--sw);
+    }
 
-      path,
-      line {
-        fill: none;
-        stroke-width: var(--stroke);
-      }
+    path {
+      fill: none;
+      stroke-width: var(--s);
+      stroke: var(--bgc);
+    }
+
+    .ptr,
+    .empty {
+      transform: rotate(calc(var(--dpct) * 1.8deg));
+      transform-origin: center bottom;
+
+      // animation: GaugeDesign-fill 0.5s;
+      // @keyframes GaugeDesign-fill {
+      //   0% {
+      //     transform: none;
+      //   }
+      // }
     }
   }
 
-  .lbl {
-    line-height: 1;
-    color: #484846;
+  foreignObject {
+    width: var(--d);
+    height: var(--d);
+  }
 
-    sup {
-      font-size: 0.8em;
-      vertical-align: text-top;
-    }
+  .fill {
+    --h-px2: calc(var(--h-px) * 2);
+    --sh: calc(var(--h-px2) - 0.2px);
+    width: var(--sh);
+    height: var(--sh);
+    margin: 0.1px 0 0 0.1px;
 
-    sub {
-      font-size: 0.7em;
-      vertical-align: baseline;
+    border-radius: 50%;
+    background: var(--f);
+
+    &::after {
+      content: "";
+      position: absolute;
+
+      --ss: calc((var(--s) - 0.1) * 1px);
+      --sh: calc(var(--h-px2) - (var(--ss) * 2));
+
+      top: var(--ss);
+      left: var(--ss);
+      width: var(--sh);
+      height: var(--sh);
+
+      border-radius: 50%;
+      background: white;
     }
   }
 }

@@ -6,6 +6,10 @@ public with sharing class MiniChartsFillPatterns {
     }
 
     public static String getPatternVars() {
+        if (MiniChartsFillPatterns.usedPatterns.size() == 0) {
+            return '';
+        }
+        
         String style = ':root{';
         for(String patternName: MiniChartsFillPatterns.usedPatterns) {
             style += '--ptrn-' + patternName +  MiniChartsFillPatterns.patterns.get(patternName);// + '\n';
