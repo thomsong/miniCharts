@@ -3,6 +3,8 @@ const sass = require("sass");
 const fs = require("fs");
 const path = require("path");
 
+const PRODUCTION = false;
+
 const getAllFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
 
@@ -92,10 +94,15 @@ const processClass = (savedFile) => {
       .filter((line) => {
         return line ? line.trim() != "" : false;
       })
-      .join("\n")
-      .replace(/\'[\s]*\+[\s]*\'/g, "")
-      // .replace(/\'[\s]*output[\s]*\+\=[\s]*\'/g, "");
-      .replace(/\';[\s]*output[\s]*\+\=[\s]*\'/g, "");
+      .join("\n");
+
+    if (PRODUCTION) {
+      renderCode = renderCode
+        .replace(/\'[\s]*\+[\s]*\'/g, "")
+        .replace(/\';[\s]*output[\s]*\+\=[\s]*\'/g, "")
+        .replace("String output = '", "return '")
+        .replace(/[\s]*return output;/, "");
+    }
 
     // .replaceAll("output\n+'", "output + '")
 

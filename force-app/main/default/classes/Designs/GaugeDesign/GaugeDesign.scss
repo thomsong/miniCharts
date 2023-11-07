@@ -20,6 +20,10 @@
     }
   }
 
+  .value.lbl {
+    width: var(--h-px2);
+  }
+
   .g {
     line {
       stroke: var(--sc, var(--c-bg));

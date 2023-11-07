@@ -97,7 +97,8 @@ span.tc {
 }
 .pa,
 .pal,
-.pat {
+.pat,
+.pab {
   position: absolute;
 }
 .pal,
@@ -109,6 +110,9 @@ span.tc {
   top: 0;
 }
 
+.pab {
+  bottom: 0;
+}
 //
 .tl,
 .tm,

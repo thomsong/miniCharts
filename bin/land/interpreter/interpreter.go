@@ -1110,7 +1110,7 @@ func (v *Interpreter) VisitVariableDeclaration(n *ast.VariableDeclaration) (inte
 			val, err := declarator.Expression.Accept(v)
 			
 			if err != nil {
-				if strings.HasPrefix(fmt.Sprint(err), "Method not found: Raise.get") {
+				if strings.HasPrefix(fmt.Sprint(err), "2 Method not found: Raise.get") {
 					return nil, nil
 				} else {
 					panic(err)

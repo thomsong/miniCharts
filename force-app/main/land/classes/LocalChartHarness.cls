@@ -3,6 +3,6 @@ public class LocalChartHarness {
         MiniChartsRenderer renderer = new MiniChartsRenderer();
         String svg = renderer.renderSVG();
         System.debug(svg);
-        System.debug('<!-- ' + svg.length() + ' -->');
+        // System.debug('<!-- ' + svg.length() + ' -->');
     }
 }
