@@ -169,6 +169,7 @@ public with sharing class MiniChartsRenderer {
 
                 svgCharts += '<div class="_' + designIndex + ' c ' + alignment + ' sz' + (rowHeight/20) + '">'
                     + design.render(designProps)
+                    // + design.RENDER_TEMPLATE(designProps)
                 + '</div>\n';
             }
 

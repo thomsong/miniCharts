@@ -66,7 +66,7 @@ const processClass = (savedFile) => {
     })
     .join("\n");
 
-  if (newClsContent.indexOf("RENDER_TEMPLATE") >= 0) {
+  if (newClsContent.indexOf("private String RENDER_TEMPLATE") >= 0) {
     let renderCode = newClsContent.substring(
       newClsContent.indexOf("    private String RENDER_TEMPLATE("),
       newClsContent.lastIndexOf(" /* END RENDER_TEMPLATE */")
@@ -93,11 +93,15 @@ const processClass = (savedFile) => {
         return line ? line.trim() != "" : false;
       })
       .join("\n")
-      .replaceAll("'\n+'", "")
-      .replaceAll("output\n+'", "output + '")
-      .replaceAll("=\n'", "= '")
+      .replace(/\'[\s]*\+[\s]*\'/g, "")
+      // .replace(/\'[\s]*output[\s]*\+\=[\s]*\'/g, "");
+      .replace(/\';[\s]*output[\s]*\+\=[\s]*\'/g, "");
 
-      .replaceAll("';\n        output += '", "");
+    // .replaceAll("output\n+'", "output + '")
+
+    // '
+    // +  '
+    // .replaceAll("';\n        output += '", "");
 
     newClsContent =
       newClsContent.split("/* COMPRESSED RENDER */")[0] +
