@@ -71,11 +71,9 @@ $colors-themes: (
 $colors: map.get($colors-themes, "light");
 
 $vars: (
-  bg: var(--c-bg-drk),
+  bg: #fff,
   bg-empty-fill: #ddd,
 
-  // bg: #16325c,
-  //
   txt: slds.$palette-neutral-10,
   // txt: slds.$palette-neutral-95,
   //

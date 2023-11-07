@@ -1,42 +1,28 @@
 .GaugeDesign {
+  --h-px2: calc(var(--h-px) * 2);
+
   --ttl-h: 0px;
 
   &:has(.title) {
     --ttl-h: 14px;
   }
 
-  --gh: var(--h-px);
-  --gw: calc(var(--gh) * 2);
-
-  --bar-thck: 5px; //10px
+  --bar-thck: 5px;
 
   .b {
-    /* PASSED IN VARS */
     --bgc: var(--c-bg-empty-fill); //#f1f1f0;
     --fillc: #3296ed;
     // --fillc: linear-gradient(to right, red, blue);
 
-    container-type: inline-size;
-    width: 100%;
-    height: var(--h-px);
-
     .title {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
       height: calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));
       color: #595959;
-      font-size: 12px;
     }
   }
 
   .g {
-    position: absolute;
-    top: 0;
-    height: var(--gh);
-
     line {
-      stroke: var(--sc, white);
+      stroke: var(--sc, var(--c-bg));
       stroke-width: var(--sw);
     }
 
@@ -48,7 +34,7 @@
 
     .ptr,
     .empty {
-      transform: rotate(calc(var(--dpct) * 1.8deg));
+      transform: rotate(calc(var(--pct) * 1.8deg));
       transform-origin: center bottom;
 
       // animation: GaugeDesign-fill 0.5s;
@@ -61,12 +47,11 @@
   }
 
   foreignObject {
-    width: var(--d);
-    height: var(--d);
+    width: var(--h-px2);
+    height: var(--h-px);
   }
 
   .fill {
-    --h-px2: calc(var(--h-px) * 2);
     --sh: calc(var(--h-px2) - 0.2px);
     width: var(--sh);
     height: var(--sh);
@@ -88,7 +73,7 @@
       height: var(--sh);
 
       border-radius: 50%;
-      background: white;
+      background: var(--c-bg);
     }
   }
 }

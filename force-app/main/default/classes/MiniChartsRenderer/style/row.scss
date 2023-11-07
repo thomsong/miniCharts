@@ -1,4 +1,6 @@
 .r {
+  display: flex;
+  flex-wrap: nowrap;
   container-type: inline-size;
   height: var(--h-px);
   background: var(--c-bg);

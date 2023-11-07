@@ -159,6 +159,33 @@ func createListType() {
 		},
 	)
 
+	instanceMethods.Set(
+		"indexof",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"indexof",
+				IntegerType,
+				[]*ast.Parameter{
+					objectTypeParameter,
+				},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					checker := extra["interpreter"].(EqualChecker)
+					target := params[0]
+					records := this.Extra["records"].([]*ast.Object)
+					idx := 0
+					for _, record := range records {
+						if checker.Equals(record, target) {
+							return NewInteger(int64(idx))
+						}
+
+						idx++;
+					}
+					return NewInteger(-1)
+				},
+			),
+		},
+	)
+
 	ListType.Constructors = []*ast.Method{
 		{
 			Modifiers:  []*ast.Modifier{ast.PublicModifier()},

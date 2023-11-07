@@ -1,6 +1,7 @@
+@use "slds" as slds;
+
 .lbl {
-  line-height: 1;
-  color: $palette-neutral-30;
+  color: slds.$palette-neutral-30;
 }
 
 sup {

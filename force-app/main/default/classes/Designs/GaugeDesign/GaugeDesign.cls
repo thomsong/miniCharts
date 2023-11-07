@@ -29,9 +29,9 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         // String fill = 'blue';//'conic-gradient(from 270deg, black 0% 12.5%, red 12.5% 25%, yellow 25% 37.5%, green 37.5% 50%);';
         String fill = 'conic-gradient(from 270deg,var(--c-t3),var(--c-t1)50%)';
         String chartSVG =  ''
-        + '<svg class="g" style="--s:' + strokeWidth + ';" viewBox="0 0 ' + diameter + ' ' + radius + '" xmlns="http://www.w3.org/2000/svg">'
+        + '<svg class="g hpx pat" style="--s:' + strokeWidth + '" viewBox="0 0 ' + diameter + ' ' + radius + '" xmlns="http://www.w3.org/2000/svg">'
             // Filled
-            + '<foreignObject style="--d:' + diameter + 'px" >'
+            + '<foreignObject>'
                 + '<div style="--f:' + fill + '" class="fill" xmlns="http://www.w3.org/1999/xhtml"></div>'
             + '</foreignObject>'
 
@@ -41,20 +41,20 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
             + '<path class="empty" d="M' + halfStrokeWidth + ' ' + radius + 'A1 1 0 0 1 ' + (diameter-halfStrokeWidth) + ' ' + radius + '"/>';
 
             // Divider Gaps
-            // + renderLine(radius, radius + 0.5, gap, 0.25, 'white')
-            // + renderLine(radius, radius + 0.5, gap, 0.50, 'white')
-            // + renderLine(radius, radius + 0.5, gap, 0.75, 'white');
+            // + renderLine(radius, radius + 0.5, gap, 0.25, '#fff')
+            // + renderLine(radius, radius + 0.5, gap, 0.50, '#fff')
+            // + renderLine(radius, radius + 0.5, gap, 0.75, '#fff');
 
         chartSVG+= ''
             + '<g class="ptr">'
-                + '<line style="--sw:' + gap3 + 'px" x1="' + radius + '" y1="' + radius + '" x2="0" y2="' + radius + '"/>'
-                + '<line style="--sc:#666;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" x2="0" y2="' + radius + '"/>'
+                + '<line style="--sw:' + gap3 + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/>'
+                + '<line style="--sc:#666;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/>'
             + '</g>'
         + '</svg>';
 
         String output = ''
-            + '<div class="b" style="--dpct:' + pct + ';--pct:' + pct + '%;">'
-                // + '      <div class="title">'
+            + '<div class="b w1 hpx" style="--pct:' + pct + '">'
+                // + '      <div class="title aifs fx jcsb">'
                 // + '         <div class="lbl tal tcd"><span>Win Rate</span></div>'
                 // +           progressLabel
                 // + '      </div>'
@@ -93,7 +93,7 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         + endX.setScale(2) + ' ' + endY.setScale(2) + '" />';
     }*/
 
-    public string getStyle() {return '.GaugeDesign{--ttl-h: 0px;--gh: var(--h-px);--gw: calc(var(--gh) * 2);--bar-thck: 5px}.GaugeDesign:has(.title){--ttl-h: 14px}.GaugeDesign .b{--bgc: var(--c-bg-empty-fill);--fillc: #3296ed;container-type:inline-size;width:100%;height:var(--h-px)}.GaugeDesign .b .title{display:flex;justify-content:space-between;align-items:flex-start;height:calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));color:#595959;font-size:12px}.GaugeDesign .g{position:absolute;top:0;height:var(--gh)}.GaugeDesign .g line{stroke:var(--sc, white);stroke-width:var(--sw)}.GaugeDesign .g path{fill:none;stroke-width:var(--s);stroke:var(--bgc)}.GaugeDesign .g .ptr,.GaugeDesign .g .empty{transform:rotate(calc(var(--dpct) * 1.8deg));transform-origin:center bottom}.GaugeDesign foreignObject{width:var(--d);height:var(--d)}.GaugeDesign .fill{--h-px2: calc(var(--h-px) * 2);--sh: calc(var(--h-px2) - 0.2px);width:var(--sh);height:var(--sh);margin:.1px 0 0 .1px;border-radius:50%;background:var(--f)}.GaugeDesign .fill::after{content:"";position:absolute;--ss: calc((var(--s) - 0.1) * 1px);--sh: calc(var(--h-px2) - (var(--ss) * 2));top:var(--ss);left:var(--ss);width:var(--sh);height:var(--sh);border-radius:50%;background:#fff}';}
+    public string getStyle() {return '.GaugeDesign{--h-px2: calc(var(--h-px) * 2);--ttl-h: 0px;--bar-thck: 5px}.GaugeDesign:has(.title){--ttl-h: 14px}.GaugeDesign .b{--bgc: var(--c-bg-empty-fill);--fillc: #3296ed}.GaugeDesign .b .title{height:calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));color:#595959}.GaugeDesign .g line{stroke:var(--sc, var(--c-bg));stroke-width:var(--sw)}.GaugeDesign .g path{fill:none;stroke-width:var(--s);stroke:var(--bgc)}.GaugeDesign .g .ptr,.GaugeDesign .g .empty{transform:rotate(calc(var(--pct) * 1.8deg));transform-origin:center bottom}.GaugeDesign foreignObject{width:var(--h-px2);height:var(--h-px)}.GaugeDesign .fill{--sh: calc(var(--h-px2) - 0.2px);width:var(--sh);height:var(--sh);margin:.1px 0 0 .1px;border-radius:50%;background:var(--f)}.GaugeDesign .fill::after{content:"";position:absolute;--ss: calc((var(--s) - 0.1) * 1px);--sh: calc(var(--h-px2) - (var(--ss) * 2));top:var(--ss);left:var(--ss);width:var(--sh);height:var(--sh);border-radius:50%;background:var(--c-bg)}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
@@ -115,9 +115,9 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         Integer halfStrokeWidth = strokeWidth/2;
         Integer gap3 = gap*3;
         String fill = 'conic-gradient(from 270deg,var(--c-t3),var(--c-t1)50%)';
-        String chartSVG =  '<svg class="g" style="--s:' + strokeWidth + ';" viewBox="0 0 ' + diameter + ' ' + radius + '" xmlns="http://www.w3.org/2000/svg"><foreignObject style="--d:' + diameter + 'px" ><div style="--f:' + fill + '" class="fill" xmlns="http://www.w3.org/1999/xhtml"></div></foreignObject><path class="empty" d="M' + halfStrokeWidth + ' ' + radius + 'A1 1 0 0 1 ' + (diameter-halfStrokeWidth) + ' ' + radius + '"/>';
-        chartSVG+= '<g class="ptr"><line style="--sw:' + gap3 + 'px" x1="' + radius + '" y1="' + radius + '" x2="0" y2="' + radius + '"/><line style="--sc:#666;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" x2="0" y2="' + radius + '"/></g></svg>';
-        String output = '<div class="b" style="--dpct:' + pct + ';--pct:' + pct + '%;">'
+        String chartSVG =  '<svg class="g hpx pat" style="--s:' + strokeWidth + '" viewBox="0 0 ' + diameter + ' ' + radius + '" xmlns="http://www.w3.org/2000/svg"><foreignObject><div style="--f:' + fill + '" class="fill" xmlns="http://www.w3.org/1999/xhtml"></div></foreignObject><path class="empty" d="M' + halfStrokeWidth + ' ' + radius + 'A1 1 0 0 1 ' + (diameter-halfStrokeWidth) + ' ' + radius + '"/>';
+        chartSVG+= '<g class="ptr"><line style="--sw:' + gap3 + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/><line style="--sc:#666;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/></g></svg>';
+        String output = '<div class="b w1 hpx" style="--pct:' + pct + '">'
                 + chartSVG
 +'</div>';
         return output;

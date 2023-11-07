@@ -109,7 +109,6 @@
       align-items: flex-start;
       height: calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));
       color: #595959;
-      font-size: 12px;
     }
   }
 
@@ -261,14 +260,13 @@
       position: relative;
       display: block;
       background: var(--target-bg-color);
-      color: white;
+      color: #fff;
       width: max-content;
       max-width: 50cqw;
 
-      line-height: 1;
       font-size: 10px;
       font-weight: 600;
-      outline: 1.5px solid white;
+      outline: 1.5px solid #fff;
       // height: 10px;
       padding: 1.5px 3px 1px 3px;
       border-radius: 3px;
@@ -282,11 +280,11 @@
       left: calc(1% * var(--target));
       transform: translateX(-1px);
       width: 0px;
-      background: white;
+      background: #fff;
       // border-right: 2px dashed #777;
       border-right: 2px dashed var(--target-bg-color);
 
-      outline: 1px solid white;
+      outline: 1px solid #fff;
       z-index: 1;
     }
   }
