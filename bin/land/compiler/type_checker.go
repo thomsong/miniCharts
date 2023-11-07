@@ -496,8 +496,8 @@ func (v *TypeChecker) VisitUnaryOperator(n *ast.UnaryOperator) (interface{}, err
 	if err != nil {
 		return nil, err
 	}
-	if t != builtin.IntegerType {
-		v.AddError(fmt.Sprintf("expression <%s> must be Integer", t.(*ast.ClassType).String()), n.Expression)
+	if t != builtin.IntegerType && t != builtin.DoubleType {
+		v.AddError(fmt.Sprintf("1 expression <%s> must be Integer or Double", t.(*ast.ClassType).String()), n.Expression)
 	}
 	return nil, nil
 }
@@ -555,7 +555,7 @@ func (v *TypeChecker) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 		}
 		if n.Op == "+" {
 			if l != builtin.IntegerType && l != builtin.StringType && l != builtin.DoubleType {
-				v.AddError(fmt.Sprintf("expression <%s> must be Integer, String or Double", l.(*ast.ClassType).String()), n.Left)
+				v.AddError(fmt.Sprintf("2 expression <%s> must be Integer, String or Double", l.(*ast.ClassType).String()), n.Left)
 			}
 			if (l == builtin.StringType || r == builtin.StringType) && l != r {
 				// v.AddError(fmt.Sprintf("expression <%s> does not match <%s>", l.(*ast.ClassType).String(), r.(*ast.ClassType).String()), n.Left)
@@ -569,10 +569,16 @@ func (v *TypeChecker) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 		}
 		if n.Op == "-" || n.Op == "*" || n.Op == "/" || n.Op == "%" {
+			// fmt.Println("l/r");
+			// fmt.Println(l);
+			// fmt.Println(r);
+			if r == nil {
+				return l, nil
+			}
 			if l != builtin.IntegerType && l != builtin.DoubleType {
-				v.AddError(fmt.Sprintf("expression <%s> must be Integer or Double", l.(*ast.ClassType).String()), n.Left)
+				v.AddError(fmt.Sprintf("3 expression <%s> must be Integer or Double", l.(*ast.ClassType).String()), n.Left)
 			} else if r != builtin.IntegerType && r != builtin.DoubleType {
-				v.AddError(fmt.Sprintf("expression <%s> must be Integer or Double", r.(*ast.ClassType).String()), n.Right)
+				v.AddError(fmt.Sprintf("4 expression <%s> must be Integer or Double", r.(*ast.ClassType).String()), n.Right)
 			}
 			if l == builtin.DoubleType || r == builtin.DoubleType {
 				return builtin.DoubleType, nil
@@ -700,7 +706,13 @@ func (v *TypeChecker) VisitVariableDeclaration(n *ast.VariableDeclaration) (inte
 		}
 		v.Context.Env.Set(d.Name, n.Type)
 		if !builtin.Equals(n.Type, t.(*ast.ClassType)) {
-			v.AddError(fmt.Sprintf("3Illegal assignment from %s to %s", t.(*ast.ClassType).String(), n.Type.String()), n)
+			if t.(*ast.ClassType).String() == "Integer" &&  n.Type.String() == "Double" {
+				// We good
+			} else if n.Type.String() == "String" {
+				// We good
+			} else {
+				v.AddError(fmt.Sprintf("3Illegal assignment from %s to %s", t.(*ast.ClassType).String(), n.Type.String()), n)
+			}
 		}
 		if soql, ok := d.Expression.(*ast.Soql); ok {
 			if n.Type.SuperClass == builtin.SObjectType {

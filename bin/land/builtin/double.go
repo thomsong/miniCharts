@@ -106,10 +106,19 @@ func init() {
 		[]*ast.Method{
 			ast.CreateMethod(
 				"valueOf",
-				StringType,
-				[]*ast.Parameter{},
+				DoubleType,
+				[]*ast.Parameter{IntegerTypeParameter},
 				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
-					value, err := strconv.ParseFloat(this.StringValue(), 64)
+					value  := params[0].IntegerValue()
+					return NewDouble(float64(value))
+				},
+			),
+			ast.CreateMethod(
+				"valueOf",
+				DoubleType,
+				[]*ast.Parameter{stringTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					value, err := strconv.ParseFloat(params[0].StringValue(), 64)
 					if err != nil {
 						panic(err)
 					}

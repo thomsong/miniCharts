@@ -69,7 +69,7 @@ var binaryOperator = map[string]func(*ast.Object, *ast.Object) *ast.Object{
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r + l)
+				return builtin.NewDouble(l + r)
 			}
 		} else if lType == builtin.StringType {
 			l := lObj.StringValue()
@@ -99,7 +99,7 @@ var binaryOperator = map[string]func(*ast.Object, *ast.Object) *ast.Object{
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r - l)
+				return builtin.NewDouble(l - r)
 			}
 		}
 		panic("not pass")
@@ -125,7 +125,7 @@ var binaryOperator = map[string]func(*ast.Object, *ast.Object) *ast.Object{
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r * l)
+				return builtin.NewDouble(l * r)
 			}
 		}
 		panic("not pass")
@@ -151,7 +151,7 @@ var binaryOperator = map[string]func(*ast.Object, *ast.Object) *ast.Object{
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r / l)
+				return builtin.NewDouble(l / r)
 			}
 		}
 		panic("not pass")
@@ -693,6 +693,22 @@ func (v *Interpreter) VisitUnaryOperator(n *ast.UnaryOperator) (interface{}, err
 		}
 		return newValue, nil
 	}
+
+	if n.Op == "-" {
+		l := n.Expression
+	
+		if fmt.Sprintf("%T",l) == "*ast.DoubleLiteral" {
+			newValue := builtin.NewDouble(l.(*ast.DoubleLiteral).Value * -1)
+			_ = v.assignValue(n.Expression, newValue)
+			return newValue, nil
+		} else {
+			newValue := builtin.NewInteger(int64(l.(*ast.IntegerLiteral).Value) * int64(-1))
+			_ = v.assignValue(n.Expression, newValue)
+			return newValue, nil
+		}
+	}
+
+	
 	panic("not pass")
 	return nil, nil
 }
@@ -739,7 +755,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r + l), nil
+				return builtin.NewDouble(l + r), nil
 			}
 		} else if lType == builtin.StringType {
 			l := lObj.StringValue()
@@ -764,9 +780,11 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 				r := rObj.IntegerValue()
 				return builtin.NewDouble(l - float64(r)), nil
 			}
+
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r - l), nil
+				return builtin.NewDouble(l - r), nil
+				
 			}
 		}
 		panic("type error")
@@ -789,7 +807,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r * l), nil
+				return builtin.NewDouble(l * r), nil
 			}
 		}
 		panic("type error")
@@ -812,7 +830,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewDouble(r / l), nil
+				return builtin.NewDouble(l / r), nil
 			}
 		}
 		panic("type error")
@@ -835,7 +853,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewBoolean(r < l), nil
+				return builtin.NewBoolean(l < r), nil
 			}
 		}
 		panic("type error")
@@ -858,7 +876,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewBoolean(r > l), nil
+				return builtin.NewBoolean(l > r), nil
 			}
 		}
 		panic("type error")
@@ -881,7 +899,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewBoolean(r <= l), nil
+				return builtin.NewBoolean(l <= r), nil
 			}
 		}
 		panic("type error")
@@ -904,7 +922,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewBoolean(r >= l), nil
+				return builtin.NewBoolean(l >= r), nil
 			}
 		}
 		panic("type error")
@@ -927,7 +945,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewBoolean(r == l), nil
+				return builtin.NewBoolean(l == r), nil
 			}
 		} else if lType == builtin.StringType {
 			l := lObj.StringValue()
@@ -956,7 +974,7 @@ func (v *Interpreter) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			}
 			if rType == builtin.DoubleType {
 				r := rObj.DoubleValue()
-				return builtin.NewBoolean(r != l), nil
+				return builtin.NewBoolean(l != r), nil
 			}
 		} else if lType == builtin.StringType {
 			l := lObj.StringValue()

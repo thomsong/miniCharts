@@ -63,10 +63,10 @@ public with sharing class MiniChartsRenderer {
         row = new Map<String, Object>(); 
         rowComponents = new List<Map<String, Object>>();
 
-        row.put('h', 20);
+        row.put('h', 40);
         
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign'); //GaugeDesign
+        component.put('t', 'GaugeDesign'); //
         rowComponents.add(component);
         
         row.put('cmps', rowComponents);
