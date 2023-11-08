@@ -1,13 +1,11 @@
 .GaugeDesign {
   --h-px2: calc(var(--h-px) * 2);
 
-  --ttl-h: 0px;
+  --ttl-h: 0;
 
   &:has(.title) {
-    --ttl-h: 14px;
+    --ttl-h: 13;
   }
-
-  --bar-thck: 5px;
 
   .b {
     --bgc: var(--c-bg-empty-fill); //#f1f1f0;
@@ -15,19 +13,49 @@
     // --fillc: linear-gradient(to right, red, blue);
 
     .title {
-      height: calc(var(--h-px) - 0px - var(--b-lbl-h));
+      height: calc(var(--ttl-h) * 1px);
       color: #595959;
     }
   }
 
   .value.lbl {
     width: var(--h-px2);
+    span {
+      display: block;
+      background: #fffd;
+    }
+  }
+
+  &.sz1 {
+    &:has(.title) {
+      .value.lbl {
+        display: none;
+      }
+    }
+
+    .value.lbl span {
+      font-size: 6.5px;
+      padding: 0px 1px 0 1px;
+      border-radius: 2px;
+    }
+  }
+
+  &.sz2 .value.lbl span {
+    font-size: 15px;
+    padding: 0px 1px 0 1px;
+    border-radius: 2px;
+  }
+
+  &.sz3 .value.lbl span {
+    font-size: 24px;
+    padding: 0px 1px 0 1px;
+    border-radius: 2px;
   }
 
   .g {
     line {
       stroke: var(--sc, var(--c-bg));
-      stroke-width: var(--sw);
+      stroke-width: var(--sw, var(--gp));
     }
 
     path {
@@ -56,13 +84,13 @@
   }
 
   .fill {
-    --sh: calc(var(--h-px2) - 0.2px);
-    width: var(--sh);
-    height: var(--sh);
+    width: calc(var(--h-px2) - 0.2px);
+    height: calc(var(--h-px) - 0.2px);
     margin: 0.1px 0 0 0.1px;
 
-    border-radius: 50%;
+    border-radius: var(--h-px) var(--h-px) 0 0;
     background: var(--f);
+    background-size: 100% 200%;
 
     &::after {
       content: "";
@@ -78,6 +106,58 @@
 
       border-radius: 50%;
       background: var(--c-bg);
+    }
+  }
+
+  .target {
+    --sw: calc(var(--gp) * 2);
+  }
+
+  .chart {
+    position: relative;
+    height: var(--h-px);
+    width: var(--h-px2);
+  }
+
+  &:has(.title) .chart-crop {
+    --ch: calc(var(--h) - var(--ttl-h));
+    --scl: calc(var(--ch) / var(--h));
+
+    width: calc(var(--h-px2) * var(--scl));
+    height: calc(var(--ch) * 1px);
+
+    .chart {
+      transform: scale(var(--scl));
+      transform-origin: top left;
+    }
+  }
+
+  .title .lbl:last-child {
+    display: none;
+  }
+
+  &.sz1 {
+    &:has(.title) .chart-crop {
+      --ch: var(--h);
+    }
+
+    .b {
+      display: flex;
+    }
+    .title {
+      height: var(--h-px);
+      max-width: calc(100% - var(--h-px2));
+      padding-right: 10px;
+      box-sizing: border-box;
+
+      .lbl:last-child {
+        display: block;
+        font-size: 9px;
+        height: 9px;
+      }
+    }
+    .chart {
+      transform: none;
     }
   }
 }

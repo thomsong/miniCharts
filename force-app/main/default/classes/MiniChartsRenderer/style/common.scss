@@ -24,6 +24,7 @@
     --c-t#{$i}:#{$theme-color};
   }
 
+  --gap: 20px;
   // Default Font Settings
   color: var(--c-txt);
   font-size: 12px;

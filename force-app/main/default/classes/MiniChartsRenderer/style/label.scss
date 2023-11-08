@@ -2,11 +2,19 @@
 
 .lbl {
   color: slds.$palette-neutral-30;
+  line-height: 1.15;
+}
+
+.title .lbl {
+  margin-top: -2px;
+  // height: 13px;
 }
 
 sup {
   font-size: 0.8em;
+  line-height: 1.4;
   vertical-align: text-top;
+  margin-right: -0.1em;
 }
 
 sub {
