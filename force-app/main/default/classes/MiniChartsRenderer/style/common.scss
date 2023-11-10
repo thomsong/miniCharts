@@ -1,15 +1,15 @@
 @use "./theme" as theme;
 
 // Firefox fix
-// @-moz-document url-prefix() {
-//   :root {
-//     --vw-100: 50vw !important;
-//   }
-// }
+@-moz-document url-prefix() {
+  :root {
+    --vw-100: 50vw !important;
+  }
+}
 
 :root {
-  // --vw-100: 100vw;
-  // --max-vw: min(var(--cw-px), var(--vw-100));
+  --vw-100: 100vw;
+  --max-vw: min(var(--cw-px), var(--vw-100));
 
   // Theme Vars
   @each $key, $val in theme.$vars {
@@ -24,11 +24,21 @@
     --c-t#{$i}:#{$theme-color};
   }
 
-  --gap: 20px;
+  // Adjust the vertical gap to scale up/down depending on canvas width
+  --vgap: clamp(5px, calc(var(--max-vw) * 0.05), 20px);
+  --hgap: 10px;
+
   // Default Font Settings
   color: var(--c-txt);
   font-size: 12px;
   line-height: 1;
   font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+svg > foreignObject {
+  width: var(--max-vw);
+  & > div {
+    width: var(--max-vw);
+  }
 }

@@ -96,10 +96,19 @@ const processClass = (savedFile) => {
       })
       .join("\n");
 
+    renderCode = renderCode
+      .replace(/\'[\s]*\+[\s]*\'/g, "")
+      .replace(/\'[\s]{1,}/g, "' ")
+      .replace(/[\s]{1,}\'/g, " '")
+      .replace(/[\s]*\+/g, " +")
+      .replace(/[\s]*\+[\s]*\'/g, "+'")
+      .replace(/\'[\s]*\+[\s]*/g, "'+");
+
     if (PRODUCTION) {
       renderCode = renderCode
-        .replace(/\'[\s]*\+[\s]*\'/g, "")
         .replace(/\';[\s]*output[\s]*\+\=[\s]*\'/g, "")
+        .replace(/\';[\s]*output[\s]*\+\=[\s]*/g, "' + ")
+        .replace(/\HTML;[\s]*output[\s]*\+\=[\s]*\'/g, "HTML + '")
         .replace("String output = '", "return '")
         .replace(/[\s]*return output;/, "");
     }

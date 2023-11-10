@@ -1,21 +1,22 @@
 .c {
-  flex-grow: 1;
-
+  container-name: c;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 
+  flex: 1 1 0;
   height: 100%;
-  min-width: 20px;
+  min-width: max(20px, var(--mw, 20px));
 
-  margin-right: var(--gap);
-
-  &:last-of-type {
-    margin-right: 0;
+  // A 'weak' component that doesn't expand beyond it's needs
+  &.wk {
+    max-width: max-content;
   }
 
   > .body,
   > .b {
     max-width: 100%;
+    container-type: normal;
   }
 }
 

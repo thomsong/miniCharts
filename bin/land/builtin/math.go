@@ -76,10 +76,23 @@ func init() {
 		[]*ast.Method{
 			ast.CreateMethod(
 				"floor",
-				DoubleType,
+				IntegerType,
 				[]*ast.Parameter{doubleTypeParameter},
 				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
-					return NewDouble(math.Floor(params[0].DoubleValue()))
+					return NewInteger(int64(math.Floor(params[0].DoubleValue())))
+				},
+			),
+		},
+	)
+	staticMethods.Set(
+		"ceil",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"ceil",
+				IntegerType,
+				[]*ast.Parameter{doubleTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return NewInteger(int64(math.Ceil(params[0].DoubleValue())))
 				},
 			),
 		},

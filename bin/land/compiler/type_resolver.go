@@ -359,7 +359,7 @@ func methodNotFoundError(classType *ast.ClassType, methodName string, parameters
 	for i, parameter := range parameters {
 		parameterStrings[i] = parameter.String()
 	}
-	// return fmt.Errorf("1 Method not found: %s.%s(%s)", classType.Name, methodName, strings.Join(parameterStrings, ", "))
+	return fmt.Errorf("1 Method not found: %s.%s(%s)", classType.Name, methodName, strings.Join(parameterStrings, ", "))
 }
 
 func fieldNotFoundError(classType *ast.ClassType, fieldName string) error {

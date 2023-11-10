@@ -1,13 +1,27 @@
 @use "slds" as slds;
 
 .lbl {
-  color: slds.$palette-neutral-30;
+  color: slds.$palette-neutral-40;
   line-height: 1.15;
 }
 
-.title .lbl {
-  margin-top: -2px;
-  // height: 13px;
+.title {
+  max-width: 100%;
+
+  .lbl {
+    margin-top: -2px;
+    flex-shrink: 1;
+    flex-grow: 1;
+
+    &.pct {
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Weak styles
+.wk .title {
+  width: fit-content;
 }
 
 sup {

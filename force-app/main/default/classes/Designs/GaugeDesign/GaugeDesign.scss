@@ -1,20 +1,35 @@
 .GaugeDesign {
-  --h-px2: calc(var(--h-px) * 2);
-
-  --ttl-h: 0;
-
-  &:has(.title) {
-    --ttl-h: 13;
-  }
-
+  // VARS TO BE PASSED IN
   .b {
     --bgc: var(--c-bg-empty-fill); //#f1f1f0;
     --fillc: #3296ed;
     // --fillc: linear-gradient(to right, red, blue);
+  }
 
-    .title {
-      height: calc(var(--ttl-h) * 1px);
-      color: #595959;
+  --h-px2: calc(var(--h-px) * 2);
+  --ttl-h: 0;
+
+  &:has(.title) {
+    --ttl-h: 13;
+
+    .chart-crop {
+      --ch: calc(var(--h) - var(--ttl-h));
+      --scl: calc(var(--ch) / var(--h));
+
+      width: calc(var(--h-px2) * var(--scl));
+      height: calc(var(--ch) * 1px);
+
+      .chart {
+        transform: scale(var(--scl));
+        transform-origin: top left;
+      }
+    }
+  }
+
+  .title {
+    height: calc(var(--ttl-h) * 1px);
+    .lbl:last-child {
+      display: none;
     }
   }
 
@@ -23,37 +38,74 @@
     span {
       display: block;
       background: #fffd;
+      border-radius: 2px;
+      padding: 0px 1px 0 1px;
+      font-size: var(--v-lbl-px);
     }
   }
 
   &.sz1 {
+    --mw: var(--h-px2);
+    --v-lbl-px: 8px;
+
+    .b {
+      display: flex;
+    }
+
     &:has(.title) {
       .value.lbl {
         display: none;
       }
+      .chart-crop {
+        --ch: var(--h);
+      }
+    }
+
+    .title {
+      height: var(--h-px);
+      max-width: calc(100% - var(--h-px2));
+      padding-left: 10px;
+      box-sizing: border-box;
+
+      .lbl:last-child {
+        display: block;
+        font-size: 9px;
+        height: 9px;
+      }
+    }
+    .chart {
+      transform: none;
     }
 
     .value.lbl span {
-      font-size: 6.5px;
-      padding: 0px 1px 0 1px;
-      border-radius: 2px;
+      border-radius: 5px 5px 0 0;
+      padding: 0 1px;
+      letter-spacing: -0.05em;
+      font-weight: 500;
     }
   }
 
-  &.sz2 .value.lbl span {
-    font-size: 15px;
-    padding: 0px 1px 0 1px;
-    border-radius: 2px;
+  &.sz2 {
+    --v-lbl-px: 15px;
   }
 
-  &.sz3 .value.lbl span {
-    font-size: 24px;
-    padding: 0px 1px 0 1px;
-    border-radius: 2px;
+  &.sz3 {
+    --v-lbl-px: 24px;
   }
 
   .g {
+    line,
+    .empty {
+      transform: rotate(calc(var(--pct) * 1.8deg));
+      transform-origin: center bottom;
+    }
+
     line {
+      &.target {
+        --sw: calc(var(--gp) * 2);
+        outline: 2px solid white;
+      }
+
       stroke: var(--sc, var(--c-bg));
       stroke-width: var(--sw, var(--gp));
     }
@@ -63,24 +115,6 @@
       stroke-width: var(--s);
       stroke: var(--bgc);
     }
-
-    line,
-    .empty {
-      transform: rotate(calc(var(--pct) * 1.8deg));
-      transform-origin: center bottom;
-
-      // animation: GaugeDesign-fill 0.5s;
-      // @keyframes GaugeDesign-fill {
-      //   0% {
-      //     transform: none;
-      //   }
-      // }
-    }
-  }
-
-  foreignObject {
-    width: var(--h-px2);
-    height: var(--h-px);
   }
 
   .fill {
@@ -109,55 +143,9 @@
     }
   }
 
-  .target {
-    --sw: calc(var(--gp) * 2);
-  }
-
   .chart {
     position: relative;
     height: var(--h-px);
     width: var(--h-px2);
-  }
-
-  &:has(.title) .chart-crop {
-    --ch: calc(var(--h) - var(--ttl-h));
-    --scl: calc(var(--ch) / var(--h));
-
-    width: calc(var(--h-px2) * var(--scl));
-    height: calc(var(--ch) * 1px);
-
-    .chart {
-      transform: scale(var(--scl));
-      transform-origin: top left;
-    }
-  }
-
-  .title .lbl:last-child {
-    display: none;
-  }
-
-  &.sz1 {
-    &:has(.title) .chart-crop {
-      --ch: var(--h);
-    }
-
-    .b {
-      display: flex;
-    }
-    .title {
-      height: var(--h-px);
-      max-width: calc(100% - var(--h-px2));
-      padding-right: 10px;
-      box-sizing: border-box;
-
-      .lbl:last-child {
-        display: block;
-        font-size: 9px;
-        height: 9px;
-      }
-    }
-    .chart {
-      transform: none;
-    }
   }
 }

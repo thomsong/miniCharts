@@ -24,6 +24,19 @@
 
       &.sz1 {
         --b-lbl-h: 5px; //17
+
+        .target .lbl {
+          font-weight: 400;
+
+          background: var(--target-bg-color);
+
+          font-size: 7px;
+          font-weight: 400;
+          outline: 0.75px solid #fff;
+          // height: 10px;
+          padding: 0px 2px 1px 2px;
+          border-radius: 2px;
+        }
       }
     }
   }
@@ -66,7 +79,7 @@
     --fillc: #3296ed;
     // --fillc: linear-gradient(to right, var(--c-t3) 0px, var(--c-t1) 100cqw);
 
-    container-type: inline-size;
+    // container-type: inline-size;
     width: 100%;
     height: var(--h-px);
 
@@ -108,7 +121,10 @@
       justify-content: space-between;
       align-items: flex-start;
       height: calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));
-      color: #595959;
+
+      .lbl:not(:last-of-type) {
+        padding-right: 1ch;
+      }
     }
   }
 
@@ -116,14 +132,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    container-type: inline-size;
+    min-width: 20px;
     max-height: var(--max-bar-height);
 
     .fill {
       position: relative;
       height: var(--bar-height);
-      container-type: inline-size;
+      // container-type: inline-size;
       overflow: hidden;
 
       --rad: 0;
@@ -262,13 +277,13 @@
       background: var(--target-bg-color);
       color: #fff;
       width: max-content;
-      max-width: 50cqw;
+      // max-width: 50cqw; TODO
 
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 400;
       outline: 1.5px solid #fff;
       // height: 10px;
-      padding: 1.5px 3px 1px 3px;
+      padding: 0 3px 1px 3px;
       border-radius: 3px;
       z-index: 2;
     }
@@ -290,10 +305,6 @@
   }
 
   &.sz1 {
-    &:has(.target) {
-      // --b-lbl-h: 9px;
-    }
-
     // Has Title
     .body:has(.title) {
       --ttl-h: 13px;

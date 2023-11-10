@@ -8,6 +8,9 @@ span.tc {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  max-width: 100%;
+  width: max-content;
 }
 
 .sz1 {
@@ -144,40 +147,7 @@ span.tc {
 .br {
   align-items: flex-end;
 }
-//
-// .tl {
-//   justify-content: flex-start;
-//   align-items: flex-start;
-// }
-// .tm {
-//   justify-content: flex-start;
-//   align-items: center;
-// }
-// .tr {
-//   justify-content: flex-start;
-//   align-items: flex-end;
-// }
-// .ml {
-//   justify-content: center;
-//   align-items: flex-start;
-// }
-// .mm {
-//   justify-content: center;
-//   align-items: center;
-// }
-// .mr {
-//   justify-content: center;
-//   align-items: flex-end;
-// }
-// .bl {
-//   justify-content: flex-end;
-//   align-items: flex-start;
-// }
-// .bm {
-//   justify-content: flex-end;
-//   align-items: center;
-// }
-// .br {
-//   justify-content: flex-end;
-//   align-items: flex-end;
-// }
+
+foreignObject > div.ctn {
+  row-gap: var(--hgap);
+}
