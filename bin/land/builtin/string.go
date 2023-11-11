@@ -1,12 +1,13 @@
 package builtin
 
 import (
-	"strings"
-
+	"html"
 	"regexp"
+	"strings"
 
 	"github.com/tzmfreedom/land/ast"
 )
+
 
 var stringTypeRef = &ast.TypeRef{
 	Name:       []string{"String"},
@@ -201,6 +202,18 @@ func createStringType(c *ast.ClassType) *ast.ClassType {
 			},
 		),
 	})
+
+	instanceMethods.Set("escapeHtml4", []*ast.Method{
+		ast.CreateMethod(
+			"escapeHtml4",
+			StringType,
+			[]*ast.Parameter{},
+			func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+				return NewString(html.EscapeString(this.StringValue()))
+			},
+		),
+	})
+
 	instanceMethods.Set("split", []*ast.Method{
 		ast.CreateMethod(
 			"split",

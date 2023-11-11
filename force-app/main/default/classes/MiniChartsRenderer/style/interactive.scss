@@ -1,0 +1,15 @@
+.int {
+  *,
+  *::before,
+  *::after {
+    user-select: none;
+  }
+
+  .lbl {
+    //   cursor: pointer !important;
+
+    &:hover {
+      color: red !important;
+    }
+  }
+}

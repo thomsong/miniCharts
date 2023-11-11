@@ -2,8 +2,8 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
     @TestVisible
     private String RENDER_TEMPLATE(Map<String, Object> props) {
         // Integer cmpId = MiniChartsRenderer.getCmpIdx();
-        Integer rowHeight = (Integer)props.get('height');
-        Integer componentSize = (Integer)props.get('sz');
+        Integer rowHeight = (Integer)props.get('__height');
+        Integer componentSize = (Integer)props.get('__sz');
         
         Integer pct = Math.round(Math.random() * 100);
         Integer target = Math.round(Math.random() * 100);
@@ -121,8 +121,8 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
-        Integer rowHeight = (Integer)props.get('height');
-        Integer componentSize = (Integer)props.get('sz');
+        Integer rowHeight = (Integer)props.get('__height');
+        Integer componentSize = (Integer)props.get('__sz');
         Integer pct = Math.round(Math.random() * 100);
         Integer target = Math.round(Math.random() * 100);
         /* //////////////////////////////////////////////// */

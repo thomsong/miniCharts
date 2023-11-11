@@ -2,6 +2,10 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
+  // Tells browsers to print with BGs
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 b {

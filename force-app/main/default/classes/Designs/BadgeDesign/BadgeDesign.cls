@@ -24,15 +24,16 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         Map<String, Object> defaultProps = new Map<String, Object>();
         defaultProps.put('stl', 'default_outline'); //  Style See: BadgeDesign.styles
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
-        defaultProps.put('txt', 'ERR:1*'); // Should never happen
+        defaultProps.put('txt', 'Null'); // Should never happen
         
         ///////////////////////////////////////////////////////
         Map<String, Object> props =  MiniChartsHelper.getProps(p, defaultProps);        
         
         String style = (String)props.get('stl');
         Integer radiusSize = (Integer)props.get('rad');
-        String badgeText = (String)props.get('txt'); //'Amt: ' + MiniChartsHelper.generateLabelText('$' + String.valueOf(amt));
+        String badgeText = (String)props.get('txt');
         Boolean hasIcon = false;
+        
         ///////////////////////////////////////////////////////
         List<String> styleColors;
 
@@ -40,7 +41,8 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
             styleColors = style.split(',');
         } else {
             String styleTheme = BadgeDesign.styles.get(style);
-            
+            hasIcon = true;
+
             if (styleTheme == null) {
                 style = 'default_outline';
                 styleTheme = BadgeDesign.styles.get(style);
@@ -53,19 +55,15 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         }
         
         ///////////////////////////////////////////////////////
-        // 'utility', 'success'|'warning'|'info'|'error'
         String badgeIconHTML = '';
-
         if (hasIcon) {
-            String iconName = MiniChartsIcons.getIcon('utility', style);
             badgeIconHTML = ''
                 + '<div class="ico">'
                     + '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">'
-                        + '<use style="fill:var(--sc0)" href="#ico-' + iconName + '" />'
+                        + '<use style="fill:var(--sc0)" href="#ico-' + MiniChartsIcons.getIcon('utility', style) + '" />'
                     + '</svg>'
                 + '</div>';
         }
-
 
         ///////////////////////////////////////////////////////
         // Start Building Output - This Should Always Be Last
@@ -88,17 +86,18 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         Map<String, Object> defaultProps = new Map<String, Object>();
         defaultProps.put('stl', 'default_outline'); //  Style See: BadgeDesign.styles
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
-        defaultProps.put('txt', 'ERR:1*'); // Should never happen
+        defaultProps.put('txt', 'Null'); // Should never happen
         Map<String, Object> props =  MiniChartsHelper.getProps(p, defaultProps);
         String style = (String)props.get('stl');
         Integer radiusSize = (Integer)props.get('rad');
-        String badgeText = (String)props.get('txt'); //'Amt: '+MiniChartsHelper.generateLabelText('$'+String.valueOf(amt));
+        String badgeText = (String)props.get('txt');
         Boolean hasIcon = false;
         List<String> styleColors;
         if (style.contains(',')) {
             styleColors = style.split(',');
         } else {
             String styleTheme = BadgeDesign.styles.get(style);
+            hasIcon = true;
             if (styleTheme == null) {
                 style = 'default_outline';
                 styleTheme = BadgeDesign.styles.get(style);
@@ -110,8 +109,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         }
         String badgeIconHTML = '';
         if (hasIcon) {
-            String iconName = MiniChartsIcons.getIcon('utility', style);
-            badgeIconHTML = '<div class="ico"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--sc0)" href="#ico-'+iconName+'" /></svg></div>';
+            badgeIconHTML = '<div class="ico"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--sc0)" href="#ico-'+MiniChartsIcons.getIcon('utility', style)+'" /></svg></div>';
         }
         String output = '';
         output += '<div class="body fxr aic rd'+radiusSize+'" style="--sc0:'+styleColors[0]+';--sc1:'+styleColors[1]+';--sc2:'+styleColors[2]+';--sc3:'+styleColors[3]+';">';
