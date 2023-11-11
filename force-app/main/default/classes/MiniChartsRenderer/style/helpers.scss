@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 b {
   font-weight: 600;
 }
@@ -60,6 +66,7 @@ span.tc {
 .aife {
   align-items: flex-end;
 }
+
 .jcsb {
   justify-content: space-between;
 }

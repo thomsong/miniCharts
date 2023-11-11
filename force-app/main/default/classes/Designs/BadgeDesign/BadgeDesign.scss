@@ -1,0 +1,40 @@
+.BadgeDesign {
+  --sc0: black;
+  --sc1: black;
+  --sc2: white;
+  --sc3: black;
+
+  --rad: 0;
+
+  .body {
+    height: 20px;
+    padding: 0 5px;
+
+    &.rd1 {
+      --rad: 3px;
+    }
+
+    &.rd2 {
+      --rad: 10px;
+    }
+
+    background-color: var(--sc2);
+    border-radius: var(--rad);
+    border: 1.5px solid var(--sc3);
+
+    > .lbl {
+      color: var(--sc1);
+    }
+
+    .ico {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 4px;
+
+      svg {
+        height: 13px;
+      }
+    }
+  }
+}

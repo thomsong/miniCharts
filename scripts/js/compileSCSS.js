@@ -108,7 +108,7 @@ const processClass = (savedFile) => {
       renderCode = renderCode
         .replace(/\';[\s]*output[\s]*\+\=[\s]*\'/g, "")
         .replace(/\';[\s]*output[\s]*\+\=[\s]*/g, "' + ")
-        .replace(/\HTML;[\s]*output[\s]*\+\=[\s]*\'/g, "HTML + '")
+        .replace(/\HTML;[\s]*output[\s]*\+\=[\s]*/g, "HTML + ")
         .replace("String output = '", "return '")
         .replace(/[\s]*return output;/, "");
     }

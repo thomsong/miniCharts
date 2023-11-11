@@ -85,6 +85,19 @@ func init() {
 		},
 	)
 	staticMethods.Set(
+		"abs",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"abs",
+				DoubleType,
+				[]*ast.Parameter{doubleTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return NewDouble(math.Abs(params[0].DoubleValue()))
+				},
+			),
+		},
+	)
+	staticMethods.Set(
 		"ceil",
 		[]*ast.Method{
 			ast.CreateMethod(
@@ -97,6 +110,34 @@ func init() {
 			),
 		},
 	)
+	staticMethods.Set(
+		"min",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"min",
+				IntegerType,
+				[]*ast.Parameter{IntegerTypeParameter,IntegerTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return NewInteger( int64( math.Min( float64(params[0].IntegerValue()), float64(params[1].IntegerValue()) ) ) )
+				},
+			),
+		},
+	)
+
+	staticMethods.Set(
+		"max",
+		[]*ast.Method{
+			ast.CreateMethod(
+				"max",
+				IntegerType,
+				[]*ast.Parameter{IntegerTypeParameter,IntegerTypeParameter},
+				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
+					return NewInteger( int64( math.Max( float64(params[0].IntegerValue()), float64(params[1].IntegerValue()) ) ) )
+				},
+			),
+		},
+	)
+
 	staticMethods.Set(
 		"round",
 		[]*ast.Method{
