@@ -2,7 +2,9 @@ public with sharing class MiniChartsFillPatterns {
     public static Set<String> usedPatterns = new Set<String> ();
     public static String getPattern(String name) {
         MiniChartsFillPatterns.usedPatterns.add(name);
-        return '--ptrn-' + name;
+        
+        return '--ptrn-' + MiniChartsFillPatterns.usedPatterns.size();
+        // return '--ptrn-' + name;
     }
 
     public static String getPatternVars() {
@@ -11,8 +13,11 @@ public with sharing class MiniChartsFillPatterns {
         }
         
         String style = ':root{';
+        Integer idx = 0;
         for(String patternName: MiniChartsFillPatterns.usedPatterns) {
-            style += '--ptrn-' + patternName +  MiniChartsFillPatterns.patterns.get(patternName);// + '\n';
+            idx++;
+            style += '--ptrn-' + idx +  MiniChartsFillPatterns.patterns.get(patternName);
+            // style += '--ptrn-' + patternName +  MiniChartsFillPatterns.patterns.get(patternName) + '\n';
         }
         return style + '}';
     }

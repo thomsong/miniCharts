@@ -1,0 +1,140 @@
+.TextDesign {
+  font-size: 13px;
+
+  --fs: 1em;
+  --lc: 1;
+
+  .txt {
+    line-height: 1.15;
+    height: fit-content;
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--lc);
+
+    // Indent the text to align
+    // Hack to fix Firefox SVG rendering with --lc = 1
+    &:has(svg) {
+      // Goal is 0 for 1 line and 1em for 2+
+      padding-left: min(1em, calc(calc(var(--lc) - 1) * 1em));
+
+      // Goal is 0 for 1 line and -1em for 2+
+      text-indent: max(-1em, calc(calc(var(--lc) - 1) * -1em));
+    }
+  }
+
+  // &.sz1 :not(.fxsm), .fxlg, .fxxlg {
+  //     // We don't need the extra line-clamp stuff for one line
+  //     .txt {
+  //       color: red !important;
+  //     }
+  //   }
+  // }
+
+  & svg {
+    height: 0.8em;
+    vertical-align: middle;
+    margin: -0.2em 0.2em 0 0;
+  }
+
+  //////////
+
+  &.sz1 {
+    .fxsm {
+      --lc: 2;
+    }
+  }
+
+  &.sz2 {
+    --lc: 2;
+
+    .fxsm {
+      --lc: 4;
+    }
+
+    .fsm {
+      --lc: 3;
+    }
+  }
+
+  &.sz3 {
+    --lc: 4;
+
+    .fxsm {
+      --lc: 6;
+    }
+
+    .fsm {
+      --lc: 5;
+    }
+
+    .flg {
+      --lc: 3;
+    }
+
+    .fxlg {
+      --lc: 2;
+    }
+  }
+
+  //////////
+
+  :is(.flg, .fxlg, .fxxlg) {
+    font-weight: 300;
+  }
+
+  .fxsm {
+    --fs: 0.65em;
+  }
+
+  .fsm {
+    --fs: 0.75em;
+  }
+
+  .fmd {
+    --fs: 1em;
+  }
+
+  .flg {
+    --fs: 1.35em;
+  }
+
+  .fxlg {
+    --fs: 1.85em;
+    --lc: 1;
+  }
+
+  .fxxlg {
+    --fs: 2.5em;
+    --lc: 1;
+  }
+
+  //////////
+
+  &.sz1 {
+    :is(.fxlg, .fxxlg) {
+      --fs: 1.35em;
+    }
+  }
+
+  //////////
+
+  &:is(.tm, .mm, .rm) {
+    .txt {
+      text-align: center;
+    }
+  }
+
+  &:is(.tr, .mr, .rr) {
+    .txt {
+      text-align: right;
+    }
+  }
+
+  &:is(.tm, .mm, .rm, .tr, .mr, .rr) {
+    .txt {
+      padding: 0;
+      text-indent: 0;
+    }
+  }
+}
