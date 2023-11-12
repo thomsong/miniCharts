@@ -20,7 +20,7 @@ public with sharing class TextDesign implements MiniChartsDesign {
         if (iconName != '') {
             iconHTML = ''
                 + '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">'
-                    + '<use style="fill:var(--icoc)" href="#ico-' + MiniChartsIcons.getIcon('utility', iconName) + '" />'
+                    + '<use style="fill:var(--icoc)" href="#' + MiniChartsIcons.getIcon('utility', iconName) + '" />'
                 + '</svg>';
         }
 
@@ -52,7 +52,7 @@ public with sharing class TextDesign implements MiniChartsDesign {
         /* //////////////////////////////////////////////// */
         String iconHTML = '';
         if (iconName != '') {
-            iconHTML = '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#ico-'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg>';
+            iconHTML = '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg>';
         }
         String textHTML = MiniChartsHelper.generateLabelText('Helgo Wgrld Helgo Wgrld Helgo Wgrld Helgo Wgrld Helgo Wgrld Helgo WgrldHelgo Wgrld Helgo Wgrld Helgo Wgrld Helgo Wgrld Helgo Wgrld Helgo Wgrld');
         String output = '';

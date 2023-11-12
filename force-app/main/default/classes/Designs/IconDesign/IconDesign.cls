@@ -19,7 +19,7 @@ public with sharing class IconDesign implements MiniChartsDesign {
                         + '<stop offset="' + pctFill + '%" stop-color="' + fillColor + '" />'
                         + '<stop offset="' + pctFill + '%" stop-color="' + emptyColor + '" />'
                     + '</linearGradient>'
-                    + '<use style="fill:url(#fl-' + cmpId + ')" href="#ico-' + iconName + '" />'
+                    + '<use style="fill:url(#fl-' + cmpId + ')" href="#' + iconName + '" />'
                     // + icon
                 + '</svg>\n'
 
@@ -37,6 +37,6 @@ public with sharing class IconDesign implements MiniChartsDesign {
         String iconName = MiniChartsIcons.getIcon('internal', 'star');
         String fillColor = '#fcc005';
         String emptyColor = '#ddd';
-        return '<div class="body fxr aic"><div class="ico fx jcc aic">\n<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><linearGradient id="fl-'+cmpId+'" '+(fillVertical ? 'x1="0%" y1="100%" x2="0%" y2="0%">' : '>')+'<stop offset="'+pctFill+'%" stop-color="'+fillColor+'" /><stop offset="'+pctFill+'%" stop-color="'+emptyColor+'" /></linearGradient><use style="fill:url(#fl-'+cmpId+')" href="#ico-'+iconName+'" /></svg>\n</div></div>';
+        return '<div class="body fxr aic"><div class="ico fx jcc aic">\n<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><linearGradient id="fl-'+cmpId+'" '+(fillVertical ? 'x1="0%" y1="100%" x2="0%" y2="0%">' : '>')+'<stop offset="'+pctFill+'%" stop-color="'+fillColor+'" /><stop offset="'+pctFill+'%" stop-color="'+emptyColor+'" /></linearGradient><use style="fill:url(#fl-'+cmpId+')" href="#'+iconName+'" /></svg>\n</div></div>';
     }
 }

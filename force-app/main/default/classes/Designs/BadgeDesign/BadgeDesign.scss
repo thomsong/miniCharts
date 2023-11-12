@@ -1,12 +1,13 @@
 ._ {
-  --sc0: #000;
-  --sc1: #000;
-  --sc2: #fff;
-  --sc3: #000;
+  --sc1: black;
+  --sc2: transparent;
 
   --rad: 0;
 
-  .body {
+  .b {
+    --sc0: var(--sc1);
+    --sc3: var(--sc2);
+
     height: 20px;
     padding: 0 5px;
 

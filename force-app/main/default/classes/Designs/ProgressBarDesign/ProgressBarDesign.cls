@@ -4,7 +4,7 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         Integer pct = Math.round(Math.random() * 100);
         Integer target = Math.round(Math.random() * 100);
 
-        String patternName = MiniChartsFillPatterns.getPattern('battery-rounded');
+        // String patternName = MiniChartsFillPatterns.getPattern('battery-rounded');
         
         ///////////////////////////////////////////////////////
         // String progressLabel = this.generateLabel(String.valueOf(pct) + '%', 'lbl tar tcd');
@@ -26,8 +26,9 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         // Do not use if / conditionals
         // APEX will use StringBuilder on SFDC when Compressed
         ///////////////////////////////////////////////////////
+        //--svg-pattern: var(' + patternName + ');
         String output = '';
-        output += '<div class="body" style="--svg-pattern: var(' + patternName + ');--pct:' + pct + '%">';
+        output += '<div class="body" style="--pct:' + pct + '%">';
             output += titleHTML;
             output += '<div class="bwrap fx aic">';
                 output += '<div class="bar fg">';
@@ -49,7 +50,6 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
     public String render(Map<String, Object> props) {
         Integer pct = Math.round(Math.random() * 100);
         Integer target = Math.round(Math.random() * 100);
-        String patternName = MiniChartsFillPatterns.getPattern('battery-rounded');
         Decimal amt = (Math.random() * 10000000.0) - 5000000;
         String valueLabelHTML = '<div class="lbl tal tcd">'+MiniChartsHelper.generateLabelText('$'+String.valueOf(amt))+'</div>';
         String titleHTML = '';
@@ -57,7 +57,7 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
             titleHTML = '<div class="title"><div class="lbl tal tcd"><span>Win Rate</span></div>'+valueLabelHTML+'</div>';
         }
         String output = '';
-        output += '<div class="body" style="--svg-pattern: var('+patternName+');--pct:'+pct+'%">';
+        output += '<div class="body" style="--pct:'+pct+'%">';
             output += titleHTML;
             output += '<div class="bwrap fx aic">';
                 output += '<div class="bar fg">';

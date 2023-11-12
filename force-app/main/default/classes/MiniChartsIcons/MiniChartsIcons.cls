@@ -5,15 +5,16 @@ public with sharing class MiniChartsIcons {
     }
 
     public static String getIcon(String namespace, String name) {
-        MiniChartsIcons.usedIcons.add(new String[]{namespace, name});
-        return namespace + '-' + name;
+        String idx = 'i' + MiniChartsIcons.usedIcons.size();
+        MiniChartsIcons.usedIcons.add(new String[]{idx, namespace, name});
+        return idx;
     }
 
-    public static String getIconSymbol(String namespace, String name) {
+    public static String getIconSymbol(String idx, String namespace, String name) {
         if (namespace == 'internal') {
-            return MiniChartsInternalIcons.getIconSymbol(name);
+            return MiniChartsInternalIcons.getIconSymbol(idx, name);
         } else if (namespace == 'utility') {
-            return MiniChartsUtilityIcons.getIconSymbol(name);
+            return MiniChartsUtilityIcons.getIconSymbol(idx, name);
         } else if (namespace == 'user') {
             // TODO - User uploaded
         }
@@ -22,12 +23,15 @@ public with sharing class MiniChartsIcons {
     }
 
     public static String getUsedIconSymbols() {
-        String symbols = '\n<defs>';
-        // System.debug(MiniChartsIcons.usedIcons);
-        for(String[] icon: MiniChartsIcons.usedIcons) {
-            symbols += MiniChartsIcons.getIconSymbol(icon[0], icon[1]); // + '\n';
+        if (MiniChartsIcons.usedIcons.size() == 0) {
+            return '';
         }
-        
-        return symbols + '</defs>\n';
+
+        String symbols = '\n<defs>\n';
+        for(String[] icon: MiniChartsIcons.usedIcons) {
+            symbols += MiniChartsIcons.getIconSymbol(icon[0], icon[1], icon[2]); // + '\n';
+        }
+
+        return symbols + '\n</defs>';
     }
 }

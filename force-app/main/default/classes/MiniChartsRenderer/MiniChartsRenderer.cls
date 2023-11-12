@@ -196,17 +196,18 @@ public with sharing class MiniChartsRenderer {
 
         String svgCharts = '';
         String chartStyle = '';
+        Integer cmpIdx = 0;
         for ( Map<String, Object> canvasRow: canvasRows) {
             Integer rowHeight = (Integer)canvasRow.get('h');
             List<Map<String, Object>> rowComponents = (List<Map<String, Object>>)canvasRow.get('cmps');
 
             if (rowComponents == null) {
                 // Row Space
-                svgCharts += '<div style="height:' + rowHeight + 'px"></div>\n';
+                svgCharts += '  <div style="height:' + rowHeight + 'px"></div>\n';
                 continue;
             }
 
-            svgCharts += '<div style="--c-cnt:' + rowComponents.size() + ';--h:' + rowHeight + ';--h-px:' + rowHeight + 'px" class="r">\n';
+            svgCharts += '  <div style="--c-cnt:' + rowComponents.size() + ';--h:' + rowHeight + ';--h-px:' + rowHeight + 'px" class="r">\n';
             for ( Map<String, Object> component: rowComponents) {
                 String chartType = (String)component.get('t');
 
@@ -222,7 +223,7 @@ public with sharing class MiniChartsRenderer {
                 // Add component style if neeeded
                 if (designIndex == -1) {
                     designIndex = usedStyles.size();
-                    chartStyle += '._' + designIndex + '{' + design.getStyle() + '}';
+                    chartStyle += ' ._' + designIndex + '{' + design.getStyle() + '}\n';
                     
                     usedStyles.add(chartType);
                 }
@@ -255,26 +256,32 @@ public with sharing class MiniChartsRenderer {
                 /////////////////////////
                 Integer componentSize = Math.floor(rowHeight/20.0).intValue();
 
-                String weakClass = weak ? ' wk' : '';
+                String cmpClass = weak ? ' c wk ' : ' c ';
                 String strMaxWidth = maxWidth > 0 ? '--mw:' + maxWidth + 'px;' : '';
                 String strComponentGap = componentGap >= 0 ? '--gap:' + componentGap + 'px;' : '';
-
-                Map<String, Object> designProps = new Map<String, Object>();
+                String style = '';
+                if (strMaxWidth != '' || strComponentGap != '') {
+                    style = 'style="' + strMaxWidth + strComponentGap +'" ';
+                }
+                component.put('__cmpIdx', cmpIdx);
                 component.put('__height', rowHeight);
                 component.put('__sz', componentSize);
-
-                svgCharts += '<div id="c' +  designIndex + '" style="' + strMaxWidth + strComponentGap +'" class="_' + designIndex + weakClass + ' c ' + alignment + ' sz' + componentSize + '">'
+                
+                svgCharts += '   <div id="c' + cmpIdx + '" ' + style + 'class="_' + designIndex + cmpClass + alignment + ' sz' + componentSize + '">\n    '
                     + design.render(component)
-                + '</div>\n';
+                + '\n   </div>\n';
+
+                cmpIdx++;
             }
-            // svgCharts += '<div style="flex: 500 500 0"></div>';
-            svgCharts += '</div>\n';
+            
+            svgCharts += '  </div>\n';
         }
 
         return '<svg id="_mc" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin slice" width="' + canvasWidth + '" height="' + canvasHeight + '" viewBox="0 0 ' + canvasWidth + ' ' + canvasHeight +'" style="--cw-px:' + canvasWidth + 'px;--ch-px:' + canvasHeight + 'px">\n'
                 // + '<script>document.getElementById("_mc").classList.add("int");</script>'
-                + '<style>/* <![CDATA[ */'
+                + '<style>/* <![CDATA[ */\n '
                     + GLOBAL_STYLE
+                    + '\n '
                     + MiniChartsFillPatterns.getPatternVars()
                     + chartStyle
                 + '/* ]]> */</style>'
@@ -283,8 +290,8 @@ public with sharing class MiniChartsRenderer {
                 + MiniChartsIcons.getUsedIconSymbols()
 
                 // Render Components
-                + '<foreignObject class="chpx"><div class="ctn wmvw fxc" xmlns="http://www.w3.org/1999/xhtml">'
+                + '\n<foreignObject class="chpx">\n <div class="ctn wmvw fxc" xmlns="http://www.w3.org/1999/xhtml">\n'
                     + svgCharts
-                + '</div></foreignObject>\n</svg>';
+                + ' </div>\n</foreignObject>\n</svg>';
     }
 }

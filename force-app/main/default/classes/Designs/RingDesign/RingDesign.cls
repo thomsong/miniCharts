@@ -1,7 +1,6 @@
 public with sharing class RingDesign implements MiniChartsDesign {
     @TestVisible
     private String RENDER_TEMPLATE(Map<String, Object> props) {
-        // Integer cmpId = MiniChartsRenderer.getCmpIdx();
         Integer rowHeight = (Integer)props.get('__height');
         Integer componentSize = (Integer)props.get('__sz');
         String titleText = 'Sales Goal';
@@ -9,9 +8,9 @@ public with sharing class RingDesign implements MiniChartsDesign {
         Boolean alwaysShowIcon = false;//true;
 
         Integer pct = Math.round(Math.random() * 100);
-        if (pct > 80) {
+        // if (pct > 99) {
             pct = 100;
-        }
+        // }
 
         /* //////////////////////////////////////////////// */
         String iconName = 'check';//check'; // check
@@ -81,7 +80,7 @@ public with sharing class RingDesign implements MiniChartsDesign {
             iconHTML = ''
                 + '<div class="ico fx jcc aic ' + iconName + '">'
                     + '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">'
-                        + '<use style="fill:var(--icoc)" href="#ico-' + MiniChartsIcons.getIcon('utility', iconName) + '" />'
+                        + '<use style="fill:var(--icoc)" href="#' + MiniChartsIcons.getIcon('utility', iconName) + '" />'
                     + '</svg>'
                 + '</div>';
         }
@@ -121,9 +120,7 @@ public with sharing class RingDesign implements MiniChartsDesign {
         String titleText = 'Sales Goal';
         Boolean alwaysShowIcon = false;//true;
         Integer pct = Math.round(Math.random() * 100);
-        if (pct > 80) {
             pct = 100;
-        }
         /* //////////////////////////////////////////////// */
         String iconName = 'check';//check'; // check
         string primaryColor = '#2E844A';//'#DD7A01';//'#2E844A';
@@ -159,7 +156,7 @@ public with sharing class RingDesign implements MiniChartsDesign {
         /* //////////////////////////////////////////////// */
         String iconHTML = '';
         if (iconName != '' && (alwaysShowIcon || pct >= 100)) {
-            iconHTML = '<div class="ico fx jcc aic '+iconName+'"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#ico-'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg></div>';
+            iconHTML = '<div class="ico fx jcc aic '+iconName+'"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg></div>';
         }
         /* //////////////////////////////////////////////// */
         String fullClass = pct >= 100 ? ' full' : '';
