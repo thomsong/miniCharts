@@ -61,7 +61,7 @@ func createSetType() {
 					listElement := params[0]
 					records := this.Extra["records"].([]*ast.Object)
 					for _, record := range records {
-						if checker.Equals(record, listElement) {
+						if checker.Equals(record, listElement) && String(record) == String(listElement) {
 							return nil
 						}
 					}

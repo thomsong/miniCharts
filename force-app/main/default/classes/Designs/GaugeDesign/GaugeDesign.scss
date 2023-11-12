@@ -103,7 +103,7 @@
     line {
       &.target {
         --sw: calc(var(--gp) * 2);
-        outline: 2px solid white;
+        outline: var(--gp) solid white;
       }
 
       stroke: var(--sc, var(--c-bg));

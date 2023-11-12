@@ -3,7 +3,7 @@ public with sharing class MiniChartsHelper {
         if (value.endsWith('%')) {
             // Percent 
             Decimal pctValue = Decimal.valueOf(value.substring(0,value.length()-1));
-            return '<span class="pct">' + pctValue.setScale(0) +'<sub>%</sub></span></div>';
+            return '<span class="pct">' + pctValue.setScale(0) +'<sub>%</sub></span>';
         } else {
             String firstCharacter = value.substring(0,1);
             if (firstCharacter == '$') {

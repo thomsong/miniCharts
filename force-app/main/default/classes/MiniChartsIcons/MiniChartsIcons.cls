@@ -23,6 +23,7 @@ public with sharing class MiniChartsIcons {
 
     public static String getUsedIconSymbols() {
         String symbols = '\n<defs>';
+        // System.debug(MiniChartsIcons.usedIcons);
         for(String[] icon: MiniChartsIcons.usedIcons) {
             symbols += MiniChartsIcons.getIconSymbol(icon[0], icon[1]); // + '\n';
         }

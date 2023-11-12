@@ -162,3 +162,16 @@ span.tc {
 foreignObject > div.ctn {
   row-gap: var(--hgap);
 }
+
+// aa = Auto Align - Inherit from component
+.tm .b.aa,
+.mm .b.aa,
+.bm .b.aa {
+  align-items: center;
+}
+
+.tr .b.aa,
+.mr .b.aa,
+.br .b.aa {
+  align-items: flex-end;
+}
