@@ -1,4 +1,4 @@
-.RingDesign {
+._ {
   --ttl-h: 0;
 
   &:has(.title) {
@@ -37,7 +37,7 @@
       --c-bg: var(--fillc);
 
       .ico {
-        --icoc: white;
+        --icoc: #fff;
       }
     }
   }
@@ -67,7 +67,7 @@
 
     &:not(:has(.full)):has(.ico):has(.value) {
       .ico {
-        svg {
+        & svg {
           height: calc(var(--h-px) / 4);
           margin-top: calc(var(--h-px) / -2.75);
         }
@@ -86,7 +86,7 @@
   .value {
     &.lbl {
       width: var(--h-px);
-      span {
+      & span {
         border-radius: 5px;
         padding: 0 1px;
         letter-spacing: -0.05em;
@@ -114,32 +114,35 @@
     background: var(--f);
     background-size: 100% 100%;
 
-    &::after {
-      content: "";
-      position: absolute;
+    --m: radial-gradient(
+      transparent calc((var(--h-px) - (var(--s) * 2px)) * 0.5),
+      #000 0
+    );
+    -webkit-mask: var(--m);
+    mask: var(--m);
 
-      --ss: calc(var(--s) * 1px);
-      --sh: calc(var(--h-px) - (var(--ss) * 2));
+    // &::after {
+    //   content: "";
+    //   position: absolute;
 
-      top: var(--ss);
-      left: var(--ss);
-      width: var(--sh);
-      height: var(--sh);
+    //   --ss: calc(var(--s) * 1px);
+    //   --sh: calc(var(--h-px) - (var(--ss) * 2));
 
-      border-radius: 50%;
-      background: var(--c-bg);
-    }
+    //   top: var(--ss);
+    //   left: var(--ss);
+    //   width: var(--sh);
+    //   height: var(--sh);
+
+    //   border-radius: 50%;
+    //   background: var(--c-bg);
+    // }
   }
 
   .ico {
     position: relative;
     height: var(--h-px);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    svg {
+    & svg {
       height: clamp(9px, calc(var(--h-px) / 2.5), 20px);
     }
 

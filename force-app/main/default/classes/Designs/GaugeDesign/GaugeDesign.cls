@@ -68,9 +68,9 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         /* //////////////////////////////////////////////// */
         String dividersHTML = '';
         if (true) {
-            dividersHTML += '<line style="--pct:25;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/>';
-            dividersHTML += '<line style="--pct:50;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/>';
-            dividersHTML += '<line style="--pct:75;--sw:' + gap + 'px" x1="' + radius + '" y1="' + radius + '" y2="' + radius + '"/>';
+            dividersHTML += '<line style="--pct:25;--sw:' + gap + 'px" x1="' + strokeWidth + '" y1="' + radius + '" y2="' + radius + '"/>';
+            dividersHTML += '<line style="--pct:50;--sw:' + gap + 'px" x1="' + strokeWidth + '" y1="' + radius + '" y2="' + radius + '"/>';
+            dividersHTML += '<line style="--pct:75;--sw:' + gap + 'px" x1="' + strokeWidth + '" y1="' + radius + '" y2="' + radius + '"/>';
         }
 
         /* //////////////////////////////////////////////// */
@@ -117,7 +117,7 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '.GaugeDesign{--h-px2: calc(var(--h-px) * 2);--ttl-h: 0}.GaugeDesign .b{--bgc: var(--c-bg-empty-fill);--fillc: #3296ed}.GaugeDesign:has(.title){--ttl-h: 13}.GaugeDesign:has(.title) .chart-crop{--ch: calc(var(--h) - var(--ttl-h));--scl: calc(var(--ch) / var(--h));width:calc(var(--h-px2)*var(--scl));height:calc(var(--ch)*1px)}.GaugeDesign:has(.title) .chart-crop .chart{transform:scale(var(--scl));transform-origin:top left}.GaugeDesign .title{height:calc(var(--ttl-h)*1px)}.GaugeDesign .title .lbl:last-child{display:none}.GaugeDesign .value.lbl{width:var(--h-px2)}.GaugeDesign .value.lbl span{display:block;background:rgba(255,255,255,.8666666667);border-radius:10px 10px 0 0;padding:0px 2px;font-size:var(--v-lbl-px)}.GaugeDesign.sz1{--mw: var(--h-px2);--v-lbl-px: 8px}.GaugeDesign.sz1 .b{display:flex}.GaugeDesign.sz1:has(.title) .value.lbl{display:none}.GaugeDesign.sz1:has(.title) .chart-crop{--ch: var(--h)}.GaugeDesign.sz1 .title{height:var(--h-px);max-width:calc(100% - var(--h-px2));padding-left:10px;box-sizing:border-box}.GaugeDesign.sz1 .title .lbl:last-child{display:block;font-size:9px;height:9px}.GaugeDesign.sz1 .chart{transform:none}.GaugeDesign.sz1 .value.lbl span{border-radius:5px 5px 0 0;padding:0 1px;letter-spacing:-0.05em;font-weight:500}.GaugeDesign.sz2{--v-lbl-px: 15px}.GaugeDesign.sz3{--v-lbl-px: 24px}.GaugeDesign .g line,.GaugeDesign .g .empty{transform:rotate(calc(var(--pct) * 1.8deg));transform-origin:center bottom}.GaugeDesign .g line{stroke:var(--sc, var(--c-bg));stroke-width:var(--sw, var(--gp))}.GaugeDesign .g line.target{--sw: calc(var(--gp) * 2);outline:var(--gp) solid #fff}.GaugeDesign .g path{fill:none;stroke-width:var(--s);stroke:var(--bgc)}.GaugeDesign .fill{width:calc(var(--h-px2) - .2px);height:calc(var(--h-px) - .2px);margin:.1px 0 0 .1px;border-radius:var(--h-px) var(--h-px) 0 0;background:var(--f);background-size:100% 200%}.GaugeDesign .fill::after{content:"";position:absolute;--ss: calc((var(--s) - 0.1) * 1px);--sh: calc(var(--h-px2) - (var(--ss) * 2));top:var(--ss);left:var(--ss);width:var(--sh);height:var(--sh);border-radius:50%;background:var(--c-bg)}.GaugeDesign .chart{position:relative;height:var(--h-px);width:var(--h-px2)}';}
+    public string getStyle() {return '--h-px2:calc(var(--h-px)*2);--ttl-h:0;--bgc:var(--c-bg-empty-fill);--fillc:#3296ed;&:has(.title){--ttl-h:13;.chart-crop{--ch:calc(var(--h) - var(--ttl-h));--scl:calc(var(--ch)/var(--h));width:calc(var(--h-px2)*var(--scl));height:calc(var(--ch)*1px);.chart{transform:scale(var(--scl));transform-origin:top left}}}.title{height:calc(var(--ttl-h)*1px);.lbl:last-child{display:none}}.value.lbl{width:var(--h-px2);& span{display:block;background:#fffd;border-radius:10px 10px 0 0;padding:0px 2px;font-size:var(--v-lbl-px)}}&.sz1{--mw:var(--h-px2);--v-lbl-px:8px;.b{display:flex}&:has(.title){.value.lbl{display:none}.chart-crop{--ch:var(--h)}}.title{height:var(--h-px);max-width:calc(100% - var(--h-px2));padding-left:10px;box-sizing:border-box;.lbl:last-child{display:block;font-size:9px;height:9px}}.chart{transform:none}.value.lbl span{border-radius:5px 5px 0 0;padding:0 1px;letter-spacing:-.05em;font-weight:500}}&.sz2{--v-lbl-px:15px}&.sz3{--v-lbl-px:24px}.g{& line,.empty{transform:rotate(calc(var(--pct)*1.8deg));transform-origin:center bottom}& line{&.target{--sw:calc(var(--gp)*2);outline:var(--gp) solid#fff}stroke:var(--sc,var(--c-bg));stroke-width:var(--sw,var(--gp))}& path{fill:none;stroke-width:var(--s);stroke:var(--bgc)}}.fill{--h02:calc(var(--h-px2) - .2px);width:var(--h02);height:var(--h02);margin:.1px 0 0 .1px;border-radius:var(--h-px) var(--h-px) 0 0;background:var(--f);--m:radial-gradient( transparent calc(var(--h-px) - (var(--s)*1px)),#000 0 );-webkit-mask:var(--m);mask:var(--m)}.chart{position:relative;height:var(--h-px);width:var(--h-px2)}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
@@ -164,9 +164,9 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         /* //////////////////////////////////////////////// */
         String dividersHTML = '';
         if (true) {
-            dividersHTML += '<line style="--pct:25;--sw:'+gap+'px" x1="'+radius+'" y1="'+radius+'" y2="'+radius+'"/>';
-            dividersHTML += '<line style="--pct:50;--sw:'+gap+'px" x1="'+radius+'" y1="'+radius+'" y2="'+radius+'"/>';
-            dividersHTML += '<line style="--pct:75;--sw:'+gap+'px" x1="'+radius+'" y1="'+radius+'" y2="'+radius+'"/>';
+            dividersHTML += '<line style="--pct:25;--sw:'+gap+'px" x1="'+strokeWidth+'" y1="'+radius+'" y2="'+radius+'"/>';
+            dividersHTML += '<line style="--pct:50;--sw:'+gap+'px" x1="'+strokeWidth+'" y1="'+radius+'" y2="'+radius+'"/>';
+            dividersHTML += '<line style="--pct:75;--sw:'+gap+'px" x1="'+strokeWidth+'" y1="'+radius+'" y2="'+radius+'"/>';
         }
         /* //////////////////////////////////////////////// */
         String output = '';

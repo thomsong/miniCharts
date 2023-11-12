@@ -5,3 +5,7 @@
 @use "./style/label";
 
 // @use "./style/interactive";
+:target {
+  background: red !important;
+  color: red !important;
+}

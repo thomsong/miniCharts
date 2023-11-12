@@ -36,8 +36,6 @@ sub {
   vertical-align: baseline;
 }
 
-.pct {
-  sub {
-    margin-left: 0.05em;
-  }
+.pct sub {
+  margin-left: 0.05em;
 }

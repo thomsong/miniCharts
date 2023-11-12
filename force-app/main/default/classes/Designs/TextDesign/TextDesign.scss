@@ -1,4 +1,4 @@
-.TextDesign {
+._ {
   font-size: 13px;
 
   --fs: 1em;
@@ -23,14 +23,6 @@
     }
   }
 
-  // &.sz1 :not(.fxsm), .fxlg, .fxxlg {
-  //     // We don't need the extra line-clamp stuff for one line
-  //     .txt {
-  //       color: red !important;
-  //     }
-  //   }
-  // }
-
   & svg {
     height: 0.8em;
     vertical-align: middle;
@@ -40,6 +32,13 @@
   //////////
 
   &.sz1 {
+    &:is(.tm, .mm, .rm) .txt {
+      text-align: center;
+    }
+
+    :is(.fxlg, .fxxlg) {
+      --fs: 1.35em;
+    }
     .fxsm {
       --lc: 2;
     }
@@ -77,8 +76,6 @@
     }
   }
 
-  //////////
-
   :is(.flg, .fxlg, .fxxlg) {
     font-weight: 300;
   }
@@ -109,32 +106,12 @@
     --lc: 1;
   }
 
-  //////////
-
-  &.sz1 {
-    :is(.fxlg, .fxxlg) {
-      --fs: 1.35em;
-    }
+  &:is(.tr, .mr, .rr) .txt {
+    text-align: right;
   }
 
-  //////////
-
-  &:is(.tm, .mm, .rm) {
-    .txt {
-      text-align: center;
-    }
-  }
-
-  &:is(.tr, .mr, .rr) {
-    .txt {
-      text-align: right;
-    }
-  }
-
-  &:is(.tm, .mm, .rm, .tr, .mr, .rr) {
-    .txt {
-      padding: 0;
-      text-indent: 0;
-    }
+  &:is(.tm, .mm, .rm, .tr, .mr, .rr) .txt {
+    padding: 0;
+    text-indent: 0;
   }
 }

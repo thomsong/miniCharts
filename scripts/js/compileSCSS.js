@@ -44,9 +44,51 @@ const processClass = (savedFile) => {
     process.exit();
   }
 
-  const compiledStyle = sass
-    .compile(scssPath, { style: "compressed" })
-    .css.toString();
+  let compiledStyle = "";
+  if (baseFile.endsWith("Design")) {
+    // Design Style
+    compiledStyle = fs.readFileSync(scssPath).toString();
+    compiledStyle = compiledStyle
+      .split("\n")
+      .map((line) => {
+        if (line.trim().startsWith("//")) {
+          return null;
+        }
+        return line;
+      })
+      .join("")
+      .replace(/[\s]+/g, " ")
+      .replace(/[\s]*:[\s]*/g, ":")
+      .replace(/[\s]*}[\s]*/g, "}")
+      .replace(/[\s]*{[\s]*/g, "{")
+      .replace(/[\s]*{[\s]*/g, "{")
+      .replace(/[\s]*;[\s]*/g, ";")
+      .replace(/[\s]*,[\s]+/g, ", ")
+      .replace(/[\s]*&[\s]+/g, "& ")
+      .replaceAll(", ", ",")
+      .replaceAll(";}", "}")
+      .replaceAll(" * ", "*")
+      .replaceAll(" / ", "/")
+      .replaceAll(", calc", ",calc")
+      .replaceAll("-0.", "-.")
+
+      .replaceAll(":0.", ":.")
+      .replaceAll(" 0.", " .")
+      .replaceAll(",0.", ",.")
+
+      .replaceAll(" #", "#")
+
+      .trim();
+
+    if (compiledStyle.startsWith("._{")) {
+      compiledStyle = compiledStyle.substring(3, compiledStyle.length - 1);
+    }
+  } else {
+    compiledStyle = sass
+      .compile(scssPath, { style: "compressed" })
+      .css.toString()
+      .replaceAll(": ", ":");
+  }
 
   const clsContents = fs.readFileSync(clsPath, "utf8");
 

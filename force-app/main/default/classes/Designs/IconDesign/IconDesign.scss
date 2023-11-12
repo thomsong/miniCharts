@@ -1,4 +1,4 @@
-.IconDesign {
+._ {
   --ico-sz: 40px;
 
   --sz: min(20px, var(--ico-sz));
@@ -13,18 +13,11 @@
   max-width: var(--sz);
 
   .body {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     gap: 3px;
   }
 
   .ico {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    svg {
+    & svg {
       width: var(--sz);
       max-width: min(var(--sz), 100%);
       max-height: min(var(--sz), 100%);

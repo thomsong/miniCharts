@@ -1,8 +1,8 @@
-.BadgeDesign {
-  --sc0: black;
-  --sc1: black;
-  --sc2: white;
-  --sc3: black;
+._ {
+  --sc0: #000;
+  --sc1: #000;
+  --sc2: #fff;
+  --sc3: #000;
 
   --rad: 0;
 
@@ -27,12 +27,9 @@
     }
 
     .ico {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       margin-right: 4px;
 
-      svg {
+      & svg {
         height: 13px;
       }
     }

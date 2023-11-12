@@ -11,7 +11,7 @@
 }
 
 .tcd,
-div.tc span,
+.tc span,
 span.tc {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -22,18 +22,15 @@ span.tc {
 }
 
 .sz1 {
-  // prettier-ignore
-  --bdy-h:20px;
+  --bdy-h: 20px;
 }
 
 .sz2 {
-  // prettier-ignore
-  --bdy-h:40px;
+  --bdy-h: 40px;
 }
 
 .sz3 {
-  // prettier-ignore
-  --bdy-h:60px;
+  --bdy-h: 60px;
 }
 
 .sz1 .h-sz1,
@@ -59,21 +56,8 @@ span.tc {
 .fwnw {
   flex-wrap: nowrap;
 }
-.aifs {
-  align-items: flex-start;
-}
-.aic {
-  align-items: center;
-}
-.aife {
-  align-items: flex-end;
-}
-
 .jcsb {
   justify-content: space-between;
-}
-.jcc {
-  justify-content: center;
 }
 .vatb {
   vertical-align: text-bottom;
@@ -107,6 +91,9 @@ span.tc {
 .ctis {
   container-type: inline-size;
 }
+.pr {
+  position: relative;
+}
 .pa,
 .pal,
 .pat,
@@ -124,47 +111,52 @@ span.tc {
 .pab {
   bottom: 0;
 }
-//
+
+/////
+.jcfs,
 .tl,
 .tm,
 .tr {
   justify-content: flex-start;
 }
+
+.jcc,
 .ml,
 .mm,
 .mr {
   justify-content: center;
 }
+
+.jcfe,
 .bl,
 .bm,
 .br {
   justify-content: flex-end;
 }
+
+.aifs,
 .tl,
 .ml,
 .bl {
   align-items: flex-start;
 }
+
+.aic,
 .tm,
 .mm,
-.bm {
+.bm,
+:is(.tm, .mm, .bm) .b.aa {
   align-items: center;
 }
-.tb,
-.mb,
-.br {
+
+.aife,
+.tr,
+.mr,
+.br,
+:is(.tr, .mr, .br) .b.aa {
   align-items: flex-end;
 }
 
 foreignObject > div.ctn {
   row-gap: var(--hgap);
-}
-
-// aa = Auto Align - Inherit from component
-:is(.tm, .mm, .bm) .b.aa {
-  align-items: center;
-}
-
-:is(.tr, .mr, .br) .b.aa {
-  align-items: flex-end;
 }

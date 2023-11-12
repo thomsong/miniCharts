@@ -1,16 +1,16 @@
 // svg .dot{stroke:red;stroke-width:min(5px,1px + 1.5cqw);vector-effect:non-scaling-stroke;stroke-linecap:round}
 
-:root {
-  --bgi-stripe: repeating-linear-gradient(
-    45deg,
-    transparent,
-    transparent 7px,
-    #00000010 7px,
-    #00000010 16px
-  );
-}
+// :root {
+//   --bgi-stripe: repeating-linear-gradient(
+//     45deg,
+//     transparent,
+//     transparent 7px,
+//     #00000010 7px,
+//     #00000010 16px
+//   );
+// }
 
-.ProgressBarDesign {
+._ {
   --ttl-h: 0px;
   --b-lbl-h: 0px;
 
@@ -85,8 +85,6 @@
 
     .bwrap {
       height: var(--bar-height);
-      display: flex;
-      align-items: center;
 
       & > .lbl {
         width: 100%;
@@ -168,67 +166,6 @@
         // background-image: var(--bgi-stripe);
       }
     }
-
-    // & > .lbl {
-    //   position: absolute;
-    //   width: var(--pct);
-    //   height: 14px;
-    //   top: calc(calc(var(--bar-height) / 2) - 7px);
-
-    //   &.fw {
-    //     width: 100%;
-    //   }
-
-    //   // animation: ProgressBarDesign-fill-lbl 0.5s;
-    //   // @keyframes ProgressBarDesign-fill-lbl {
-    //   //   from {
-    //   //     width: 0%;
-    //   //   }
-    //   //   to {
-    //   //     width: var(--pct);
-    //   //   }
-    //   // }
-
-    //   span {
-    //     vertical-align: text-top;
-    //     padding: 0 1px;
-    //     margin: 0 5px;
-
-    //     font-size: 10px;
-    //     letter-spacing: -0.5px;
-
-    //     background-color: rgba(255, 255, 255, 0.9);
-
-    //     border-radius: 2px;
-
-    //     @container (max-width: 42px) {
-    //       display: none;
-    //     }
-    //   }
-
-    //   &.x {
-    //     text-align: right;
-    //     position: relative;
-    //     top: 2px;
-
-    //     &:after {
-    //       background-color: #444;
-    //       width: 2px;
-    //       height: 24px;
-    //       position: absolute;
-    //       top: -22.5px;
-    //       right: 0px;
-
-    //       @container (max-width: 42px) {
-    //         display: none;
-    //       }
-    //     }
-    //     span {
-    //       margin: 0;
-    //       outline: 1px solid #aaa;
-    //     }
-    //   }
-    // }
   }
 
   .target {
