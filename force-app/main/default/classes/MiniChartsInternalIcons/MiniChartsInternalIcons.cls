@@ -1,6 +1,6 @@
 public with sharing class MiniChartsInternalIcons {
     public static String getIconSymbol(Integer idx, String name) {
-        return '<symbol id="i' + idx + '" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">' + MiniChartsInternalIcons.icons.get(name) + '</symbol>';
+        return ' <symbol id="i' + idx + '" viewBox="0 0 52 52">' + MiniChartsInternalIcons.icons.get(name) + '</symbol>';
     }
 
     public static Map<String, String> icons = new Map<String, String> {

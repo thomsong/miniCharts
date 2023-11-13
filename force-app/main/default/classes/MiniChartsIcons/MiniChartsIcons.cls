@@ -1,12 +1,19 @@
 public with sharing class MiniChartsIcons {
-    public static Set<String> usedIcons = new Set<String>();
+    public static Map<String, Integer> usedIcons = new Map<String, Integer>();
     public static String getIcon(String name) {
         return MiniChartsIcons.getIcon('internal', name);
     }
 
     public static String getIcon(String namespace, String name) {
-        MiniChartsIcons.usedIcons.add(namespace + '.' + name);
-        return 'i' + MiniChartsIcons.usedIcons.size();
+        String key = namespace + '.' + name;
+        Integer iconIdx = MiniChartsIcons.usedIcons.get(key);
+
+        if (iconIdx == null) {
+            iconIdx = MiniChartsIcons.usedIcons.size() + 1;
+            MiniChartsIcons.usedIcons.put(key, iconIdx);
+        }
+
+        return 'i' + iconIdx;
     }
 
     public static String getIconSymbol(Integer idx, String namespace, String name) {
@@ -27,14 +34,14 @@ public with sharing class MiniChartsIcons {
         }
 
         String symbols = '\n<defs>\n';
-        Integer idx = 0;
-        for(String icon: MiniChartsIcons.usedIcons) {
+        
+        for(String icon: MiniChartsIcons.usedIcons.keySet()) {
             List<String> parts = icon.split('.');
-
-            idx++;
-            symbols += MiniChartsIcons.getIconSymbol(idx, (String)parts.get(0), (String)parts.get(1)); // + '\n';
+            Integer idx = MiniChartsIcons.usedIcons.get(icon);
+            
+            symbols += MiniChartsIcons.getIconSymbol(idx, (String)parts.get(0), (String)parts.get(1)) + '\n';
         }
 
-        return symbols + '\n</defs>';
+        return symbols + '</defs>';
     }
 }
