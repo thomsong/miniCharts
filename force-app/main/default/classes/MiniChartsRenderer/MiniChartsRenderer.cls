@@ -274,12 +274,13 @@ public with sharing class MiniChartsRenderer {
                 // All required styles/css icons will be embedded here
                 + '<style>/* <![CDATA[ */\n '
                     + GLOBAL_STYLE
-                    + MiniChartsFillPatterns.getPatternVars()
+                    // + MiniChartsFillPatterns.getPatternVars()
+                    // SVG Icons + Patterns based on usage
+                    + MiniChartsIcons.getUsedIconSymbols()
                     + chartStyle
                 + '/* ]]> */</style>'
 
-                // SVG I\icon defs based on usage
-                + MiniChartsIcons.getUsedIconSymbols()
+                
 
                 // Component html that was generated earlier
                 + '\n<foreignObject class="chpx">\n <div class="ctn wmvw fxc" xmlns="http://www.w3.org/1999/xhtml">\n'
