@@ -5,26 +5,23 @@
   --lc: 1;
 
   .txt {
+    font-size: var(--fs);
+    color: var(--c);
     line-height: 1.15;
     height: fit-content;
-    display: -webkit-box;
-    white-space: normal;
+
     -webkit-box-orient: vertical;
     -webkit-line-clamp: var(--lc);
-
-    // Indent the text to align
-    // Hack to fix Firefox SVG rendering with --lc = 1
-    &:has(svg) {
-      // Goal is 0 for 1 line and 1em for 2+
-      padding-left: min(1em, calc(calc(var(--lc) - 1) * 1em));
-
-      // Goal is 0 for 1 line and -1em for 2+
-      text-indent: max(-1em, calc(calc(var(--lc) - 1) * -1em));
-    }
   }
 
+  // & svg {
+  //   height: 0.8em;
+  //   vertical-align: middle;
+  //   margin: -0.2em 0.2em 0 0;
+  // }
+
   & svg {
-    height: 0.8em;
+    height: var(--ih);
     vertical-align: middle;
     margin: -0.2em 0.2em 0 0;
   }
@@ -45,6 +42,11 @@
   }
 
   &.sz2 {
+    .txt {
+      display: -webkit-box;
+      white-space: normal;
+    }
+
     --lc: 2;
 
     .fxsm {
@@ -57,14 +59,19 @@
   }
 
   &.sz3 {
+    .txt {
+      display: -webkit-box;
+      white-space: normal;
+    }
+
     --lc: 4;
 
     .fxsm {
-      --lc: 6;
+      --lc: 5;
     }
 
     .fsm {
-      --lc: 5;
+      --lc: 4;
     }
 
     .flg {
@@ -98,12 +105,20 @@
 
   .fxlg {
     --fs: 1.85em;
-    --lc: 1;
   }
 
   .fxxlg {
     --fs: 2.5em;
+  }
+
+  .fxlg,
+  .fxxlg {
     --lc: 1;
+
+    .txt {
+      display: block !important;
+      white-space: nowrap !important;
+    }
   }
 
   &:is(.tr, .mr, .rr) .txt {
