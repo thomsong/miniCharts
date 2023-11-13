@@ -23,7 +23,7 @@
   & svg {
     height: var(--ih);
     vertical-align: middle;
-    margin: -0.2em 0.2em 0 0;
+    margin: -0.2em 0.3em 0 0;
   }
 
   //////////
@@ -121,12 +121,11 @@
     }
   }
 
-  &:is(.tr, .mr, .rr) .txt {
-    text-align: right;
+  &:is(.tm, .mm, .rm) .txt {
+    text-align: center;
   }
 
-  &:is(.tm, .mm, .rm, .tr, .mr, .rr) .txt {
-    padding: 0;
-    text-indent: 0;
+  &:is(.tr, .mr, .rr) .txt {
+    text-align: right;
   }
 }

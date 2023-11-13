@@ -81,7 +81,9 @@ const processClass = (savedFile) => {
       .trim();
 
     if (compiledStyle.startsWith("._{")) {
-      compiledStyle = compiledStyle.substring(3, compiledStyle.length - 1);
+      compiledStyle = compiledStyle
+        .substring(3, compiledStyle.length - 1)
+        .replaceAll("'", "\\'");
     }
   } else {
     compiledStyle = sass
@@ -104,7 +106,7 @@ const processClass = (savedFile) => {
     })
     .map((line) => {
       if (line.includes("private String GLOBAL_STYLE = '")) {
-        return "    private String GLOBAL_STYLE = '" + compiledStyle + "';";
+        return "    private String GLOBAL_STYLE = '" + compiledStyle + "\\n ';";
       }
       return line;
     })

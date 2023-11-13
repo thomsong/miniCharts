@@ -9,11 +9,10 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         ///////////////////////////////////////////////////////
         // String progressLabel = this.generateLabel(String.valueOf(pct) + '%', 'lbl tar tcd');
         Decimal amt = (Math.random() * 10000000.0) - 5000000;
-        String valueLabelHTML = '<div class="lbl tal tcd">' + MiniChartsHelper.generateLabelText('$' + String.valueOf(amt)) + '</div>';
+        String valueLabelHTML = '<div class="lbl tar tcd">' + MiniChartsHelper.generateLabelText('$' + String.valueOf(amt)) + '</div>';
 
         ///////////////////////////////////////////////////////
         String titleHTML = '';
-        
         if (true) {
             titleHTML = '<div class="title">'
             + '<div class="lbl tal tcd"><span>Win Rate</span></div>'
@@ -51,7 +50,7 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         Integer pct = Math.round(Math.random() * 100);
         Integer target = Math.round(Math.random() * 100);
         Decimal amt = (Math.random() * 10000000.0) - 5000000;
-        String valueLabelHTML = '<div class="lbl tal tcd">'+MiniChartsHelper.generateLabelText('$'+String.valueOf(amt))+'</div>';
+        String valueLabelHTML = '<div class="lbl tar tcd">'+MiniChartsHelper.generateLabelText('$'+String.valueOf(amt))+'</div>';
         String titleHTML = '';
         if (true) {
             titleHTML = '<div class="title"><div class="lbl tal tcd"><span>Win Rate</span></div>'+valueLabelHTML+'</div>';

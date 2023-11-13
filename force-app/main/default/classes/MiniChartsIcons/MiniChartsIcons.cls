@@ -5,7 +5,7 @@ public with sharing class MiniChartsIcons {
     }
 
     public static String getIcon(String namespace, String name) {
-        String key = namespace + '.' + name;
+        String key = namespace + '_' + name;
         Integer iconIdx = MiniChartsIcons.usedIcons.get(key);
 
         if (iconIdx == null) {
@@ -36,10 +36,9 @@ public with sharing class MiniChartsIcons {
         String symbols = '\n<defs>\n';
         
         for(String icon: MiniChartsIcons.usedIcons.keySet()) {
-            List<String> parts = icon.split('.');
+            String[] parts = icon.split('_');
             Integer idx = MiniChartsIcons.usedIcons.get(icon);
-            
-            symbols += MiniChartsIcons.getIconSymbol(idx, (String)parts.get(0), (String)parts.get(1)) + '\n';
+            symbols += MiniChartsIcons.getIconSymbol(idx, parts[0], parts[1]) + '\n';
         }
 
         return symbols + '</defs>';
