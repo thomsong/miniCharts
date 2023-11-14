@@ -22,7 +22,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
     @TestVisible
     private String RENDER_TEMPLATE(Map<String, Object> p) {
         Map<String, Object> defaultProps = new Map<String, Object>();
-        defaultProps.put('stl', 'default_outline'); //  Style See: BadgeDesign.styles
+        defaultProps.put('stl', 'error'); //  default_outline
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
         defaultProps.put('txt', 'Null'); // Should never happen
         
@@ -55,12 +55,8 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         String badgeIconHTML = '';
         if (hasIcon) {
             String iconName = MiniChartsIcons.getIcon('utility', style.split('_')[0]);
-            badgeIconHTML = ''
-                + '<div class="ico fx jcc aic">'
-                    + '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">'
-                        + '<use style="fill:var(--sc0)" href="#' + iconName + '" />'
-                    + '</svg>'
-                + '</div>';
+            // badgeIconHTML = '<i class="ico" style="--_i:var(' + '--_i1' + ')"/>';
+            badgeIconHTML = '<img style="--_i:var(' + '--_i1' + ')"/>';
         }
         
             
@@ -72,18 +68,18 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         String output = '';
         output += '<div class="b fxr aic rd'+radiusSize+'" style="' + styleCSSVars + '">';
             output += badgeIconHTML;
-            output += '<div class="lbl tal tcd">' + badgeText + '</div>';
+            output += '<p class="lbl tal tcd">' + badgeText + '</p>';
         output += '</div>';
         
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '--sc1:black;--sc2:transparent;--rad:0;.b{--sc0:var(--sc1);--sc3:var(--sc2);height:20px;padding:0 5px;&.rd1{--rad:3px}&.rd2{--rad:10px}background-color:var(--sc2);border-radius:var(--rad);border:1.5px solid var(--sc3);> .lbl{color:var(--sc1)}.ico{margin-right:4px;& svg{height:13px}}}';}
+    public string getStyle() {return '--sc1:black;--sc2:transparent;--rad:0;.b{--sc0:var(--sc1);--sc3:var(--sc2);height:20px;padding:0 5px;&.rd1{--rad:3px}&.rd2{--rad:10px}background-color:var(--sc2);border-radius:var(--rad);border:1.5px solid var(--sc3);.lbl{color:var(--sc1)}& img{--c:var(--sc0);--wh:13px;flex-shrink:0;margin-right:4px}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> p) {
         Map<String, Object> defaultProps = new Map<String, Object>();
-        defaultProps.put('stl', 'default_outline'); //  Style See: BadgeDesign.styles
+        defaultProps.put('stl', 'error'); //  default_outline
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
         defaultProps.put('txt', 'Null'); // Should never happen
         Map<String, Object> props =  MiniChartsHelper.getProps(p, defaultProps);
@@ -107,12 +103,12 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         String badgeIconHTML = '';
         if (hasIcon) {
             String iconName = MiniChartsIcons.getIcon('utility', style.split('_')[0]);
-            badgeIconHTML = '<div class="ico fx jcc aic"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--sc0)" href="#'+iconName+'" /></svg></div>';
+            badgeIconHTML = '<img style="--_i:var(--_i1)"/>';
         }
         String output = '';
         output += '<div class="b fxr aic rd'+radiusSize+'" style="'+styleCSSVars+'">';
             output += badgeIconHTML;
-            output += '<div class="lbl tal tcd">'+badgeText+'</div>';
+            output += '<p class="lbl tal tcd">'+badgeText+'</p>';
         output += '</div>';
         return output;
     }

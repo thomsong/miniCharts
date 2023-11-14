@@ -23,16 +23,15 @@
     border-radius: var(--rad);
     border: 1.5px solid var(--sc3);
 
-    > .lbl {
+    .lbl {
       color: var(--sc1);
     }
 
-    .ico {
+    & img {
+      --c: var(--sc0);
+      --wh: 13px;
+      flex-shrink: 0;
       margin-right: 4px;
-
-      & svg {
-        height: 13px;
-      }
     }
   }
 }

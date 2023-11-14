@@ -10,6 +10,7 @@
   print-color-adjust: exact;
 }
 
+p,
 .tcd,
 .tc span,
 span.tc {
@@ -159,4 +160,10 @@ span.tc {
 
 foreignObject > div.ctn {
   row-gap: var(--hgap);
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
 }

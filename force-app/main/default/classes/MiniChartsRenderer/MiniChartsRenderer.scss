@@ -5,3 +5,19 @@
 @use "./style/label";
 
 // @use "./style/interactive";
+
+img {
+  width: var(--wh, 1em);
+  height: var(--wh, 1em);
+  background-color: var(--c, black);
+
+  -webkit-mask-image: var(--_i);
+  mask-image: var(--_i);
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  --cc: center center;
+  -webkit-mask-position: var(--cc);
+  mask-position: var(--cc);
+}

@@ -6,45 +6,37 @@
     --ttl-h: 13px;
   }
 
-  --bar-height: calc(var(--h-px) - var(--ttl-h));
-  --max-icoh: var(--h-px);
+  --cnt-height: calc(var(--h-px) - var(--ttl-h));
+  --max-icoh: min(40px, var(--h-px));
 
   container-type: inline-size;
 
   .b {
-    width: 100px;
-    container-type: normal;
-
     --bgc: var(--c-bg-empty-fill);
     // --fillc: #3296ed;
     --fillc: linear-gradient(to right, var(--c-t3) 0px, var(--c-t1) 100%);
 
     width: 100%;
-    // height: var(--h-px);
 
-    .bwrap {
-      // height: var(--icoh);
+    .wrap > p {
+      width: 100%;
+      max-width: 42px;
+      // font-size: 13px;
+      // letter-spacing: -0.4px;
+      margin: 0 0 0 3px;
+      text-overflow: clip;
+      // font-weight: 600;
 
-      & > .lbl {
-        width: 100%;
-        max-width: 42px;
-        // font-size: 13px;
-        // letter-spacing: -0.4px;
-        margin: 0 0 0 3px;
-        text-overflow: clip;
-        // font-weight: 600;
-
-        &:not(.pct) {
-          @container (max-width: 75px) {
-            display: none;
-          }
+      &:not(.pct) {
+        @container (max-width: 75px) {
+          display: none;
         }
+      }
 
-        &.pct {
-          max-width: 30px;
-          @container (max-width: 65px) {
-            display: none;
-          }
+      &.pct {
+        max-width: 30px;
+        @container (max-width: 65px) {
+          display: none;
         }
       }
     }
@@ -53,50 +45,66 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      height: calc(var(--h-px) - var(--bar-height));
+      height: calc(var(--h-px) - var(--cnt-height));
 
-      .lbl:not(:last-of-type) {
-        padding-right: 1ch;
+      & p {
+        & :first-of-type {
+          padding-right: 1ch;
+        }
+
+        & :last-of-type {
+          flex-shrink: 0;
+          text-align: right;
+        }
       }
     }
   }
 
-  .bar {
+  .cnt {
     container-type: inline-size;
-    // Height Units Wide
+
+    // Units Wide measured in Height
     --hUW: calc(var(--ic) + ((var(--ic) - 1) * var(--spacing)));
     --icoh: max(
       7px,
-      min(var(--max-icoh), min(calc(100cqw / var(--hUW)), var(--bar-height)))
+      min(var(--max-icoh), min(calc(100cqw / var(--hUW)), var(--cnt-height)))
     );
 
     overflow: hidden;
     position: relative;
-    display: flex;
-    flex-direction: column;
 
     .icons {
       --gap: calc(var(--icoh) * var(--spacing));
       --icg: calc(var(--icoh) + var(--gap));
       --w: calc((var(--ic) * var(--icoh)) + ((var(--ic) - 1) * var(--gap)));
 
-      --emptySize: min(
-        var(--w),
-        calc(
-          ((var(--val) + var(--val-p)) * var(--icoh)) +
-            (var(--val) * var(--gap))
-        )
+      --esm: calc(
+        ((var(--val) + var(--val-p)) * var(--icoh)) + (var(--val) * var(--gap))
       );
 
-      height: var(--icoh);
-      width: calc(var(--icg) * var(--ic) - var(--gap));
+      &.hfill {
+        --esm: calc(
+          var(--icoh) + (var(--val) * var(--icoh)) + (var(--val) * var(--gap))
+        );
+      }
 
-      background: linear-gradient(
-          to right,
-          transparent var(--emptySize),
-          var(--bgc) var(--emptySize)
-        ),
-        var(--fillc);
+      --es: min(var(--w), var(--esm));
+      --hes: calc(100% - var(--esm) + var(--icoh) + var(--gap));
+
+      height: var(--icoh);
+      width: calc((var(--icg) * var(--ic)) - var(--gap));
+
+      --eg: linear-gradient(var(--bgc), var(--bgc));
+      background: var(--eg), var(--eg), var(--fillc);
+      background-size: 0, calc(100% - var(--es)), 100%;
+
+      &.hfill {
+        background-size: var(--hes) calc(100% - (var(--val-p) * 100%)),
+          calc(100% - var(--es)), 100%;
+      }
+
+      background-repeat: no-repeat;
+      background-position: top right;
 
       // --mi gets passed in
       -webkit-mask-image: var(--mi);
@@ -112,16 +120,10 @@
     }
   }
 
-  .value {
-    flex-shrink: 0;
-  }
-
   .b:has(.title) {
     --ttl-h: 13px;
-    .bwrap {
-      & > .lbl {
-        display: none;
-      }
+    .wrap > p {
+      display: none;
     }
   }
 }

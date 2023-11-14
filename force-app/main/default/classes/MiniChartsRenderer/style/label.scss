@@ -1,5 +1,6 @@
 @use "slds" as slds;
 
+p,
 .lbl {
   color: slds.$palette-neutral-40;
   line-height: 1.15;
@@ -8,7 +9,7 @@
 .title {
   max-width: 100%;
 
-  .lbl {
+  :is(p, .lbl) {
     margin-top: -2px;
     flex-shrink: 1;
     flex-grow: 1;

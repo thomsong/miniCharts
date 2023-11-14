@@ -5,7 +5,7 @@ public with sharing class MiniChartsIcons {
     }
 
     public static String getIcon(String namespace, String name) {
-        String key = namespace + '_' + name;
+        String key = namespace + '|' + name;
         Integer iconIdx = MiniChartsIcons.usedIcons.get(key);
 
         if (iconIdx == null) {
@@ -36,7 +36,7 @@ public with sharing class MiniChartsIcons {
         String symbols = '\n:root{\n';
         
         for(String icon: MiniChartsIcons.usedIcons.keySet()) {
-            String[] parts = icon.split('_');
+            String[] parts = icon.split('|');
             Integer idx = MiniChartsIcons.usedIcons.get(icon);
             String iconSvgCode = '';
 
