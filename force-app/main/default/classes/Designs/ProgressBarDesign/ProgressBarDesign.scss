@@ -14,18 +14,18 @@
   --ttl-h: 0px;
   --b-lbl-h: 0px;
 
-  &:has(.title) {
+  &:has(t) {
     --ttl-h: 13px;
   }
 
   &:has(.target) {
-    &:not(:has(.title)) {
+    &:not(:has(t)) {
       --b-lbl-h: 17px; //17
 
       &.sz1 {
         --b-lbl-h: 5px; //17
 
-        .target .lbl {
+        .target l {
           font-weight: 400;
 
           background: var(--target-bg-color);
@@ -42,10 +42,10 @@
   }
 
   &:has(.target) {
-    &:has(.title) {
+    &:has(t) {
       &.sz1 {
         --b-lbl-h: 0px;
-        .target .lbl {
+        .target l {
           display: none;
         }
       }
@@ -73,7 +73,7 @@
   //   --max-bar-height: 58px;
   // }
 
-  .body {
+  & b {
     /* PASSED IN VARS */
     --bgc: var(--c-bg-empty-fill); //#f1f1f0;
     --fillc: #3296ed;
@@ -86,7 +86,7 @@
     .bwrap {
       height: var(--bar-height);
 
-      & > .lbl {
+      & > l {
         width: 100%;
         max-width: 42px;
         // font-size: 13px;
@@ -99,13 +99,13 @@
           margin: 0 3px 0 0;
         }
 
-        &:not(.pct) {
+        &:not(pct) {
           @container (max-width: 75px) {
             display: none;
           }
         }
 
-        &.pct {
+        &pct {
           max-width: 30px;
           @container (max-width: 65px) {
             display: none;
@@ -114,13 +114,13 @@
       }
     }
 
-    .title {
+    & t {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       height: calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));
 
-      .lbl:not(:last-of-type) {
+      & l:not(:last-of-type) {
         padding-right: 1ch;
       }
     }
@@ -205,7 +205,7 @@
       // background: blue;
     }
 
-    .lbl {
+    & l {
       flex: 0 0 auto;
       text-align: center;
 
@@ -241,10 +241,10 @@
     }
   }
 
-  .body:has(.title) {
+  b:has(t) {
     --ttl-h: 13px;
     .bwrap {
-      & > .lbl {
+      & > l {
         display: none;
       }
     }

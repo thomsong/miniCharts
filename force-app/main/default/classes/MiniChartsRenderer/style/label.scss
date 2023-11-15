@@ -1,30 +1,30 @@
 @use "slds" as slds;
 
-p,
-.lbl {
+l {
   color: slds.$palette-neutral-40;
   line-height: 1.15;
 }
 
-.title {
+t {
   max-width: 100%;
 
-  :is(p, .lbl) {
+  & l {
     margin-top: -2px;
     flex-shrink: 1;
     flex-grow: 1;
 
-    &.pct {
+    &pct {
       flex-shrink: 0;
     }
   }
 }
 
 // Weak styles
-.wk .title {
+.wk t {
   max-width: fit-content;
 }
 
+cur::before,
 sup {
   font-size: 0.8em;
   line-height: 1.4;
@@ -32,11 +32,31 @@ sup {
   margin-right: -0.1em;
 }
 
+cur {
+  &[d] {
+    --d: attr(d);
+  }
+  &[n]::before {
+    --n: "-";
+  }
+
+  &::before {
+    content: var(--n, "") var(--d, "$");
+  }
+
+  &[u]::after {
+    content: attr(u);
+  }
+}
+
+pct::after,
+cur::after,
 sub {
   font-size: 0.7em;
   vertical-align: baseline;
 }
 
-.pct sub {
+pct::after {
+  content: "%";
   margin-left: 0.05em;
 }

@@ -6,7 +6,10 @@
 
 // @use "./style/interactive";
 
-img {
+i {
+  font-style: normal;
+  display: block;
+
   width: var(--wh, 1em);
   height: var(--wh, 1em);
   background-color: var(--c, black);

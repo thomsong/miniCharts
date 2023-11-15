@@ -1,4 +1,4 @@
-.c {
+c {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -16,8 +16,11 @@
     max-width: max-content;
   }
 
-  > .b {
+  // Body
+  > b {
+    font-weight: 400;
     max-width: 100%;
     container-type: normal;
+    display: block;
   }
 }

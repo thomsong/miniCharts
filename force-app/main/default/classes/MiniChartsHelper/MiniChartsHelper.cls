@@ -3,7 +3,7 @@ public with sharing class MiniChartsHelper {
         if (value.endsWith('%')) {
             // Percent 
             Decimal pctValue = Decimal.valueOf(value.substring(0,value.length()-1));
-            return '<span class="pct">' + pctValue.setScale(0) +'<sub>%</sub></span>';
+            return '<pct>' + pctValue.setScale(0) +'</pct>';
         } else {
             String firstCharacter = value.substring(0,1);
             if (firstCharacter == '$') {
@@ -18,10 +18,10 @@ public with sharing class MiniChartsHelper {
                     denomCount++;
                 }
                 
-                String sub = '';
+                String unit = '';
                 if (denomCount > 0) {
                     String currencyDenomination = denoms[denomCount-1];
-                    sub = '<sub>'+ currencyDenomination +'</sub>';
+                    unit = ' u="'+ currencyDenomination +'"';
                 }
         
                 String displayValue = '';
@@ -41,16 +41,24 @@ public with sharing class MiniChartsHelper {
                     }
                 }
                     
+                String currencyClass = '';
                 if (rawCurrencyValue < 0) {
-                    return '<span class="crncy neg"><sup>-' + firstCharacter + '</sup>' + displayValue + sub + '</span>';
-                } else {
-                    return '<span class="crncy"><sup>' + firstCharacter + '</sup>' + displayValue + sub + '</span>';
+                    currencyClass = ' n="1"';
                 }
+
+                String dollarSymbol = '';
+                if (firstCharacter != '$') {
+                    dollarSymbol = ' d="' + firstCharacter + '"';
+                }
+
+                return '<cur' + dollarSymbol + unit + currencyClass + '>' + displayValue + '</cur>';
+                // return '<cur' + currencyClass + '><sup>' + firstCharacter + '</sup>' + displayValue + sub + '</cur>';
+                
             }
         }
     
         // Default
-        return '<span>' + value + '</span>';
+        return value;
     }
 
     //////////////////////////

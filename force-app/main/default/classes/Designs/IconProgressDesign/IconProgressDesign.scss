@@ -1,24 +1,28 @@
 ._ {
-  --ttl-h: 0px;
-  --spacing: 0.2;
+  --d-total-height: 0px;
+  --d-icon-spacing: 0.2;
 
-  &:has(.title) {
-    --ttl-h: 13px;
+  &:has(t) {
+    --d-total-height: 13px;
   }
 
-  --cnt-height: calc(var(--h-px) - var(--ttl-h));
-  --max-icoh: min(40px, var(--h-px));
+  --d-container-height: calc(var(--h-px) - var(--d-total-height));
+  --d-max-icon-height: min(40px, var(--h-px));
 
   container-type: inline-size;
 
-  .b {
+  & b {
     --bgc: var(--c-bg-empty-fill);
-    // --fillc: #3296ed;
-    --fillc: linear-gradient(to right, var(--c-t3) 0px, var(--c-t1) 100%);
+    // --d-fill-color: #3296ed;
+    --d-fill-color: linear-gradient(
+      to right,
+      var(--c-t3) 0px,
+      var(--c-t1) 100%
+    );
 
     width: 100%;
 
-    .wrap > p {
+    ._icon-label-wrapper > l {
       width: 100%;
       max-width: 42px;
       // font-size: 13px;
@@ -27,13 +31,13 @@
       text-overflow: clip;
       // font-weight: 600;
 
-      &:not(.pct) {
+      &:not(pct) {
         @container (max-width: 75px) {
           display: none;
         }
       }
 
-      &.pct {
+      &pct {
         max-width: 30px;
         @container (max-width: 65px) {
           display: none;
@@ -41,13 +45,13 @@
       }
     }
 
-    .title {
+    & t {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      height: calc(var(--h-px) - var(--cnt-height));
+      height: calc(var(--h-px) - var(--d-container-height));
 
-      & p {
+      & l {
         & :first-of-type {
           padding-right: 1ch;
         }
@@ -60,69 +64,80 @@
     }
   }
 
-  .cnt {
+  ._container {
     container-type: inline-size;
 
     // Units Wide measured in Height
-    --hUW: calc(var(--ic) + ((var(--ic) - 1) * var(--spacing)));
-    --icoh: max(
+    --d-height-in-width-units: calc(
+      var(--d-icon-count) + ((var(--d-icon-count) - 1) * var(--d-icon-spacing))
+    );
+    --d-icon-height: max(
       7px,
-      min(var(--max-icoh), min(calc(100cqw / var(--hUW)), var(--cnt-height)))
+      min(
+        var(--d-max-icon-height),
+        min(
+          calc(100cqw / var(--d-height-in-width-units)),
+          var(--d-container-height)
+        )
+      )
     );
 
     overflow: hidden;
     position: relative;
 
-    .icons {
-      --gap: calc(var(--icoh) * var(--spacing));
-      --icg: calc(var(--icoh) + var(--gap));
-      --w: calc((var(--ic) * var(--icoh)) + ((var(--ic) - 1) * var(--gap)));
-
-      --esm: calc(
-        ((var(--val) + var(--val-p)) * var(--icoh)) + (var(--val) * var(--gap))
+    ._icons {
+      --gap: calc(var(--d-icon-height) * var(--d-icon-spacing));
+      --d-icon-height-with-gap: calc(var(--d-icon-height) + var(--gap));
+      --d-icon-width: calc(
+        (var(--d-icon-count) * var(--d-icon-height)) +
+          ((var(--d-icon-count) - 1) * var(--gap))
       );
 
-      &.hfill {
-        --esm: calc(
-          var(--icoh) + (var(--val) * var(--icoh)) + (var(--val) * var(--gap))
+      --d-empty-space: calc(
+        ((var(--d-value) + var(--d-value-remainder)) * var(--d-icon-height)) +
+          (var(--d-value) * var(--gap))
+      );
+
+      &._horizontal-fill {
+        --d-empty-space: calc(
+          var(--d-icon-height) + (var(--d-value) * var(--d-icon-height)) +
+            (var(--d-value) * var(--gap))
         );
       }
 
-      --es: min(var(--w), var(--esm));
-      --hes: calc(100% - var(--esm) + var(--icoh) + var(--gap));
+      --d-empty-space-min: min(var(--d-icon-width), var(--d-empty-space));
+      --d-empty-space-height: calc(
+        100% - var(--d-empty-space) + var(--d-icon-height) + var(--gap)
+      );
 
-      height: var(--icoh);
-      width: calc((var(--icg) * var(--ic)) - var(--gap));
+      height: var(--d-icon-height);
+      width: calc(
+        (var(--d-icon-height-with-gap) * var(--d-icon-count)) - var(--gap)
+      );
 
-      --eg: linear-gradient(var(--bgc), var(--bgc));
-      background: var(--eg), var(--eg), var(--fillc);
-      background-size: 0, calc(100% - var(--es)), 100%;
+      --d-empty-fill-gradient: linear-gradient(var(--bgc), var(--bgc));
+      background: var(--d-empty-fill-gradient), var(--d-empty-fill-gradient),
+        var(--d-fill-color);
+      background-size: 0, calc(100% - var(--d-empty-space-min)), 100%;
 
       &.hfill {
-        background-size: var(--hes) calc(100% - (var(--val-p) * 100%)),
-          calc(100% - var(--es)), 100%;
+        background-size: var(--d-empty-space-height)
+            calc(100% - (var(--d-value-remainder) * 100%)),
+          calc(100% - var(--d-empty-space-min)), 100%;
       }
 
       background-repeat: no-repeat;
       background-position: top right;
 
-      // --mi gets passed in
-      -webkit-mask-image: var(--mi);
-      mask-image: var(--mi);
-
-      --ms: var(--icg) var(--icoh);
-      -webkit-mask-size: var(--ms);
-      mask-size: var(--ms);
-
-      --mr: repeat no-repeat;
-      -webkit-mask-repeat: var(--mr);
-      mask-repeat: var(--mr);
+      -webkit-mask-image: var(--d-mask-image);
+      -webkit-mask-size: var(--d-icon-height-with-gap) var(--d-icon-height);
+      -webkit-mask-repeat: repeat no-repeat;
     }
   }
 
-  .b:has(.title) {
-    --ttl-h: 13px;
-    .wrap > p {
+  & b:has(t) {
+    --d-total-height: 13px;
+    ._icon-label-wrapper > l {
       display: none;
     }
   }

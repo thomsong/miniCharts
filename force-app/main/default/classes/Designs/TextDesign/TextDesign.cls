@@ -44,9 +44,9 @@ public with sharing class TextDesign implements MiniChartsDesign {
         // APEX will use StringBuilder on SFDC when Compressed
         ///////////////////////////////////////////////////////
         String output = '';
-        output += '<div class="b fxr fmd" style="--ih:' + iconHeight + ';--c:' + textColor + ';--icoc:' + iconColor + ';">';
-            output += '<div class="txt tcd">' + iconHTML + textHTML + '</div>';
-        output += '</div>';
+        output += '<b class="fxr fmd" style="--ih:' + iconHeight + ';--c:' + textColor + ';--icoc:' + iconColor + ';">';
+            output += '<d class="txt tcd">' + iconHTML + textHTML + '</d>';
+        output += '</b>';
         
         return output;
     } /* END RENDER_TEMPLATE */
@@ -76,9 +76,9 @@ public with sharing class TextDesign implements MiniChartsDesign {
         }
         String textHTML = MiniChartsHelper.generateLabelText('Hello WorldHelloWorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello World');
         String output = '';
-        output += '<div class="b fxr fmd" style="--ih:'+iconHeight+';--c:'+textColor+';--icoc:'+iconColor+';">';
-            output += '<div class="txt tcd">'+iconHTML + textHTML+'</div>';
-        output += '</div>';
+        output += '<b class="fxr fmd" style="--ih:'+iconHeight+';--c:'+textColor+';--icoc:'+iconColor+';">';
+            output += '<d class="txt tcd">'+iconHTML + textHTML+'</d>';
+        output += '</b>';
         return output;
     }
 }

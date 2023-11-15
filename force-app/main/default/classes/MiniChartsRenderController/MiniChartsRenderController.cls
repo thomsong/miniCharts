@@ -100,6 +100,24 @@ global with sharing class MiniChartsRenderController {
     //     return (MiniChartsDesign)chartDesignType.newInstance();
     // }
 
+    public String inputText1{get;set;} // input text1 value  from vf
+     public String inputText2{get;set;} // input text2 value  from vf
+
+      public void saveList(){
+
+        // salesObj  salesObjInst = new salesObj(); //  Either salesObj is standard or custom object
+
+        // salesObj.field1 =  inputText1;  // Field Assignment
+        // salesObj.field2 =  inputText2;  // Field Assignment
+
+        // insert  salesObj; // DML Operations
+
+      }  
+
+    public String getRenderChart2() {
+        return 'userType: ' + MiniChartsApexFormula.formulaValues.get('userType');
+    }
+
     public String getRenderChartx() {
         return 'CPU: ' + Limits.getCpuTime();
     }

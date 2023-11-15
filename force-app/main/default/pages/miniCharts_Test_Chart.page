@@ -35,22 +35,28 @@
 
     <apex:variable var="mcLinkedField" value="{!Account.mc_Dial_Chart__c}" />
 
-    <apex:variable var="a" value="aaaQWERTY-{!Account.name}" />
-    <c:MiniChartsFormula id="a" type="Text" formula="{!a}" />
+    <!-- <apex:variable var="a" value="aaaQWERTY-{!Account.name}" /> -->
+    <!-- <c:MiniChartsFormula id="a" type="Text" formula="{!a}" /> -->
 
-    <apex:variable var="bb" value="{!'bbb'+'QWERTY' + '__' + a}" />
-    <c:MiniChartsFormula id="bb" type="Number" formula="{!bb}" />
+    <!-- <apex:variable var="bb" value="{!'bbb'+'QWERTY' + '__' + a}" /> -->
+    <!-- <c:MiniChartsFormula id="bb" type="Number" formula="{!bb}" /> -->
 
-    <c:MiniChartsFormula id="theme" type="Text" formula="{!$User.UIThemeDisplayed +'::'+$User.UITheme}" />
+    <!-- Runtime Values -->
+    <!-- <c:MiniChartsFormula id="theme" type="Text" formula="{!$User.UIThemeDisplayed +'::'+$User.UITheme}" /> -->
     
     <!-- This has a value on experience sites -->
-    <c:MiniChartsFormula id="network" type="Text" formula="{!$Network.Name}" />
-    <c:MiniChartsFormula id="site" type="Text" formula="{!$Site.Name}" />
-    <c:MiniChartsFormula id="userType" type="Text" formula="{!Text($User.UserType)}" />
-    <c:MiniChartsFormula id="url" type="Text" formula="{!$CurrentPage.URL}" />
+    <!-- <c:MiniChartsFormula id="network" type="Text" formula="{!$Network.Name}" /> -->
+    <!-- <c:MiniChartsFormula id="site" type="Text" formula="{!$Site.Name}" /> -->
+
+
+    <!-- <c:MiniChartsFormula id="url" type="Text" formula="{!$CurrentPage.URL}" /> -->
+    <!-- <c:MiniChartsFormula id="soql_abc" type="Text" formula="Select Name from Acount where Id={!Account.Id} limit 1" /> -->
     
-    <c:MiniChartsFormula id="soql_abc" type="Text" formula="Select Name from Acount where Id={!Account.Id} limit 1" />
+    <!-- {!renderChart2.test} -->
+
+<!-- <apex:inputText value="{!inputText1}"/> -->
 {!renderChart}
+<!-- Hello -->
 </apex:page>
 <!-- <svg xmlns="http://www.w3.org/2000/svg"
 width="100%"

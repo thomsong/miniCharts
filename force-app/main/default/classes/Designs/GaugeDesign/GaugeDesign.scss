@@ -5,7 +5,7 @@
   --bgc: var(--c-bg-empty-fill);
   --fillc: #3296ed;
 
-  &:has(.title) {
+  &:has(t) {
     --ttl-h: 13;
 
     .chart-crop {
@@ -22,15 +22,15 @@
     }
   }
 
-  .title {
+  & t {
     height: calc(var(--ttl-h) * 1px);
 
-    .lbl:last-child {
+    & l:last-child {
       display: none;
     }
   }
 
-  .value.lbl {
+  & l.value {
     width: var(--h-px2);
 
     & span {
@@ -46,12 +46,12 @@
     --mw: var(--h-px2);
     --v-lbl-px: 8px;
 
-    .b {
+    & b {
       display: flex;
     }
 
-    &:has(.title) {
-      .value.lbl {
+    &:has(t) {
+      & l.value {
         display: none;
       }
       .chart-crop {
@@ -59,13 +59,13 @@
       }
     }
 
-    .title {
+    & t {
       height: var(--h-px);
       max-width: calc(100% - var(--h-px2));
       padding-left: 10px;
       box-sizing: border-box;
 
-      .lbl:last-child {
+      & l:last-child {
         display: block;
         font-size: 9px;
         height: 9px;
@@ -75,7 +75,7 @@
       transform: none;
     }
 
-    .value.lbl span {
+    & l.value span {
       border-radius: 5px 5px 0 0;
       padding: 0 1px;
       letter-spacing: -0.05em;

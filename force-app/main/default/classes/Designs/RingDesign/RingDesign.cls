@@ -56,21 +56,21 @@ public with sharing class RingDesign implements MiniChartsDesign {
         if (titleText != '') {
             if (componentSize == 1) {
                 titleAfterHTML = 
-                    '<div class="title fxc tal jcc">'
-                        + '<div class="lbl tcd">'
-                            + '<span>' + titleText + '</span>'
-                        + '</div>'
-                        + '<div class="lbl tcd">'
+                    '<t class="fxc jcc">'
+                        + '<l>'
+                            + titleText
+                        + '</l>'
+                        + '<l>'
                             + pctLabelHTML
-                        + '</div>'
-                  + '</div>';
+                        + '</l>'
+                  + '</t>';
             } else {
                 titleBeforeHTML = 
-                    '<div class="title">'
-                        + '<div class="lbl tcd">'
-                            + '<span>' + titleText + '</span>'
-                        + '</div>'
-                  + '</div>';
+                    '<t>'
+                        + '<l>'
+                            + titleText
+                        + '</l>'
+                  + '</t>';
             }
         }
         
@@ -78,11 +78,11 @@ public with sharing class RingDesign implements MiniChartsDesign {
         String iconHTML = '';
         if (iconName != '' && (alwaysShowIcon || pct >= 100)) {
             iconHTML = ''
-                + '<div class="ico fx jcc aic ' + iconName + '">'
+                + '<d class="ico fx jcc aic ' + iconName + '">'
                     + '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">'
                         + '<use style="fill:var(--icoc)" href="#' + MiniChartsIcons.getIcon('utility', iconName) + '" />'
                     + '</svg>'
-                + '</div>';
+                + '</d>';
         }
 
         /* //////////////////////////////////////////////// */
@@ -94,24 +94,24 @@ public with sharing class RingDesign implements MiniChartsDesign {
         // APEX will use StringBuilder on SF when Compressed
         /////////////////////////////////////////////////////
         String output = '';
-        output += '<div class="b aa hpx fxc' + fullClass + '" style="--fillc:' + primaryColor + ';--pct:' + pct + '">';
+        output += '<b class="aa hpx fxc' + fullClass + '" style="--fillc:' + primaryColor + ';--pct:' + pct + '">';
             output += titleBeforeHTML;
-                output += '<div class="chart-crop">';
-                    output += '<div class="chart">';
-                        output += '<div class="fill" style="--s:' + strokeWidth + ';--f:' + fill + '"></div>';
+                output += '<d class="chart-crop">';
+                    output += '<d class="chart">';
+                        output += '<d class="fill" style="--s:' + strokeWidth + ';--f:' + fill + '"/>';
                         output += iconHTML;
-                        output += '<div class="value lbl tcd pat hpx aic jcc fx">';
+                        output += '<l class="value pat hpx aic jcc fx">';
                             output += pctLabelHTML;
-                        output += '</div>';
-                    output += '</div>';
-                output += '</div>';
+                        output += '</l>';
+                    output += '</d>';
+                output += '</d>';
             output += titleAfterHTML;
-        output += '</div>';
+        output += '</b>';
         
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '--ttl-h:0;&:has(.title){--ttl-h:13}.b{--ppct:calc(var(--pct)*1%);--bgc:var(--c-bg-empty-fill);--fillc:black;--icoc:var(--fillc)}&.sz1{.b{flex-direction:row}.value.lbl{display:none}.title{height:var(--h-px);max-width:calc(100% - var(--h-px));padding-left:5px;.lbl:last-child{display:block;font-size:9px;height:9px}}&:has(.full):has(.ico){--c-bg:var(--fillc);.ico{--icoc:#fff}.fill{--m:none}}}&.sz2{--v-lbl-px:12px}&.sz3{--v-lbl-px:18px}&:not(&.sz1){&:has(.title){.chart-crop{--ch:calc(var(--h) - var(--ttl-h));--scl:calc(var(--ch)/var(--h));width:calc(var(--h-px)*var(--scl));height:calc(var(--ch)*1px)}.chart{transform:scale(var(--scl));transform-origin:top left}}&:not(:has(.full)):has(.ico):has(.value){.ico{& svg{height:calc(var(--h-px)/4);margin-top:calc(var(--h-px)/-2.75)}}}}.title{height:calc(var(--ttl-h)*1px);.lbl{flex-grow:0}}.value{&.lbl{width:var(--h-px);& span{border-radius:5px;padding:0 1px;letter-spacing:-.05em;font-weight:500;font-size:var(--v-lbl-px)}}}.chart{--ch:var(--h);position:relative;width:var(--h-px);flex-shrink:0}.fill{position:absolute;width:var(--h-px);height:var(--h-px);border-radius:var(--h-px);background:var(--f);background-size:100% 100%;--m:radial-gradient( transparent calc((var(--h-px) - (var(--s)*2px))*0.5),#000 0 );-webkit-mask:var(--m);mask:var(--m)}.ico{position:relative;height:var(--h-px);& svg{height:clamp(9px,calc(var(--h-px)/2.5),20px)}&.warning{margin-top:-1px}}&:has(.ico){.value{margin-top:calc(var(--h-px)/9)}&:has(.full){.value{display:none}}}';}
+    public string getStyle() {return '--ttl-h:0;&:has(t){--ttl-h:13}& b{--ppct:calc(var(--pct)*1%);--bgc:var(--c-bg-empty-fill);--fillc:black;--icoc:var(--fillc)}&.sz1{& b{flex-direction:row}& l.value{display:none}& t{height:var(--h-px);max-width:calc(100% - var(--h-px));padding-left:5px;& l:last-child{display:block;font-size:9px;height:9px}}&:has(.full):has(.ico){--c-bg:var(--fillc);.ico{--icoc:#fff}.fill{--m:none}}}&.sz2{--v-lbl-px:12px}&.sz3{--v-lbl-px:18px}&:not(&.sz1){&:has(t){.chart-crop{--ch:calc(var(--h) - var(--ttl-h));--scl:calc(var(--ch)/var(--h));width:calc(var(--h-px)*var(--scl));height:calc(var(--ch)*1px)}.chart{transform:scale(var(--scl));transform-origin:top left}}&:not(:has(.full)):has(.ico):has(.value){.ico{& svg{height:calc(var(--h-px)/4);margin-top:calc(var(--h-px)/-2.75)}}}}& t{height:calc(var(--ttl-h)*1px);& l{flex-grow:0}}l.value{width:var(--h-px);& span{border-radius:5px;padding:0 1px;letter-spacing:-.05em;font-weight:500;font-size:var(--v-lbl-px)}}.chart{--ch:var(--h);position:relative;width:var(--h-px);flex-shrink:0}.fill{position:absolute;width:var(--h-px);height:var(--h-px);border-radius:var(--h-px);background:var(--f);background-size:100% 100%;--m:radial-gradient( transparent calc((var(--h-px) - (var(--s)*2px))*0.5),#000 0 );-webkit-mask:var(--m);mask:var(--m)}.ico{position:relative;height:var(--h-px);& svg{height:clamp(9px,calc(var(--h-px)/2.5),20px)}&.warning{margin-top:-1px}}&:has(.ico){.value{margin-top:calc(var(--h-px)/9)}&:has(.full){.value{display:none}}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
@@ -148,33 +148,33 @@ public with sharing class RingDesign implements MiniChartsDesign {
         String titleAfterHTML = '';
         if (titleText != '') {
             if (componentSize == 1) {
-                titleAfterHTML = '<div class="title fxc tal jcc"><div class="lbl tcd"><span>'+titleText+'</span></div><div class="lbl tcd">'+pctLabelHTML+'</div></div>';
+                titleAfterHTML = '<t class="fxc jcc"><l>'+titleText+'</l><l>'+pctLabelHTML+'</l></t>';
             } else {
-                titleBeforeHTML = '<div class="title"><div class="lbl tcd"><span>'+titleText+'</span></div></div>';
+                titleBeforeHTML = '<t><l>'+titleText+'</l></t>';
             }
         }
         /* //////////////////////////////////////////////// */
         String iconHTML = '';
         if (iconName != '' && (alwaysShowIcon || pct >= 100)) {
-            iconHTML = '<div class="ico fx jcc aic '+iconName+'"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg></div>';
+            iconHTML = '<d class="ico fx jcc aic '+iconName+'"><svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg></d>';
         }
         /* //////////////////////////////////////////////// */
         String fullClass = pct >= 100 ? ' full' : '';
         /* //////////////////////////////////////////////// */
         String output = '';
-        output += '<div class="b aa hpx fxc'+fullClass+'" style="--fillc:'+primaryColor+';--pct:'+pct+'">';
+        output += '<b class="aa hpx fxc'+fullClass+'" style="--fillc:'+primaryColor+';--pct:'+pct+'">';
             output += titleBeforeHTML;
-                output += '<div class="chart-crop">';
-                    output += '<div class="chart">';
-                        output += '<div class="fill" style="--s:'+strokeWidth+';--f:'+fill+'"></div>';
+                output += '<d class="chart-crop">';
+                    output += '<d class="chart">';
+                        output += '<d class="fill" style="--s:'+strokeWidth+';--f:'+fill+'"/>';
                         output += iconHTML;
-                        output += '<div class="value lbl tcd pat hpx aic jcc fx">';
+                        output += '<l class="value pat hpx aic jcc fx">';
                             output += pctLabelHTML;
-                        output += '</div>';
-                    output += '</div>';
-                output += '</div>';
+                        output += '</l>';
+                    output += '</d>';
+                output += '</d>';
             output += titleAfterHTML;
-        output += '</div>';
+        output += '</b>';
         return output;
     }
 }

@@ -1,11 +1,11 @@
 ._ {
   --ttl-h: 0;
 
-  &:has(.title) {
+  &:has(t) {
     --ttl-h: 13;
   }
 
-  .b {
+  & b {
     --ppct: calc(var(--pct) * 1%);
     --bgc: var(--c-bg-empty-fill);
     --fillc: black;
@@ -13,20 +13,20 @@
   }
 
   &.sz1 {
-    .b {
+    & b {
       flex-direction: row;
     }
 
-    .value.lbl {
+    & l.value {
       display: none;
     }
 
-    .title {
+    & t {
       height: var(--h-px);
       max-width: calc(100% - var(--h-px));
       padding-left: 5px;
 
-      .lbl:last-child {
+      & l:last-child {
         display: block;
         font-size: 9px;
         height: 9px;
@@ -55,7 +55,7 @@
   }
 
   &:not(&.sz1) {
-    &:has(.title) {
+    &:has(t) {
       .chart-crop {
         --ch: calc(var(--h) - var(--ttl-h));
         --scl: calc(var(--ch) / var(--h));
@@ -79,24 +79,22 @@
     }
   }
 
-  .title {
+  & t {
     height: calc(var(--ttl-h) * 1px);
 
-    .lbl {
+    & l {
       flex-grow: 0;
     }
   }
 
-  .value {
-    &.lbl {
-      width: var(--h-px);
-      & span {
-        border-radius: 5px;
-        padding: 0 1px;
-        letter-spacing: -0.05em;
-        font-weight: 500;
-        font-size: var(--v-lbl-px);
-      }
+  l.value {
+    width: var(--h-px);
+    & span {
+      border-radius: 5px;
+      padding: 0 1px;
+      letter-spacing: -0.05em;
+      font-weight: 500;
+      font-size: var(--v-lbl-px);
     }
   }
 

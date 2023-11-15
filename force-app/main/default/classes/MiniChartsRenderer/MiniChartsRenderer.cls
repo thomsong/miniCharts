@@ -1,7 +1,7 @@
 public with sharing class MiniChartsRenderer {
     public class RenderException extends Exception {}
 
-    private String GLOBAL_STYLE = '@-moz-document url-prefix(){:root:not(:is(.interactive)){--vw-100:50vw !important}}:root{--vw-100:100vw;--max-vw:min(var(--cw-px), var(--vw-100));--c-bg:#fff;--c-bg-empty-fill:#ddd;--c-txt:#181818;--c-txt-lbl:#5c5c5c;--c-txt-ico:#747474;--c-txt-success:#2e844a;--c-txt-warning:#fe9339;--c-txt-error:#ea001e;--c-t1:#3296ed;--c-t2:#77b9f2;--c-t3:#9d53f2;--c-t4:#c398f5;--c-t5:#26aba4;--c-t6:#4ed4cd;--vgap:clamp(5px, calc(var(--max-vw) * 0.05), 20px);--hgap:10px;color:var(--c-txt);font-size:12px;line-height:1;font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}svg>foreignObject{width:var(--max-vw)}svg>foreignObject>div{width:var(--max-vw)}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}p,.tcd,.tc span,span.tc{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;width:max-content}.sz1{--bdy-h:20px}.sz2{--bdy-h:40px}.sz3{--bdy-h:60px}.sz1 .h-sz1,.sz2 .h-sz2,.sz3 .h-sz3{display:none !important}.fx,.fxc,.fxr{display:flex}.fxc{flex-direction:column}.fxr{flex-direction:row}.fg{flex-grow:1}.fwnw{flex-wrap:nowrap}.jcsb{justify-content:space-between}.vatb{vertical-align:text-bottom}.vatt{vertical-align:text-top}.tac{text-align:center}.tar{text-align:right}.wsnp{white-space:nowrap}.w1,.w1h1{width:100%}.h1,.w1h1{height:100%}.hpx{height:var(--h-px)}.chpx{height:var(--ch-px)}.ctis{container-type:inline-size}.pr{position:relative}.pa,.pal,.pat,.pab{position:absolute}.pal,.pat{left:0}.pat,.patl{top:0}.pab{bottom:0}.jcfs,.tl,.tm,.tr{justify-content:flex-start}.jcc,.ml,.mm,.mr{justify-content:center}.jcfe,.bl,.bm,.br{justify-content:flex-end}.aifs,.tl,.ml,.bl{align-items:flex-start}.aic,.tm,.mm,.bm,:is(.tm,.mm,.bm) .b.aa{align-items:center}.aife,.tr,.mr,.br,:is(.tr,.mr,.br) .b.aa{align-items:flex-end}foreignObject>div.ctn{row-gap:var(--hgap)}p{margin:0;padding:0;display:inline-block}.r{display:flex;flex-wrap:nowrap;container-type:inline-size;height:var(--h-px)}.c{display:flex;flex-direction:column;overflow:hidden;flex:1 1 0;height:100%;min-width:max(20px,var(--mw, 20px))}.c:not(:last-of-type){margin-right:var(--gap, var(--vgap))}.c.wk{max-width:max-content}.c>.b{max-width:100%;container-type:normal}p,.lbl{color:#5c5c5c;line-height:1.15}.title{max-width:100%}.title :is(p,.lbl){margin-top:-2px;flex-shrink:1;flex-grow:1}.title :is(p,.lbl).pct{flex-shrink:0}.wk .title{max-width:fit-content}sup{font-size:.8em;line-height:1.4;vertical-align:text-top;margin-right:-0.1em}sub{font-size:.7em;vertical-align:baseline}.pct sub{margin-left:.05em}img{width:var(--wh, 1em);height:var(--wh, 1em);background-color:var(--c, black);-webkit-mask-image:var(--_i);mask-image:var(--_i);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;--cc:center center;-webkit-mask-position:var(--cc);mask-position:var(--cc)}\n ';
+    private String GLOBAL_STYLE = '@-moz-document url-prefix(){:root:not(:is(.interactive)){--vw-100:50vw !important}}:root{--vw-100:100vw;--max-vw:min(var(--cw-px), var(--vw-100));--c-bg:#fff;--c-bg-empty-fill:#ddd;--c-txt:#181818;--c-txt-lbl:#5c5c5c;--c-txt-ico:#747474;--c-txt-success:#2e844a;--c-txt-warning:#fe9339;--c-txt-error:#ea001e;--c-t1:#3296ed;--c-t2:#77b9f2;--c-t3:#9d53f2;--c-t4:#c398f5;--c-t5:#26aba4;--c-t6:#4ed4cd;--vgap:clamp(5px, calc(var(--max-vw) * 0.05), 20px);--hgap:10px;color:var(--c-txt);font-size:12px;line-height:1;font-family:-apple-system,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;width:max-content}.sz1{--bdy-h:20px}.sz2{--bdy-h:40px}.sz3{--bdy-h:60px}.sz1 .h-sz1,.sz2 .h-sz2,.sz3 .h-sz3{display:none !important}.fx,.fxc,.fxr{display:flex}.fxc{flex-direction:column}.fxr{flex-direction:row}.fg{flex-grow:1}.fwnw{flex-wrap:nowrap}.jcsb{justify-content:space-between}.vatb{vertical-align:text-bottom}.vatt{vertical-align:text-top}.tac{text-align:center}.tar{text-align:right}.wsnp{white-space:nowrap}.w1,.w1h1{width:100%}.h1,.w1h1{height:100%}.hpx{height:var(--h-px)}.chpx{height:var(--ch-px)}.ctis{container-type:inline-size}.pr{position:relative}.pa,.pal,.pat,.pab{position:absolute}.pal,.pat{left:0}.pat,.patl{top:0}.pab{bottom:0}.jcfs,.tl,.tm,.tr{justify-content:flex-start}.jcc,.ml,.mm,.mr{justify-content:center}.jcfe,.bl,.bm,.br{justify-content:flex-end}.aifs,.tl,.ml,.bl{align-items:flex-start}.aic,.tm,.mm,.bm,:is(.tm,.mm,.bm) .b.aa{align-items:center}.aife,.tr,.mr,.br,:is(.tr,.mr,.br) .b.aa{align-items:flex-end}svg>foreignObject{width:var(--max-vw)}svg>foreignObject>div{row-gap:var(--hgap);width:var(--max-vw)}l{margin:0;padding:0;display:inline-block}d{display:block}r{display:flex;flex-wrap:nowrap;container-type:inline-size;height:var(--h-px)}c{display:flex;flex-direction:column;overflow:hidden;flex:1 1 0;height:100%;min-width:max(20px,var(--mw, 20px))}c:not(:last-of-type){margin-right:var(--gap, var(--vgap))}c.wk{max-width:max-content}c>b{font-weight:400;max-width:100%;container-type:normal;display:block}l{color:#5c5c5c;line-height:1.15}t{max-width:100%}t l{margin-top:-2px;flex-shrink:1;flex-grow:1}t lpct{flex-shrink:0}.wk t{max-width:fit-content}cur::before,sup{font-size:.8em;line-height:1.4;vertical-align:text-top;margin-right:-0.1em}cur[d]{--d:attr(d)}cur[n]::before{--n:"-"}cur::before{content:var(--n, "") var(--d, "$")}cur[u]::after{content:attr(u)}pct::after,cur::after,sub{font-size:.7em;vertical-align:baseline}pct::after{content:"%";margin-left:.05em}i{font-style:normal;display:block;width:var(--wh, 1em);height:var(--wh, 1em);background-color:var(--c, black);-webkit-mask-image:var(--_i);mask-image:var(--_i);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;--cc:center center;-webkit-mask-position:var(--cc);mask-position:var(--cc)}\n ';
 
     public static Integer cmpIdx = 0;
     public static Integer getCmpIdx() {
@@ -193,11 +193,11 @@ public with sharing class MiniChartsRenderer {
 
             if (rowComponents == null) {
                 // Row Space
-                svgCharts += '  <div style="height:' + rowHeight + 'px"></div>\n';
+                svgCharts += '  <d style="height:' + rowHeight + 'px"/>\n';
                 continue;
             }
 
-            svgCharts += '  <div style="--c-cnt:' + rowComponents.size() + ';--h:' + rowHeight + ';--h-px:' + rowHeight + 'px" class="r">\n';
+            svgCharts += '  <r style="--c-cnt:' + rowComponents.size() + ';--h:' + rowHeight + ';--h-px:' + rowHeight + 'px">\n';
             for ( Map<String, Object> component: rowComponents) {
                 String chartType = (String)component.get('t');
 
@@ -246,7 +246,7 @@ public with sharing class MiniChartsRenderer {
                 /////////////////////////
                 Integer componentSize = Math.floor(rowHeight/20.0).intValue();
 
-                String cmpClass = weak ? ' c wk ' : ' c ';
+                String wkClass = weak ? ' wk ' : ' ';
                 String strMaxWidth = maxWidth > 0 ? '--mw:' + maxWidth + 'px;' : '';
                 String strComponentGap = componentGap >= 0 ? '--gap:' + componentGap + 'px;' : '';
                 String style = '';
@@ -257,14 +257,14 @@ public with sharing class MiniChartsRenderer {
                 component.put('__height', rowHeight);
                 component.put('__sz', componentSize);
                 
-                svgCharts += '   <div id="c' + cmpIdx + '" ' + style + 'class="_' + designIndex + cmpClass + alignment + ' sz' + componentSize + '">\n    '
+                svgCharts += '   <c ' + style + 'class="_' + designIndex + wkClass + alignment + ' sz' + componentSize + '">\n    '
                     + design.render(component)
-                + '\n   </div>\n';
+                + '\n   </c>\n';
 
                 cmpIdx++;
             }
             
-            svgCharts += '  </div>\n';
+            svgCharts += '  </r>\n';
         }
 
         return '<svg id="_mc" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin slice" width="' + canvasWidth + '" height="' + canvasHeight + '" viewBox="0 0 ' + canvasWidth + ' ' + canvasHeight +'" style="--cw-px:' + canvasWidth + 'px;--ch-px:' + canvasHeight + 'px">\n'
@@ -283,8 +283,10 @@ public with sharing class MiniChartsRenderer {
                 
 
                 // Component html that was generated earlier
-                + '\n<foreignObject class="chpx">\n <div class="ctn wmvw fxc" xmlns="http://www.w3.org/1999/xhtml">\n'
+                + '\n<foreignObject class="chpx">\n <div class="wmvw fxc" xmlns="http://www.w3.org/1999/xhtml">\n'
                     + svgCharts
                 + ' </div>\n</foreignObject>\n</svg>';
     }
+}/* COMPRESSED RENDER */
+
 }

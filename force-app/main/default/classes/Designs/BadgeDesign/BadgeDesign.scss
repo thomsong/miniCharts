@@ -2,9 +2,9 @@
   --sc1: black;
   --sc2: transparent;
 
-  --rad: 0;
+  --d-label-radius: 0;
 
-  .b {
+  & b {
     --sc0: var(--sc1);
     --sc3: var(--sc2);
 
@@ -12,22 +12,22 @@
     padding: 0 5px;
 
     &.rd1 {
-      --rad: 3px;
+      --d-label-radius: 3px;
     }
 
     &.rd2 {
-      --rad: 10px;
+      --d-label-radius: 10px;
     }
 
     background-color: var(--sc2);
-    border-radius: var(--rad);
+    border-radius: var(--d-label-radius);
     border: 1.5px solid var(--sc3);
 
-    .lbl {
+    & l {
       color: var(--sc1);
     }
 
-    & img {
+    & i {
       --c: var(--sc0);
       --wh: 13px;
       flex-shrink: 0;

@@ -10,10 +10,7 @@
   print-color-adjust: exact;
 }
 
-p,
-.tcd,
-.tc span,
-span.tc {
+l {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -158,12 +155,21 @@ span.tc {
   align-items: flex-end;
 }
 
-foreignObject > div.ctn {
-  row-gap: var(--hgap);
+svg > foreignObject {
+  width: var(--max-vw);
+  & > div {
+    row-gap: var(--hgap);
+    width: var(--max-vw);
+  }
 }
 
-p {
+l {
   margin: 0;
   padding: 0;
   display: inline-block;
+}
+
+// Shorthand for div
+d {
+  display: block;
 }

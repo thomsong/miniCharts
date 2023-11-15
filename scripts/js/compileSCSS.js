@@ -3,7 +3,7 @@ const sass = require("sass");
 const fs = require("fs");
 const path = require("path");
 
-const PRODUCTION = false;
+const PRODUCTION = true;
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
@@ -77,6 +77,8 @@ const processClass = (savedFile) => {
       .replaceAll(",0.", ",.")
 
       .replaceAll(" #", "#")
+      .replaceAll(" )", ")")
+      .replaceAll("( ", "(")
 
       .trim();
 
@@ -87,33 +89,18 @@ const processClass = (savedFile) => {
     }
   } else {
     compiledStyle = sass
-      .compile(scssPath, { style: "compressed" })
+      .compile(scssPath, PRODUCTION ? { style: "compressed" } : {})
       .css.toString()
       .replaceAll(": ", ":");
   }
 
   const clsContents = fs.readFileSync(clsPath, "utf8");
-
+  let newClsContent = clsContents;
+  let renderCode = "";
   // console.log(clsContents);
 
-  let newClsContent = clsContents
-    .split("\n")
-    .map((line) => {
-      if (line.includes("public string getStyle() {return '")) {
-        return "    public string getStyle() {return '" + compiledStyle + "';}";
-      }
-      return line;
-    })
-    .map((line) => {
-      if (line.includes("private String GLOBAL_STYLE = '")) {
-        return "    private String GLOBAL_STYLE = '" + compiledStyle + "\\n ';";
-      }
-      return line;
-    })
-    .join("\n");
-
-  if (newClsContent.indexOf("private String RENDER_TEMPLATE") >= 0) {
-    let renderCode = newClsContent.substring(
+  if (clsContents.indexOf("private String RENDER_TEMPLATE") >= 0) {
+    renderCode = newClsContent.substring(
       newClsContent.indexOf("    private String RENDER_TEMPLATE("),
       newClsContent.lastIndexOf(" /* END RENDER_TEMPLATE */")
     );
@@ -163,20 +150,97 @@ const processClass = (savedFile) => {
     // +  '
     // .replaceAll("';\n        output += '", "");
 
-    newClsContent =
-      newClsContent.split("/* COMPRESSED RENDER */")[0] +
-      "/* COMPRESSED RENDER */\n" +
-      renderCode.replace(
-        "private String RENDER_TEMPLATE(",
-        "public String render("
-      ) +
-      "\n}";
+    renderCode = renderCode.replace(
+      "private String RENDER_TEMPLATE(",
+      "public String render("
+    );
   }
+
+  compiledStyle = compiledStyle.replaceAll("\n", "\\n");
+
+  if (renderCode !== "") {
+    // Re-map --d- vars to shorthand for production
+    if (PRODUCTION) {
+      const matches = [...compiledStyle.matchAll("--d-(.)*?[:)]")];
+      // console.log(matches);
+      let varNames = [];
+      matches.forEach((element) => {
+        let match = element[0];
+        match = match.substring(0, match.length - 1);
+        varNames.push(match);
+      });
+
+      // Remove dupes and sort in reverse
+      // Reverse helps not replace partial var names
+      varNames = [...new Set(varNames)].sort();
+      varNames.reverse();
+
+      let idx = 0;
+      varNames.forEach((element) => {
+        let newVarName = "--" + idx;
+        renderCode = renderCode.replaceAll(element, newVarName);
+        compiledStyle = compiledStyle.replaceAll(element, newVarName);
+        idx++;
+      });
+      // newClsContent = newClsContent.replaceAll("--d-", "--dxx-");
+    }
+
+    // Re-map _class class names to shorthand for production
+    if (PRODUCTION) {
+      const matches = [...compiledStyle.matchAll("._(.)*?[ {]")];
+      // console.log(matches);
+      let classNames = [];
+      matches.forEach((element) => {
+        let match = element[0];
+        match = match.substring(1, match.length - 1);
+        classNames.push(match);
+      });
+
+      // Remove dupes and sort in reverse
+      // Reverse helps not replace partial var names
+      classNames = [...new Set(classNames)].sort();
+      classNames.reverse();
+
+      console.log(classNames);
+      let idx = 0;
+      classNames.forEach((element) => {
+        console.log(element);
+        let newClassName = "x" + idx;
+        renderCode = renderCode.replaceAll(element, newClassName);
+        compiledStyle = compiledStyle.replaceAll(element, newClassName);
+        idx++;
+      });
+      // newClsContent = newClsContent.replaceAll("--d-", "--dxx-");
+    }
+  }
+
+  newClsContent =
+    newClsContent.split("/* COMPRESSED RENDER */")[0] +
+    "/* COMPRESSED RENDER */\n" +
+    renderCode +
+    "\n}";
+
+  newClsContent = newClsContent
+    .split("\n")
+    .map((line) => {
+      if (line.includes("public string getStyle() {return '")) {
+        return "    public string getStyle() {return '" + compiledStyle + "';}";
+      }
+      return line;
+    })
+    .map((line) => {
+      if (line.includes("private String GLOBAL_STYLE = '")) {
+        return "    private String GLOBAL_STYLE = '" + compiledStyle + "\\n ';";
+      }
+      return line;
+    })
+    .join("\n");
+
+  fs.writeFileSync(clsPath, newClsContent);
 
   // console.log(renderCode);
 
   // process.exit();
-  fs.writeFileSync(clsPath, newClsContent);
 
   return clsPath;
 };
