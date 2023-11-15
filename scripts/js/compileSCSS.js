@@ -3,7 +3,7 @@ const sass = require("sass");
 const fs = require("fs");
 const path = require("path");
 
-const PRODUCTION = false;
+const PRODUCTION = true;
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
@@ -76,7 +76,7 @@ const processClass = (savedFile) => {
       .replaceAll(" 0.", " .")
       .replaceAll(",0.", ",.")
 
-      .replaceAll(" #", "#")
+      .replaceAll(", ", ",")
       .replaceAll(" )", ")")
       .replaceAll("( ", "(")
 
@@ -161,7 +161,7 @@ const processClass = (savedFile) => {
   if (renderCode !== "") {
     // Re-map --d- vars to shorthand for production
     if (PRODUCTION) {
-      const matches = [...compiledStyle.matchAll("--d-(.)*?[:)]")];
+      const matches = [...compiledStyle.matchAll("--d-(.)*?[:),{}]")];
       // console.log(matches);
       let varNames = [];
       matches.forEach((element) => {
@@ -180,6 +180,7 @@ const processClass = (savedFile) => {
         let newVarName = "--" + idx;
         renderCode = renderCode.replaceAll(element, newVarName);
         compiledStyle = compiledStyle.replaceAll(element, newVarName);
+        // console.log(element, newVarName);
         idx++;
       });
       // newClsContent = newClsContent.replaceAll("--d-", "--dxx-");
@@ -187,7 +188,7 @@ const processClass = (savedFile) => {
 
     // Re-map _class class names to shorthand for production
     if (PRODUCTION) {
-      const matches = [...compiledStyle.matchAll("._(.)*?[ {]")];
+      const matches = [...compiledStyle.matchAll("._(.)*?[ }{,]")];
       // console.log(matches);
       let classNames = [];
       matches.forEach((element) => {
@@ -201,11 +202,11 @@ const processClass = (savedFile) => {
       classNames = [...new Set(classNames)].sort();
       classNames.reverse();
 
-      console.log(classNames);
+      // console.log(classNames);
       let idx = 0;
       classNames.forEach((element) => {
-        console.log(element);
-        let newClassName = "x" + idx;
+        // console.log(element);
+        let newClassName = "z" + idx;
         renderCode = renderCode.replaceAll(element, newClassName);
         compiledStyle = compiledStyle.replaceAll(element, newClassName);
         idx++;

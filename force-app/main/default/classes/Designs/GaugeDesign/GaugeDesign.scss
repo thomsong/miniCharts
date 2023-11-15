@@ -2,8 +2,8 @@
   --h-px2: calc(var(--h-px) * 2);
   --d-total-height: 0;
 
-  --bgc: var(--c-bg-empty-fill);
-  --fillc: #3296ed;
+  --d-background-color: var(--c-bg-empty-fill);
+  --d-fill-color: #3296ed;
 
   ._chart-container {
     overflow: hidden;
@@ -47,7 +47,6 @@
   }
 
   &.sz1 {
-    --mw: var(--h-px2);
     --d-value-font-size: 8px;
     --d-total-height: 0;
 
@@ -99,8 +98,8 @@
 
   ._gauge {
     & line,
-    ._empty-path {
-      transform: rotate(calc(var(--pct) * 1.8deg));
+    [e] {
+      transform: rotate(calc(var(--d-percent-value) * 1.8deg));
       transform-origin: center bottom;
     }
 
@@ -119,7 +118,7 @@
     & path {
       fill: none;
       stroke-width: var(--d-stroke-width);
-      stroke: var(--bgc);
+      stroke: var(--d-background-color);
     }
   }
 
