@@ -1,61 +1,66 @@
 ._ {
   --h-px2: calc(var(--h-px) * 2);
-  --ttl-h: 0;
+  --d-total-height: 0;
 
   --bgc: var(--c-bg-empty-fill);
   --fillc: #3296ed;
 
+  ._chart-container {
+    overflow: hidden;
+  }
+
   &:has(t) {
-    --ttl-h: 13;
+    --d-total-height: 13;
 
-    .chart-crop {
-      --ch: calc(var(--h) - var(--ttl-h));
-      --scl: calc(var(--ch) / var(--h));
+    ._chart-container {
+      --d-chart-height: calc(var(--h) - var(--d-total-height));
+      --d-chart-scale: calc(var(--d-chart-height) / var(--h));
 
-      width: calc(var(--h-px2) * var(--scl));
-      height: calc(var(--ch) * 1px);
+      width: calc(var(--h-px2) * var(--d-chart-scale));
+      height: calc(var(--d-chart-height) * 1px);
 
-      .chart {
-        transform: scale(var(--scl));
+      ._chart {
+        transform: scale(var(--d-chart-scale));
         transform-origin: top left;
       }
     }
   }
 
   & t {
-    height: calc(var(--ttl-h) * 1px);
+    height: calc(var(--d-total-height) * 1px);
 
     & l:last-child {
       display: none;
     }
   }
 
-  & l.value {
+  & l._value {
     width: var(--h-px2);
 
-    & span {
+    & > * {
       display: block;
       background: #fffd;
       border-radius: 10px 10px 0 0;
       padding: 0px 2px;
-      font-size: var(--v-lbl-px);
+      font-size: var(--d-value-font-size);
     }
   }
 
   &.sz1 {
     --mw: var(--h-px2);
-    --v-lbl-px: 8px;
+    --d-value-font-size: 8px;
+    --d-total-height: 0;
 
     & b {
       display: flex;
     }
 
     &:has(t) {
-      & l.value {
+      & l._value {
         display: none;
       }
-      .chart-crop {
-        --ch: var(--h);
+      .--d-chart-container {
+        --d-chart-height: var(--h);
       }
     }
 
@@ -71,11 +76,12 @@
         height: 9px;
       }
     }
-    .chart {
+
+    ._chart {
       transform: none;
     }
 
-    & l.value span {
+    & l._value > * {
       border-radius: 5px 5px 0 0;
       padding: 0 1px;
       letter-spacing: -0.05em;
@@ -84,38 +90,40 @@
   }
 
   &.sz2 {
-    --v-lbl-px: 15px;
+    --d-value-font-size: 15px;
   }
 
   &.sz3 {
-    --v-lbl-px: 24px;
+    --d-value-font-size: 24px;
   }
 
-  .g {
+  ._gauge {
     & line,
-    .empty {
+    ._empty-path {
       transform: rotate(calc(var(--pct) * 1.8deg));
       transform-origin: center bottom;
     }
 
     & line {
-      &.target {
-        --sw: calc(var(--gp) * 2);
-        outline: var(--gp) solid #fff;
+      --d-stroke-width: var(--d-gap);
+
+      &._target {
+        --d-stroke-width: calc(var(--d-gap) * 2);
+        outline: var(--d-gap) solid #fff;
       }
 
-      stroke: var(--sc, var(--c-bg));
-      stroke-width: var(--sw, var(--gp));
+      stroke: var(--d-stroke-color, var(--c-bg));
+      stroke-width: var(--d-stroke-width, var(--d-gap));
     }
 
     & path {
       fill: none;
-      stroke-width: var(--s);
+      stroke-width: var(--d-stroke-width);
       stroke: var(--bgc);
     }
   }
 
-  .fill {
+  ._chart-fill {
     --h02: calc(var(--h-px2) - 0.2px);
     width: var(--h02);
     height: var(--h02);
@@ -125,30 +133,14 @@
     background: var(--f);
 
     --m: radial-gradient(
-      transparent calc(var(--h-px) - (var(--s) * 1px)),
+      transparent calc(var(--h-px) - (var(--d-stroke-width) * 1px)),
       #000 0
     );
     -webkit-mask: var(--m);
     mask: var(--m);
-
-    // &::after {
-    //   content: "";
-    //   position: absolute;
-
-    //   --ss: calc((var(--s) - 0.1) * 1px);
-    //   --sh: calc(var(--h-px2) - (var(--ss) * 2));
-
-    //   top: var(--ss);
-    //   left: var(--ss);
-    //   width: var(--sh);
-    //   height: var(--sh);
-
-    //   border-radius: 50%;
-    //   background: var(--c-bg);
-    // }
   }
 
-  .chart {
+  ._chart {
     position: relative;
     height: var(--h-px);
     width: var(--h-px2);

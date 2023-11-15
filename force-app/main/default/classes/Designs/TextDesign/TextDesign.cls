@@ -75,10 +75,6 @@ public with sharing class TextDesign implements MiniChartsDesign {
             iconHTML = '<svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><use style="fill:var(--icoc)" href="#'+MiniChartsIcons.getIcon('utility', iconName)+'" /></svg>';
         }
         String textHTML = MiniChartsHelper.generateLabelText('Hello WorldHelloWorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello WorldHello World Hello WorldHello WorldHello World');
-        String output = '';
-        output += '<b class="fxr fmd" style="--ih:'+iconHeight+';--c:'+textColor+';--icoc:'+iconColor+';">';
-            output += '<d class="txt tcd">'+iconHTML + textHTML+'</d>';
-        output += '</b>';
-        return output;
+        return '<b class="fxr fmd" style="--ih:'+iconHeight+';--c:'+textColor+';--icoc:'+iconColor+';"><d class="txt tcd">'+iconHTML + textHTML+'</d></b>';
     }
 }

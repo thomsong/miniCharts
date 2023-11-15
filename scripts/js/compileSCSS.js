@@ -3,7 +3,7 @@ const sass = require("sass");
 const fs = require("fs");
 const path = require("path");
 
-const PRODUCTION = true;
+const PRODUCTION = false;
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
@@ -214,11 +214,13 @@ const processClass = (savedFile) => {
     }
   }
 
-  newClsContent =
-    newClsContent.split("/* COMPRESSED RENDER */")[0] +
-    "/* COMPRESSED RENDER */\n" +
-    renderCode +
-    "\n}";
+  if (renderCode !== "") {
+    newClsContent =
+      newClsContent.split("/* COMPRESSED RENDER */")[0] +
+      "/* COMPRESSED RENDER */\n" +
+      renderCode +
+      "\n}";
+  }
 
   newClsContent = newClsContent
     .split("\n")

@@ -33,7 +33,8 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
                 output += '<d class="bar fg">';
                     output += '<d class="fill"/>';
                     output += '<d class="target" style="--target:' + target + '">';
-                        output += '<span class="lbl tc">Target</span><span class="line"></span>';
+                        output += '<l>Target</l>';
+                        output += '<span class="line"></span>';
                     output += '</d>';
                 output += '</d>';
                 output += valueLabelHTML;
@@ -55,6 +56,6 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         if (true) {
             titleHTML = '<t><l><span>Win Rate</span></l>'+valueLabelHTML+'</t>';
         }
-        return '<b style="--pct:'+pct+'%">' + titleHTML + '<d class="bwrap fx aic"><d class="bar fg"><d class="fill"/><d class="target" style="--target:'+target+'"><span class="lbl tc">Target</span><span class="line"></span></d></d>' + valueLabelHTML + '</d></b>';
+        return '<b style="--pct:'+pct+'%">' + titleHTML + '<d class="bwrap fx aic"><d class="bar fg"><d class="fill"/><d class="target" style="--target:'+target+'"><l>Target</l><span class="line"></span></d></d>' + valueLabelHTML + '</d></b>';
     }
 }
