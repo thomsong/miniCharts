@@ -56,7 +56,7 @@ public with sharing class RingDesign implements MiniChartsDesign {
         if (titleText != '') {
             if (componentSize == 1) {
                 titleAfterHTML = 
-                    '<t class="fxc jcc">'
+                    '<t class="jcc">'
                         + '<l>' + titleText + '</l>'
                         + '<l>' + pctLabelHTML + '</l>'
                   + '</t>';
@@ -142,7 +142,7 @@ public with sharing class RingDesign implements MiniChartsDesign {
         String titleAfterHTML = '';
         if (titleText != '') {
             if (componentSize == 1) {
-                titleAfterHTML = '<t class="fxc jcc"><l>'+titleText+'</l><l>'+pctLabelHTML+'</l></t>';
+                titleAfterHTML = '<t class="jcc"><l>'+titleText+'</l><l>'+pctLabelHTML+'</l></t>';
             } else {
                 titleBeforeHTML = '<t><l>'+titleText+'</l></t>';
             }
@@ -155,6 +155,20 @@ public with sharing class RingDesign implements MiniChartsDesign {
         /* //////////////////////////////////////////////// */
         String fullClass = pct >= 100 ? ' full' : '';
         /* //////////////////////////////////////////////// */
-        return '<b class="aa hpx fxc'+fullClass+'" style="--fillc:'+primaryColor+';--pct:'+pct+'">' + titleBeforeHTML + '<d class="chart-crop"><d class="chart"><d class="fill" style="--s:'+strokeWidth+';--f:'+fill+'"/>' + iconHTML + '<l class="value pat hpx aic jcc fx">' + pctLabelHTML + '</l></d></d>' + titleAfterHTML + '</b>';
+        String output = '';
+        output += '<b class="aa hpx fxc'+fullClass+'" style="--fillc:'+primaryColor+';--pct:'+pct+'">';
+            output += titleBeforeHTML;
+                output += '<d class="chart-crop">';
+                    output += '<d class="chart">';
+                        output += '<d class="fill" style="--s:'+strokeWidth+';--f:'+fill+'"/>';
+                        output += iconHTML;
+                        output += '<l class="value pat hpx aic jcc fx">';
+                            output += pctLabelHTML;
+                        output += '</l>';
+                    output += '</d>';
+                output += '</d>';
+            output += titleAfterHTML;
+        output += '</b>';
+        return output;
     }
 }

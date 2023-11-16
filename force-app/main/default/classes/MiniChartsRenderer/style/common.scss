@@ -29,7 +29,8 @@
   --hgap: 10px;
 
   // Default Font Settings
-  color: var(--c-txt);
+  --t: var(--t);
+  color: var(--t);
   font-size: 12px;
   line-height: 1;
   font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial,

@@ -55,6 +55,7 @@ t,
 .fwnw {
   flex-wrap: nowrap;
 }
+t,
 .jcsb {
   justify-content: space-between;
 }
@@ -81,6 +82,7 @@ t,
 .w1h1 {
   height: 100%;
 }
+b[hpx],
 .hpx {
   height: var(--h-px);
 }
@@ -112,7 +114,6 @@ t,
 }
 
 /////
-t,
 .jcfs,
 .tl,
 .tm,
@@ -175,4 +176,9 @@ l {
 // Shorthand for div
 d {
   display: block;
+}
+
+l[fs0],
+.fs0 {
+  flex-shrink: 0;
 }

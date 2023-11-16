@@ -67,7 +67,6 @@
       height: var(--h-px);
       max-width: calc(100% - var(--h-px2));
       padding-left: 10px;
-      box-sizing: border-box;
 
       & l:last-child {
         display: block;
@@ -95,26 +94,6 @@
   &.sz3 {
     --d-value-font-size: 24px;
   }
-
-  // ._gauge path {
-  //     stroke-width: var(--d-stroke-width);
-  //     stroke: var(--d-background-color);
-  //     // transform: rotate(calc(var(--d-percent-value) * 1.8deg));
-  //     transform-origin: center bottom;
-
-  //     & :not([e]) {
-  //       --d-stroke-width: var(--d-gap);
-
-  //       & [t] {
-  //         --d-stroke-width: calc(var(--d-gap) * 2);
-  //         outline: var(--d-gap) solid #fff;
-  //       }
-
-  //       stroke: var(--d-stroke-color, var(--c-bg));
-  //       stroke-width: var(--d-stroke-width, var(--d-gap));
-  //     }
-  //   }
-  // }
 
   & ln,
   & ln[t]:after {

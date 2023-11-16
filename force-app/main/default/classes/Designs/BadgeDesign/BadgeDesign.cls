@@ -3,26 +3,26 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         // 'name' => => 'icon,text,bg,outline'
 
         'default'           => '--sc1:#fff;--sc2:#5C5C5C',
-        'default_outline'   => '--sc0:#181818;--sc3:#5C5C5C',
+        'default_outline'   => '--sc0:var(--t);--sc3:#5C5C5C',
 
         'success'           => '--sc1:#fff;--sc2:#2E844A',
-        'success_outline'   => '--sc0:#2E844A;--sc1:#181818;--sc3:#2E844A',
+        'success_outline'   => '--sc0:#2E844A;--sc1:var(--t);--sc3:#2E844A',
 
-        'warning'           => '--sc1:#181818;--sc2:#DD7A01',
-        'warning_outline'   => '--sc0:#DD7A01;--sc1:#181818;--sc3:#DD7A01',
+        'warning'           => '--sc1:var(--t);--sc2:#DD7A01',
+        'warning_outline'   => '--sc0:#DD7A01;--sc1:var(--t);--sc3:#DD7A01',
 
         'error'             => '--sc1:#fff;--sc2:#BA0517',
-        'error_outline'     => '--sc0:#BA0517;--sc1:#181818;--sc3:#BA0517',
+        'error_outline'     => '--sc0:#BA0517;--sc1:var(--t);--sc3:#BA0517',
         
-        'info'              => '--sc0:#747474;--sc1:#181818;--sc2:#C9C9C9',
-        'info_outline'      => '--sc0:#747474;--sc1:#181818;--sc3:#C9C9C9'
+        'info'              => '--sc0:#747474;--sc1:var(--t);--sc2:#C9C9C9',
+        'info_outline'      => '--sc0:#747474;--sc1:var(--t);--sc3:#C9C9C9'
     };
 
     
     @TestVisible
     private String RENDER_TEMPLATE(Map<String, Object> p) {
         Map<String, Object> defaultProps = new Map<String, Object>();
-        defaultProps.put('stl', 'error'); //  default_outline
+        defaultProps.put('stl', 'default_outline'); //  default_outline
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
         defaultProps.put('txt', 'Null'); // Should never happen
         
@@ -54,7 +54,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         ///////////////////////////////////////////////////////
         String badgeIconHTML = '';
         if (hasIcon) {
-            badgeIconHTML = '<i style="--_i:var(' + MiniChartsIcons.getIcon('utility', style.split('_')[0]) + ')"/>';
+            badgeIconHTML = '<i style="--_:var(' + MiniChartsIcons.getIcon('utility', style.split('_')[0]) + ')"/>';
         }
         
         ///////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> p) {
         Map<String, Object> defaultProps = new Map<String, Object>();
-        defaultProps.put('stl', 'error'); //  default_outline
+        defaultProps.put('stl', 'default_outline'); //  default_outline
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
         defaultProps.put('txt', 'Null'); // Should never happen
         Map<String, Object> props =  MiniChartsHelper.getProps(p, defaultProps);
@@ -99,7 +99,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         }
         String badgeIconHTML = '';
         if (hasIcon) {
-            badgeIconHTML = '<i style="--_i:var('+MiniChartsIcons.getIcon('utility', style.split('_')[0])+')"/>';
+            badgeIconHTML = '<i style="--_:var('+MiniChartsIcons.getIcon('utility', style.split('_')[0])+')"/>';
         }
         String output = '';
         output += '<b class="fxr aic rd'+radiusSize+'" style="'+styleCSSVars+'">';
