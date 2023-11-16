@@ -1,6 +1,6 @@
 ._ {
   --h-px2: calc(var(--h-px) * 2);
-  --d-total-height: 0;
+  --d-title-height: 0;
 
   --d-background-color: var(--c-bg-empty-fill);
   --d-fill-color: #3296ed;
@@ -10,10 +10,10 @@
   }
 
   &:has(t) {
-    --d-total-height: 13;
+    --d-title-height: 13;
 
     ._chart-container {
-      --d-chart-height: calc(var(--h) - var(--d-total-height));
+      --d-chart-height: calc(var(--h) - var(--d-title-height));
       --d-chart-scale: calc(var(--d-chart-height) / var(--h));
 
       width: calc(var(--h-px2) * var(--d-chart-scale));
@@ -27,7 +27,7 @@
   }
 
   & t {
-    height: calc(var(--d-total-height) * 1px);
+    height: calc(var(--d-title-height) * 1px);
 
     & l:last-child {
       display: none;
@@ -48,7 +48,7 @@
 
   &.sz1 {
     --d-value-font-size: 8px;
-    --d-total-height: 0;
+    --d-title-height: 0;
 
     & b {
       display: flex;

@@ -58,7 +58,7 @@ public with sharing class IconProgressDesign implements MiniChartsDesign {
     /* ************************************************************ */
     /* ************************************************************ */
 
-    public string getStyle() {return '--2:0px;--6:.2;&:has(t){--2:13px}--16:calc(var(--h-px) - var(--2));--3:min(40px,var(--h-px));container-type:inline-size;& b{--bgc:var(--c-bg-empty-fill);--11:linear-gradient(to right,var(--c-t3) 0px,var(--c-t1) 100%);width:100%;.x1 > l{width:100%;max-width:42px;margin:0 0 0 3px;text-overflow:clip;&:not(pct){@container (max-width:75px){display:none}}&pct{max-width:30px;@container (max-width:65px){display:none}}}& t{display:flex;justify-content:space-between;align-items:flex-start;height:calc(var(--h-px) - var(--16));& l{&:first-of-type{padding-right:1ch}&:last-of-type{flex-shrink:0;text-align:right}}}}.x3{container-type:inline-size;--10:calc(var(--9) + ((var(--9) - 1)*var(--6)));--8:max(7px,min(var(--3),min(calc(100cqw/var(--10)),var(--16))));overflow:hidden;position:relative;.x0{--gap:calc(var(--8)*var(--6));--7:calc(var(--8) + var(--gap));--5:calc((var(--9)*var(--8)) + ((var(--9) - 1)*var(--gap)));--14:calc(((var(--1) + var(--0))*var(--8)) + (var(--1)*var(--gap)));&.x2{--14:calc(var(--8) + (var(--1)*var(--8)) + (var(--1)*var(--gap)))}--12:min(var(--5),var(--14));--13:calc(100% - var(--14) + var(--8) + var(--gap));height:var(--8);width:calc((var(--7)*var(--9)) - var(--gap));--15:linear-gradient(var(--bgc),var(--bgc));background:var(--15),var(--15),var(--11);background-size:0,calc(100% - var(--12)),100%;&.hfill{background-size:var(--13) calc(100% - (var(--0)*100%)),calc(100% - var(--12)),100%}background-repeat:no-repeat;background-position:top right;-webkit-mask-image:var(--4);-webkit-mask-size:var(--7) var(--8);-webkit-mask-repeat:repeat no-repeat}}& b:has(t){--2:13px;.x1 > l{display:none}}';}
+    public String getStyle() {return '--d-title-height:0px;--d-icon-spacing:.2;&:has(t){--d-title-height:13px}--d-container-height:calc(var(--h-px) - var(--d-title-height));--d-max-icon-height:min(40px,var(--h-px));container-type:inline-size;& b{--bgc:var(--c-bg-empty-fill);--d-fill-color:linear-gradient(to right,var(--c-t3) 0px,var(--c-t1) 100%);width:100%;._icon-label-wrapper > l{width:100%;max-width:42px;margin:0 0 0 3px;text-overflow:clip;&:not(pct){@container (max-width:75px){display:none}}&pct{max-width:30px;@container (max-width:65px){display:none}}}& t{display:flex;justify-content:space-between;align-items:flex-start;height:calc(var(--h-px) - var(--d-container-height));& l{&:first-of-type{padding-right:1ch}&:last-of-type{flex-shrink:0;text-align:right}}}}._container{container-type:inline-size;--d-height-in-width-units:calc(var(--d-icon-count) + ((var(--d-icon-count) - 1)*var(--d-icon-spacing)));--d-icon-height:max(7px,min(var(--d-max-icon-height),min(calc(100cqw/var(--d-height-in-width-units)),var(--d-container-height))));overflow:hidden;position:relative;._icons{--gap:calc(var(--d-icon-height)*var(--d-icon-spacing));--d-icon-height-with-gap:calc(var(--d-icon-height) + var(--gap));--d-icon-width:calc((var(--d-icon-count)*var(--d-icon-height)) + ((var(--d-icon-count) - 1)*var(--gap)));--d-empty-space:calc(((var(--d-value) + var(--d-value-remainder))*var(--d-icon-height)) + (var(--d-value)*var(--gap)));&._horizontal-fill{--d-empty-space:calc(var(--d-icon-height) + (var(--d-value)*var(--d-icon-height)) + (var(--d-value)*var(--gap)))}--d-empty-space-min:min(var(--d-icon-width),var(--d-empty-space));--d-empty-space-height:calc(100% - var(--d-empty-space) + var(--d-icon-height) + var(--gap));height:var(--d-icon-height);width:calc((var(--d-icon-height-with-gap)*var(--d-icon-count)) - var(--gap));--d-empty-fill-gradient:linear-gradient(var(--bgc),var(--bgc));background:var(--d-empty-fill-gradient),var(--d-empty-fill-gradient),var(--d-fill-color);background-size:0,calc(100% - var(--d-empty-space-min)),100%;&.hfill{background-size:var(--d-empty-space-height) calc(100% - (var(--d-value-remainder)*100%)),calc(100% - var(--d-empty-space-min)),100%}background-repeat:no-repeat;background-position:top right;-webkit-mask-image:var(--d-mask-image);-webkit-mask-size:var(--d-icon-height-with-gap) var(--d-icon-height);-webkit-mask-repeat:repeat no-repeat}}& b:has(t){--d-title-height:13px;._icon-label-wrapper > l{display:none}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
@@ -77,7 +77,17 @@ public with sharing class IconProgressDesign implements MiniChartsDesign {
         String iconVarName = MiniChartsIcons.getIcon('internal', 'star');
         String styleVal = String.valueOf(Math.floor(value));
         String styleValP = String.valueOf((value - Math.floor(value)).setScale(1));
-        String iconsClass = hFill ? 'x0 x2' : 'x0';
-        return '<b style="--9:'+iconCount+';--6:'+iconSpacing.setScale(1)+';--1:'+styleVal+';--0:'+styleValP+'">' + titleHTML + '<d class="x1 fx aic"><d class="x3 fxc fg"><d class="'+iconsClass+'" style="--4:var('+iconVarName+')"/></d>' + valueLabelHTML + '</d></b>';
+        String iconsClass = hFill ? '_icons _horizontal-fill' : '_icons';
+        String output = '';
+        output += '<b style="--d-icon-count:'+iconCount+';--d-icon-spacing:'+iconSpacing.setScale(1)+';--d-value:'+styleVal+';--d-value-remainder:'+styleValP+'">';
+            output += titleHTML;
+            output += '<d class="_icon-label-wrapper fx aic">';
+                output += '<d class="_container fxc fg">';
+                    output += '<d class="'+iconsClass+'" style="--d-mask-image:var('+iconVarName+')"/>';
+                output += '</d>';
+                output += valueLabelHTML;
+            output += '</d>';
+        output += '</b>';
+        return output;
     }
 }

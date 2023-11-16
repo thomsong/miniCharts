@@ -47,19 +47,19 @@ public with sharing class MiniChartsRenderer {
         row.put('h', 20);
       
         component = new Map<String, Object>(); 
-        component.put('t', 'GaugeDesign');
-        component.put('wk', true);
-        // component.put('gap', 5);
-        rowComponents.add(component);
-
-        component = new Map<String, Object>(); 
-        component.put('t', 'GaugeDesign');
+        component.put('t', 'LineGraphDesign');
         // component.put('wk', true);
         // component.put('gap', 5);
         rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
+        component.put('t', 'LineGraphDesign');
+        // component.put('wk', true);
+        // component.put('gap', 5);
+        rowComponents.add(component);
+
+        component = new Map<String, Object>(); 
+        component.put('t', 'LineGraphDesign');
         // component.put('wk', false);
         rowComponents.add(component);
         
@@ -78,15 +78,15 @@ public with sharing class MiniChartsRenderer {
         // rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'BadgeDesign');
+        component.put('t', 'LineGraphDesign');
         rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'GaugeDesign');
+        component.put('t', 'LineGraphDesign');
         rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
+        component.put('t', 'LineGraphDesign');
         rowComponents.add(component);
         
         row.put('cmps', rowComponents);
@@ -104,12 +104,12 @@ public with sharing class MiniChartsRenderer {
         // rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'GaugeDesign');
-        component.put('wk', true);
+        component.put('t', 'LineGraphDesign');
+        // component.put('wk', true);
         rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'ProgressBarDesign');
+        component.put('t', 'LineGraphDesign');
         // component.put('wk', false);
         rowComponents.add(component);
 

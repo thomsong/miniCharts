@@ -1,12 +1,12 @@
 ._ {
-  --d-total-height: 0px;
+  --d-title-height: 0px;
   --d-icon-spacing: 0.2;
 
   &:has(t) {
-    --d-total-height: 13px;
+    --d-title-height: 13px;
   }
 
-  --d-container-height: calc(var(--h-px) - var(--d-total-height));
+  --d-container-height: calc(var(--h-px) - var(--d-title-height));
   --d-max-icon-height: min(40px, var(--h-px));
 
   container-type: inline-size;
@@ -136,7 +136,7 @@
   }
 
   & b:has(t) {
-    --d-total-height: 13px;
+    --d-title-height: 13px;
     ._icon-label-wrapper > l {
       display: none;
     }

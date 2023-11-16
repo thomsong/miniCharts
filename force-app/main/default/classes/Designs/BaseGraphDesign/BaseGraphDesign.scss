@@ -1,0 +1,29 @@
+._ {
+  --d-title-height: 0px;
+
+  &:has(t) {
+    --d-title-height: 13px;
+  }
+
+  --d-graph-height: calc(var(--h-px) - var(--d-title-height));
+
+  & b {
+    width: 100%;
+    height: var(--h-px);
+
+    & t {
+      height: var(--d-title-height);
+
+      & l:first-of-type {
+        padding-right: 1ch;
+      }
+    }
+  }
+
+  .graph {
+    --gh: var(--d-graph-height);
+    position: relative;
+    height: var(--gh);
+    background: red;
+  }
+}

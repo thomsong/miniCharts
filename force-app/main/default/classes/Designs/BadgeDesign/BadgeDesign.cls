@@ -71,7 +71,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '--sc1:black;--sc2:transparent;--d-label-radius:0;& b{--sc0:var(--sc1);--sc3:var(--sc2);height:20px;padding:0 5px;&.rd1{--d-label-radius:3px}&.rd2{--d-label-radius:10px}background-color:var(--sc2);border-radius:var(--d-label-radius);border:1.5px solid var(--sc3);& l{color:var(--sc1)}& i{--c:var(--sc0);--wh:13px;flex-shrink:0;margin-right:4px}}';}
+    public String getStyle() {return '--sc1:black;--sc2:transparent;--d-label-radius:0;& b{--sc0:var(--sc1);--sc3:var(--sc2);height:20px;padding:0 5px;&.rd1{--d-label-radius:3px}&.rd2{--d-label-radius:10px}background-color:var(--sc2);border-radius:var(--d-label-radius);border:1.5px solid var(--sc3);& l{color:var(--sc1)}& i{--c:var(--sc0);--wh:13px;flex-shrink:0;margin-right:4px}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> p) {

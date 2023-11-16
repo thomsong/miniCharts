@@ -1,9 +1,9 @@
 ._ {
-  --d-total-height: 0px;
+  --d-title-height: 0px;
   --d-bottom-label-height: 0px;
 
   &:has(t) {
-    --d-total-height: 13px;
+    --d-title-height: 13px;
   }
 
   &:has(._target) {
@@ -27,9 +27,7 @@
         }
       }
     }
-  }
 
-  &:has(._target) {
     &:has(t) {
       &.sz1 {
         --d-bottom-label-height: 0px;
@@ -49,7 +47,7 @@
   }
 
   --d-bar-height: calc(
-    var(--h-px) - var(--d-total-height) - var(--d-bottom-label-height)
+    var(--h-px) - var(--d-title-height) - var(--d-bottom-label-height)
   );
   --d-max-bar-height: var(--d-bar-height);
 
@@ -204,7 +202,7 @@
   }
 
   & b:has(t) {
-    --d-total-height: 13px;
+    --d-title-height: 13px;
     ._bar-label-wrapper {
       & > l {
         display: none;

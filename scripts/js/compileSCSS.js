@@ -3,7 +3,7 @@ const sass = require("sass");
 const fs = require("fs");
 const path = require("path");
 
-const PRODUCTION = false;
+const PRODUCTION = true;
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
@@ -146,9 +146,13 @@ const processClass = (savedFile) => {
       renderCode = renderCode
         .replace(/\';[\s]*output[\s]*\+\=[\s]*\'/g, "")
         .replace(/\';[\s]*output[\s]*\+\=[\s]*/g, "' + ")
-        .replace(/\HTML;[\s]*output[\s]*\+\=[\s]*/g, "HTML + ")
-        .replace("String output = '", "return '")
-        .replace(/[\s]*return output;/, "");
+        .replace(/\HTML;[\s]*output[\s]*\+\=[\s]*/g, "HTML + ");
+
+      if (renderCode.includes("return output;")) {
+        renderCode = renderCode
+          .replace("String output = '", "return '")
+          .replace(/[\s]*return output;/, "");
+      }
     }
 
     // .replaceAll("output\n+'", "output + '")
@@ -186,6 +190,10 @@ const processClass = (savedFile) => {
       varNames.forEach((element) => {
         let newVarName = "--" + idx;
 
+        if (baseFile.includes("/Base")) {
+          newVarName = "--b" + idx;
+        }
+
         // console.log(element, newVarName);
         renderCode = renderCode.replaceAll(element, newVarName);
         compiledStyle = compiledStyle.replaceAll(element, newVarName);
@@ -216,6 +224,10 @@ const processClass = (savedFile) => {
       classNames.forEach((element) => {
         let newClassName = "z" + idx;
 
+        if (baseFile.includes("/Base")) {
+          newClassName = "bz" + idx;
+        }
+
         // console.log(element, newClassName);
 
         renderCode = renderCode.replaceAll(element, newClassName);
@@ -227,18 +239,49 @@ const processClass = (savedFile) => {
   }
 
   if (renderCode !== "") {
-    newClsContent =
-      newClsContent.split("/* COMPRESSED RENDER */")[0] +
-      "/* COMPRESSED RENDER */\n" +
-      renderCode +
-      "\n}";
+    if (newClsContent.includes("/* COMPRESSED STATIC RENDER */")) {
+      newClsContent =
+        newClsContent.split("/* COMPRESSED STATIC RENDER */")[0] +
+        "/* COMPRESSED STATIC RENDER */\n" +
+        renderCode.replace(
+          "public String render",
+          "public static String render"
+        ) +
+        "\n}";
+    } else {
+      newClsContent =
+        newClsContent.split("/* COMPRESSED RENDER */")[0] +
+        "/* COMPRESSED RENDER */\n" +
+        renderCode +
+        "\n}";
+    }
   }
 
   newClsContent = newClsContent
     .split("\n")
     .map((line) => {
-      if (line.includes("public string getStyle() {return '")) {
-        return "    public string getStyle() {return '" + compiledStyle + "';}";
+      if (line.includes("public String getStyle() {return '")) {
+        return "    public String getStyle() {return '" + compiledStyle + "';}";
+      }
+      return line;
+    })
+    .map((line) => {
+      if (line.includes("public static String getStyle() {return '")) {
+        return (
+          "    public static String getStyle() {return '" +
+          compiledStyle +
+          "';}"
+        );
+      }
+      return line;
+    })
+    .map((line) => {
+      if (line.includes("public String getStyle() {return Base")) {
+        return (
+          "    public String getStyle() {return BaseGraphDesign.getStyle()+'" +
+          compiledStyle +
+          "';}"
+        );
       }
       return line;
     })

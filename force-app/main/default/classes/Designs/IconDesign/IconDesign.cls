@@ -27,7 +27,7 @@ public with sharing class IconDesign implements MiniChartsDesign {
         + '</b>';
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '--ico-sz:40px;--sz:min(20px,var(--ico-sz));&.sz2{--sz:min(40px,var(--ico-sz))}&.sz3{--sz:min(60px,var(--ico-sz))}max-width:var(--sz);& b{gap:3px}.ico{& svg{width:var(--sz);max-width:min(var(--sz),100%);max-height:min(var(--sz),100%)}}';}
+    public String getStyle() {return '--ico-sz:40px;--sz:min(20px,var(--ico-sz));&.sz2{--sz:min(40px,var(--ico-sz))}&.sz3{--sz:min(60px,var(--ico-sz))}max-width:var(--sz);& b{gap:3px}.ico{& svg{width:var(--sz);max-width:min(var(--sz),100%);max-height:min(var(--sz),100%)}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {

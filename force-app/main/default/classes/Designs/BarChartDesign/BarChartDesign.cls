@@ -4,7 +4,7 @@ public with sharing class BarChartDesign implements MiniChartsDesign {
         return '<b/>';
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '';}
+    public String getStyle() {return '';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
