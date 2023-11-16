@@ -96,29 +96,60 @@
     --d-value-font-size: 24px;
   }
 
-  ._gauge {
-    & line,
-    [e] {
-      transform: rotate(calc(var(--d-percent-value) * 1.8deg));
-      transform-origin: center bottom;
+  // ._gauge path {
+  //     stroke-width: var(--d-stroke-width);
+  //     stroke: var(--d-background-color);
+  //     // transform: rotate(calc(var(--d-percent-value) * 1.8deg));
+  //     transform-origin: center bottom;
+
+  //     & :not([e]) {
+  //       --d-stroke-width: var(--d-gap);
+
+  //       & [t] {
+  //         --d-stroke-width: calc(var(--d-gap) * 2);
+  //         outline: var(--d-gap) solid #fff;
+  //       }
+
+  //       stroke: var(--d-stroke-color, var(--c-bg));
+  //       stroke-width: var(--d-stroke-width, var(--d-gap));
+  //     }
+  //   }
+  // }
+
+  & ln,
+  & ln[t]:after {
+    position: absolute;
+    top: 0;
+    background: var(--d-stroke-color, #fff);
+  }
+
+  & ln {
+    --d-half-line-width: calc(var(--d-line-width) / 2);
+
+    bottom: 0;
+    left: calc(50% - var(--d-half-line-width));
+    width: var(--d-line-width);
+
+    transform: rotate(calc(var(--d-percent-value) * 1.8deg - 90deg));
+    transform-origin: bottom;
+
+    // Target
+    &[t] {
+      background: none;
     }
 
-    & line {
-      --d-stroke-width: var(--d-gap);
-
-      &._target {
-        --d-stroke-width: calc(var(--d-gap) * 2);
-        outline: var(--d-gap) solid #fff;
-      }
-
-      stroke: var(--d-stroke-color, var(--c-bg));
-      stroke-width: var(--d-stroke-width, var(--d-gap));
+    // Needle
+    &[n] {
+      outline: calc(var(--d-half-line-width) / 2) solid white;
     }
 
-    & path {
-      fill: none;
-      stroke-width: var(--d-stroke-width);
-      stroke: var(--d-background-color);
+    // Circle for bottom of needle
+    &[t]:after {
+      content: "";
+      left: calc(var(--d-half-line-width) * -1);
+      width: calc(var(--d-line-width) * 2);
+      height: calc(var(--d-stroke-width) * 1.25);
+      outline: var(--d-half-line-width) solid white;
     }
   }
 
@@ -129,10 +160,17 @@
     margin: 0.1px 0 0 0.1px;
 
     border-radius: var(--h-px) var(--h-px) 0 0;
-    background: var(--f);
+
+    --d-empty-fill-pct: calc(var(--d-percent-value) * 0.5%);
+    background-image: conic-gradient(
+        from 270deg,
+        transparent var(--d-empty-fill-pct),
+        var(--d-background-color) var(--d-empty-fill-pct)
+      ),
+      var(--f);
 
     --m: radial-gradient(
-      transparent calc(var(--h-px) - (var(--d-stroke-width) * 1px)),
+      transparent calc(var(--h-px) - var(--d-stroke-width)),
       #000 0
     );
     -webkit-mask: var(--m);

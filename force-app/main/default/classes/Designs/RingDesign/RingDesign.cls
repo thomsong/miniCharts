@@ -57,19 +57,13 @@ public with sharing class RingDesign implements MiniChartsDesign {
             if (componentSize == 1) {
                 titleAfterHTML = 
                     '<t class="fxc jcc">'
-                        + '<l>'
-                            + titleText
-                        + '</l>'
-                        + '<l>'
-                            + pctLabelHTML
-                        + '</l>'
+                        + '<l>' + titleText + '</l>'
+                        + '<l>' + pctLabelHTML + '</l>'
                   + '</t>';
             } else {
                 titleBeforeHTML = 
                     '<t>'
-                        + '<l>'
-                            + titleText
-                        + '</l>'
+                        + '<l>' + titleText + '</l>'
                   + '</t>';
             }
         }

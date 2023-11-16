@@ -43,7 +43,7 @@ func NewDecimal(value float64) *ast.Object {
 
 func NewString(value string) *ast.Object {
 	t := ast.CreateObject(StringType)
-	t.Extra["value"] = value
+	t.Extra["value"] = strings.Replace(value, "\\'", "'", -1)
 	return t
 }
 

@@ -48,16 +48,11 @@ public with sharing class MiniChartsIcons {
                 // TODO - User uploaded
             }
 
-
-            symbols += '--_i' + idx + ':url("data:image/svg+xml;base64,'
-                + EncodingUtil.Base64Encode(
-                    Blob.valueOf(
-                        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" preserveAspectRatio="xMinYMin">'
-                            + iconSvgCode
-                        + '</svg>'
-                    )
-                )
-                + '");\n';
+            symbols += '--_i' 
+            + idx 
+            + ':url(\'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" preserveAspectRatio="xMinYMin">' 
+                + iconSvgCode 
+            + '</svg>\');\n';
         }
 
         return symbols + '}';

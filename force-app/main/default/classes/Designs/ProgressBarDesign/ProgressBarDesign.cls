@@ -14,10 +14,11 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         ///////////////////////////////////////////////////////
         String titleHTML = '';
         if (true) {
-            titleHTML = '<t>'
-            + '<l><span>Win Rate</span></l>'
-                + valueLabelHTML
-            + '</t>';
+            titleHTML = ''
+                + '<t>'
+                    + '<l>' + 'Win Rate' + '</l>'
+                    + valueLabelHTML
+                + '</t>';
         }
         
         ///////////////////////////////////////////////////////
@@ -25,16 +26,16 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         // Do not use if / conditionals
         // APEX will use StringBuilder on SFDC when Compressed
         ///////////////////////////////////////////////////////
-        //--svg-pattern: var(' + patternName + ');
+        
         String output = '';
-        output += '<b style="--pct:' + pct + '%">';
+        output += '<b style="--d-percent-value:' + pct + '%">';
             output += titleHTML;
-            output += '<d class="bwrap fx aic">';
-                output += '<d class="bar fg">';
-                    output += '<d class="fill"/>';
-                    output += '<d class="target" style="--target:' + target + '">';
+            output += '<d class="_bar-label-wrapper fx aic">';
+                output += '<d class="_progress-bar fxc fg">';
+                    output += '<d class="_fill"/>';
+                    output += '<d class="_target" style="--d-target-value:' + target + '">';
                         output += '<l>Target</l>';
-                        output += '<span class="line"></span>';
+                        output += '<d/>';
                     output += '</d>';
                 output += '</d>';
                 output += valueLabelHTML;
@@ -44,7 +45,7 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '--ttl-h:0px;--b-lbl-h:0px;&:has(t){--ttl-h:13px}&:has(.target){&:not(:has(t)){--b-lbl-h:17px;//17 &.sz1{--b-lbl-h:5px;//17 .target l{font-weight:400;background:var(--target-bg-color);font-size:7px;font-weight:400;outline:.75px solid#fff;padding:0px 2px 1px 2px;border-radius:2px}}}}&:has(.target){&:has(t){&.sz1{--b-lbl-h:0px;.target l{display:none}}&.sz2{--b-lbl-h:8px}&.sz3{--b-lbl-h:16px}}}--bar-height:calc(var(--h-px) - var(--ttl-h) - var(--b-lbl-h));--max-bar-height:var(--bar-height);& b{/* PASSED IN VARS */ --bgc:var(--c-bg-empty-fill);//#f1f1f0;--fillc:#3296ed;width:100%;height:var(--h-px);.bwrap{height:var(--bar-height);& > l{width:100%;max-width:42px;margin:0 0 0 3px;text-overflow:clip;&:first-of-type{margin:0 3px 0 0}&:not(pct){@container (max-width:75px){display:none}}&pct{max-width:30px;@container (max-width:65px){display:none}}}}& t{display:flex;justify-content:space-between;align-items:flex-start;height:calc(var(--h-px) - var(--bar-height) - var(--b-lbl-h));& l:not(:last-of-type){padding-right:1ch}}}.bar{position:relative;display:flex;flex-direction:column;min-width:20px;max-height:var(--max-bar-height);.fill{position:relative;height:var(--bar-height);overflow:hidden;--rad:0;&.round{--rad:9px}&.ptrn{-webkit-mask-box-image:var(--svg-pattern);--rad:0}border-radius:var(--rad);background:var(--bgc);&::after{content:"";position:absolute;height:100%;left:0;width:var(--pct);border-radius:var(--rad);background:var(--fillc)}}}.target{--negative-value:calc(100 - var(--target));--percent:calc(var(--target)*1%);--negative-percent:calc(100% - var(--percent));--target-bg-color:#757575;//#2e844a;position:absolute;top:0;left:0;width:100%;height:min(calc(var(--max-bar-height) + 16px),calc(var(--bar-height) + var(--b-lbl-h)));display:flex;align-items:flex-end;&:before{flex-grow:0;flex-shrink:clamp(0.1,var(--negative-value),100);flex-basis:var(--percent);content:""}&:after{flex-grow:0;flex-shrink:clamp(0.1,var(--target),100);flex-basis:var(--negative-percent);content:""}& l{flex:0 0 auto;text-align:center;position:relative;display:block;background:var(--target-bg-color);color:#fff;width:max-content;font-size:10px;font-weight:400;outline:1.5px solid#fff;padding:0 3px 1px 3px;border-radius:3px;z-index:2}.line{position:absolute;top:0;bottom:0px;left:calc(1%*var(--target));transform:translateX(-1px);width:0px;background:#fff;border-right:2px dashed var(--target-bg-color);outline:1px solid#fff;z-index:1}}b:has(t){--ttl-h:13px;.bwrap{& > l{display:none}}.target::after{height:var(--bar-height)}}';}
+    public string getStyle() {return '--d-total-height:0px;--d-bottom-label-height:0px;&:has(t){--d-total-height:13px}&:has(._target){&:not(:has(t)){--d-bottom-label-height:17px;&.sz1{--d-bottom-label-height:5px;._target l{font-weight:400;background:var(--d-target-bg-color);font-size:7px;font-weight:400;outline:.75px solid #fff;padding:0px 2px 1px 2px;border-radius:2px}}}}&:has(._target){&:has(t){&.sz1{--d-bottom-label-height:0px;._target l{display:none}}&.sz2{--d-bottom-label-height:8px}&.sz3{--d-bottom-label-height:16px}}}--d-bar-height:calc(var(--h-px) - var(--d-total-height) - var(--d-bottom-label-height));--d-max-bar-height:var(--d-bar-height);& b{--bgc:var(--c-bg-empty-fill);--fillc:#3296ed;width:100%;height:var(--h-px);._bar-label-wrapper{height:var(--d-bar-height);& > l{width:100%;max-width:42px;margin:0 0 0 3px;text-overflow:clip;&:first-of-type{margin:0 3px 0 0}}}& t{height:calc(var(--h-px) - var(--d-bar-height) - var(--d-bottom-label-height));& l:first-of-type{padding-right:1ch}}}._progress-bar{position:relative;min-width:20px;max-height:var(--d-max-bar-height);._fill{position:relative;height:var(--d-bar-height);--d-bar-radius:0;&.round{--d-bar-radius:9px}&.ptrn{-webkit-mask-box-image:var(--svg-pattern);--d-bar-radius:0}border-radius:var(--d-bar-radius);background:var(--bgc);&::after{content:"";position:absolute;height:100%;left:0;width:var(--d-percent-value);border-radius:var(--d-bar-radius);background:var(--fillc)}}}._target{--d-target-neg-value:calc(100 - var(--d-target-value));--d-target-percent:calc(var(--d-target-value)*1%);--d-target-neg-percent:calc(100% - var(--d-target-percent));--d-target-bg-color:#757575;position:absolute;width:100%;height:min(calc(var(--d-max-bar-height) + 16px),calc(var(--d-bar-height) + var(--d-bottom-label-height)));display:flex;align-items:flex-end;&:before{content:"";flex-shrink:clamp(0.1,var(--d-target-neg-value),100);flex-basis:var(--d-target-percent);flex-grow:0}&:after{content:"";flex-shrink:clamp(0.1,var(--d-target-value),100);flex-basis:var(--d-target-neg-percent);flex-grow:0}& l{position:relative;flex:0 0 auto;background:var(--d-target-bg-color);color:#fff;font-size:10px;outline:1px solid #fff;padding:0 3px 1px 3px;border-radius:3px;z-index:1}& > d{position:absolute;top:0;bottom:0;width:0;left:calc(1%*var(--d-target-value));transform:translateX(-1px);background:#fff;border-right:2px dashed var(--d-target-bg-color);outline:1px solid #fff}}& b:has(t){--d-total-height:13px;._bar-label-wrapper{& > l{display:none}}._target::after{height:var(--d-bar-height)}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
@@ -54,8 +55,22 @@ public with sharing class ProgressBarDesign implements MiniChartsDesign {
         String valueLabelHTML = '<l class="tar">'+MiniChartsHelper.generateLabelText('$'+String.valueOf(amt))+'</l>';
         String titleHTML = '';
         if (true) {
-            titleHTML = '<t><l><span>Win Rate</span></l>'+valueLabelHTML+'</t>';
+            titleHTML = '<t><l>Win Rate</l>'+valueLabelHTML+'</t>';
         }
-        return '<b style="--pct:'+pct+'%">' + titleHTML + '<d class="bwrap fx aic"><d class="bar fg"><d class="fill"/><d class="target" style="--target:'+target+'"><l>Target</l><span class="line"></span></d></d>' + valueLabelHTML + '</d></b>';
+        String output = '';
+        output += '<b style="--d-percent-value:'+pct+'%">';
+            output += titleHTML;
+            output += '<d class="_bar-label-wrapper fx aic">';
+                output += '<d class="_progress-bar fxc fg">';
+                    output += '<d class="_fill"/>';
+                    output += '<d class="_target" style="--d-target-value:'+target+'">';
+                        output += '<l>Target</l>';
+                        output += '<d/>';
+                    output += '</d>';
+                output += '</d>';
+                output += valueLabelHTML;
+            output += '</d>';
+        output += '</b>';
+        return output;
     }
 }

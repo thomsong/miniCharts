@@ -22,7 +22,7 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
     @TestVisible
     private String RENDER_TEMPLATE(Map<String, Object> p) {
         Map<String, Object> defaultProps = new Map<String, Object>();
-        defaultProps.put('stl', 'default_outline'); //  default_outline
+        defaultProps.put('stl', 'error'); //  default_outline
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
         defaultProps.put('txt', 'Null'); // Should never happen
         
@@ -71,12 +71,12 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         return output;
     } /* END RENDER_TEMPLATE */
 
-    public string getStyle() {return '--sc1:black;--sc2:transparent;--0:0;& b{--sc0:var(--sc1);--sc3:var(--sc2);height:20px;padding:0 5px;&.rd1{--0:3px}&.rd2{--0:10px}background-color:var(--sc2);border-radius:var(--0);border:1.5px solid var(--sc3);& l{color:var(--sc1)}& i{--c:var(--sc0);--wh:13px;flex-shrink:0;margin-right:4px}}';}
+    public string getStyle() {return '--sc1:black;--sc2:transparent;--d-label-radius:0;& b{--sc0:var(--sc1);--sc3:var(--sc2);height:20px;padding:0 5px;&.rd1{--d-label-radius:3px}&.rd2{--d-label-radius:10px}background-color:var(--sc2);border-radius:var(--d-label-radius);border:1.5px solid var(--sc3);& l{color:var(--sc1)}& i{--c:var(--sc0);--wh:13px;flex-shrink:0;margin-right:4px}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> p) {
         Map<String, Object> defaultProps = new Map<String, Object>();
-        defaultProps.put('stl', 'default_outline'); //  default_outline
+        defaultProps.put('stl', 'error'); //  default_outline
         defaultProps.put('rad', 1); // 0 = No Radius, 1 = Small, 2 = Full
         defaultProps.put('txt', 'Null'); // Should never happen
         Map<String, Object> props =  MiniChartsHelper.getProps(p, defaultProps);
@@ -101,6 +101,11 @@ public with sharing class BadgeDesign implements MiniChartsDesign {
         if (hasIcon) {
             badgeIconHTML = '<i style="--_i:var('+MiniChartsIcons.getIcon('utility', style.split('_')[0])+')"/>';
         }
-        return '<b class="fxr aic rd'+radiusSize+'" style="'+styleCSSVars+'">' + badgeIconHTML + '<l>'+badgeText+'</l></b>';
+        String output = '';
+        output += '<b class="fxr aic rd'+radiusSize+'" style="'+styleCSSVars+'">';
+            output += badgeIconHTML;
+            output += '<l>'+badgeText+'</l>';
+        output += '</b>';
+        return output;
     }
 }

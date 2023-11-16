@@ -3,7 +3,7 @@ const sass = require("sass");
 const fs = require("fs");
 const path = require("path");
 
-const PRODUCTION = true;
+const PRODUCTION = false;
 
 const getAllFiles = function (dirPath, arrayOfFiles) {
   files = fs.readdirSync(dirPath);
@@ -90,8 +90,15 @@ const processClass = (savedFile) => {
   } else {
     compiledStyle = sass
       .compile(scssPath, PRODUCTION ? { style: "compressed" } : {})
-      .css.toString()
-      .replaceAll(": ", ":");
+      .css.toString();
+
+    if (PRODUCTION) {
+      compiledStyle = compiledStyle
+        .replaceAll(", ", ",")
+        .replaceAll(" * ", "*")
+        .replaceAll(" / ", "/")
+        .replace(/[\s]*:[\s]*/g, ":");
+    }
   }
 
   const clsContents = fs.readFileSync(clsPath, "utf8");
@@ -161,7 +168,7 @@ const processClass = (savedFile) => {
   if (renderCode !== "") {
     // Re-map --d- vars to shorthand for production
     if (PRODUCTION) {
-      const matches = [...compiledStyle.matchAll("--d-(.)*?[:),{}]")];
+      const matches = [...compiledStyle.matchAll("--d-(.)*?[^-_a-zA-Z0-9]")];
       // console.log(matches);
       let varNames = [];
       matches.forEach((element) => {
@@ -178,6 +185,8 @@ const processClass = (savedFile) => {
       let idx = 0;
       varNames.forEach((element) => {
         let newVarName = "--" + idx;
+
+        // console.log(element, newVarName);
         renderCode = renderCode.replaceAll(element, newVarName);
         compiledStyle = compiledStyle.replaceAll(element, newVarName);
         // console.log(element, newVarName);
@@ -188,7 +197,7 @@ const processClass = (savedFile) => {
 
     // Re-map _class class names to shorthand for production
     if (PRODUCTION) {
-      const matches = [...compiledStyle.matchAll("._(.)*?[ }{,]")];
+      const matches = [...compiledStyle.matchAll("._(.)*?[^-_a-zA-Z0-9]")];
       // console.log(matches);
       let classNames = [];
       matches.forEach((element) => {
@@ -205,8 +214,10 @@ const processClass = (savedFile) => {
       // console.log(classNames);
       let idx = 0;
       classNames.forEach((element) => {
-        // console.log(element);
         let newClassName = "z" + idx;
+
+        // console.log(element, newClassName);
+
         renderCode = renderCode.replaceAll(element, newClassName);
         compiledStyle = compiledStyle.replaceAll(element, newClassName);
         idx++;
