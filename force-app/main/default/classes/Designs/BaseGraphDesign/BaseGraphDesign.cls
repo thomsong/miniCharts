@@ -21,7 +21,7 @@ public with sharing class BaseGraphDesign {
         ///////////////////////////////////////////////////////
         String output = '';
         output += '<b style="--d-percent-value:' + pct + '%">';
-            output += titleHTML;
+            // output += titleHTML;
             output += '<d class="graph fg">';
                 output += graphHTML;
             output += '</d>';
@@ -31,7 +31,7 @@ public with sharing class BaseGraphDesign {
     } /* END RENDER_TEMPLATE */
 
     
-    public static String getStyle() {return '--b0:0px;&:has(t){--b0:13px}--b1:calc(var(--h-px) - var(--b0));& b{width:100%;height:var(--h-px);& t{height:var(--b0);& l:first-of-type{padding-right:1ch}}}.graph{--gh:var(--b1);position:relative;height:var(--gh);background:red}';}
+    public static String getStyle() {return '--d-title-height:0px;&:has(t){--d-title-height:13px}--d-graph-height:calc(var(--h-px) - var(--d-title-height));& b{width:100%;height:var(--h-px);& t{height:var(--d-title-height);& l:first-of-type{padding-right:1ch}}}.graph{position:relative;height:var(--d-graph-height);container-type:size}';}
 
     /* COMPRESSED STATIC RENDER */
     public static String render(Map<String, Object> props, String graphHTML) {
@@ -41,6 +41,12 @@ public with sharing class BaseGraphDesign {
         if (true) {
             titleHTML = '<t><l>Win Rate</l><l class="tar fs0">'+MiniChartsHelper.generateLabelText('$'+String.valueOf(amt))+'</l></t>';
         }
-        return '<b style="--d-percent-value:'+pct+'%">' + titleHTML + '<d class="graph fg">' + graphHTML + '</d></b>';
+        String output = '';
+        output += '<b style="--d-percent-value:'+pct+'%">';
+            output += '<d class="graph fg">';
+                output += graphHTML;
+            output += '</d>';
+        output += '</b>';
+        return output;
     }
 }

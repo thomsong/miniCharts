@@ -62,8 +62,6 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         String targetHTML = '';
         if (true) {
             targetHTML = '<ln t="1" class="_target" style="--d-stroke-color:#2e844a;--d-percent-value:' + target + ';"/>';
-            // targetHTML = '<path class="_target" style="--d-stroke-color:#2e844a;--d-percent-value:' + target + ';" d="' + (strokeWidth + (gap*2)) + '" y1="' + radius + '" y2="' + radius + '"/>';
-            // targetHTML = '<path t="1" style="--d-stroke-color:#2e844a;--d-percent-value:' + target + ';" d="M' + (strokeWidth + (gap*2)) + ' ' + radius + 'l0 ' + radius + '"/>';
         }
 
         /* //////////////////////////////////////////////// */
@@ -82,10 +80,9 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
         String output = '';
         output += '<b hpx="1" style="--d-percent-value:' + pct + ';--d-stroke-width:' + strokeWidth + 'px;--d-line-width:' + gap + 'px">';
             output += titleBeforeHTML;
-
             output += '<d class="_chart-container">';
                 output += '<d class="_chart">';
-                    // Filled Area
+                    // Filled + Empty Area
                     output += '<d class="_chart-fill" style="--f:' + fill + '" />';
                  
                     // Divider Gaps
@@ -95,18 +92,15 @@ public with sharing class GaugeDesign implements MiniChartsDesign {
                     output += targetHTML;
 
                     // Needle
-
                     output += '<ln n="1" style="--d-stroke-color:#666;"/>';
                        
+                    // Label
                     output += '<l class="_value pat hpx aife jcc fx">';
                         output += valueLabelHTML;
                     output += '</l>';
-
                 output += '</d>';
             output += '</d>';
-
             output += titleAfterHTML;
-            
         output += '</b>';
         
         return output;

@@ -1,7 +1,41 @@
 ._ {
-  .graph {
-    // --gh is set to graph height in px
+  .graph > d {
+    position: relative;
+    width: 100cqw;
+    height: 100cqh;
+    // background: #eee;
 
-    background: blue;
+    & svg {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      & path,
+      line {
+        vector-effect: non-scaling-stroke;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      ._graph-fill {
+        fill-rule: nonzero;
+        fill: var(--d-fill-color);
+
+        stroke-width: 1px;
+        stroke: var(--d-line-color);
+      }
+
+      ._graph-points {
+        stroke-width: min(3cqw, max(1.5px, 6cqh));
+        stroke-linecap: round;
+        stroke: var(--d-point-color);
+      }
+
+      ._mask {
+        fill: #fff;
+        stroke: none;
+      }
+    }
   }
 }

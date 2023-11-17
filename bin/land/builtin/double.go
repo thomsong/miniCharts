@@ -5,7 +5,6 @@ import (
 	"math"
 	"strconv"
 
-	"github.com/dustin/go-humanize"
 	"github.com/tzmfreedom/land/ast"
 )
 
@@ -33,7 +32,8 @@ func init() {
 				[]*ast.Parameter{},
 				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
 					value := this.DoubleValue()
-					return NewString(humanize.Commaf(value))
+					strValue := fmt.Sprintf("%g",value)
+					return NewString(strValue)
 				},
 			),
 		},
@@ -86,12 +86,16 @@ func init() {
 		[]*ast.Method{
 			ast.CreateMethod(
 				"setScale",
-				StringType,
+				DoubleType,
 				[]*ast.Parameter{IntegerTypeParameter},
 				func(this *ast.Object, params []*ast.Object, extra map[string]interface{}) interface{} {
 					places := int(params[0].IntegerValue())
+					
+					// this.Extra["value"] = append(records, listElement)
 
-					return NewString(fmt.Sprintf("%." + strconv.Itoa(places) + "f", this.DoubleValue()))
+					// return NewString(fmt.Sprintf("%." + strconv.Itoa(places) + "f", this.DoubleValue()))
+
+					return NewDouble(math.Round(this.DoubleValue() * math.Pow10(places)) / math.Pow10(places))
 					// value := this.DoubleValue()
 					// /places := params[0].IntegerValue()
 

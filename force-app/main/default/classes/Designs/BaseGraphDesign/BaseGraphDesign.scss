@@ -21,9 +21,8 @@
   }
 
   .graph {
-    --gh: var(--d-graph-height);
     position: relative;
-    height: var(--gh);
-    background: red;
+    height: var(--d-graph-height);
+    container-type: size;
   }
 }
