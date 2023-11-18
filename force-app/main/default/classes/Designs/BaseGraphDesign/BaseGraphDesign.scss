@@ -36,18 +36,10 @@
     }
   }
 
-  ._graph-container {
+  .graph {
     position: relative;
     height: var(--d-graph-height);
     container-type: size;
-
-    // ._y-baseline-marker {
-    //   position: absolute;
-    //   top: 0cqh;
-    //   width: 100cqw;
-    //   height: 0px;
-    //   border: 0.5px solid red;
-    // }
   }
 
   ._x-labels {
@@ -66,29 +58,32 @@
     height: var(--d-graph-height);
   }
 
-  &.sz1 {
-    --d-y-label-width: 0px !important;
+  &.sz1:has(t),
+  &.sz1:has(._x-labels) {
+    --d-y-label-width: 0px;
     ._y-labels {
       display: none;
     }
+  }
 
-    &:has(t) {
-      --d-x-label-height: 0px !important;
-      ._x-labels {
-        display: none;
-      }
+  &.sz1:has(t) {
+    --d-x-label-height: 0px;
+    ._x-labels {
+      display: none;
     }
   }
 
-  // Hide middle y label when there are 3
-  &.sz2 ._y-labels l:first-child:nth-last-child(3) + l {
+  // Hide middle y label when there are 3 on compact sizes
+  &.sz1,
+  &.sz2:has(t):has(._x-labels) {
+    ._y-labels l:first-child:nth-last-child(3) + l {
       display: none;
     }
   }
 
   @container (max-width: 70px) {
     & b {
-      --d-y-label-width: 0px !important;
+      --d-y-label-width: 0px;
     }
 
     ._y-labels {
