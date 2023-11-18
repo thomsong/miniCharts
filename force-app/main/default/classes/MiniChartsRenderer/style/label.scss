@@ -1,7 +1,7 @@
 @use "slds" as slds;
 
 l {
-  color: slds.$palette-neutral-40;
+  color: var(--c-txt);
   line-height: 1.15;
 }
 
@@ -9,13 +9,18 @@ t {
   max-width: 100%;
 
   & l {
+    font-size: 12px;
     margin-top: -2px;
     flex-shrink: 1;
     flex-grow: 1;
 
-    &pct {
+    &:has(cur, pct) {
       flex-shrink: 0;
     }
+  }
+
+  &[s="sm"] l {
+    font-size: 10px;
   }
 }
 

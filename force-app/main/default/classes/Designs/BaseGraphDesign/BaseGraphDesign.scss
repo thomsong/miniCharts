@@ -1,11 +1,27 @@
 ._ {
   --d-title-height: 0px;
+  --d-x-label-height: 0px;
+  --d-y-label-width: 0px;
 
   &:has(t) {
     --d-title-height: 13px;
   }
+  &:has(t[s="sm"]) {
+    --d-title-height: 11px;
+  }
 
-  --d-graph-height: calc(var(--h-px) - var(--d-title-height));
+  &:has(._x-labels) {
+    --d-x-label-height: 11px;
+  }
+  &:has(._y-labels) {
+    --d-y-label-width: 28px;
+  }
+
+  --d-graph-height: calc(
+    var(--h-px) - var(--d-title-height) - var(--d-x-label-height)
+  );
+
+  container-type: inline-size;
 
   & b {
     width: 100%;
@@ -24,5 +40,45 @@
     position: relative;
     height: var(--d-graph-height);
     container-type: size;
+  }
+
+  ._x-labels {
+    font-size: 8px;
+    height: var(--d-x-label-height);
+    margin-left: var(--d-y-label-width);
+  }
+
+  ._y-labels {
+    & l {
+      width: var(--d-y-label-width);
+      padding-right: 2px;
+      text-align: right;
+    }
+    font-size: 8px;
+    height: var(--d-graph-height);
+  }
+
+  &.sz1 {
+    --d-y-label-width: 0px !important;
+    ._y-labels {
+      display: none;
+    }
+
+    &:has(t) {
+      --d-x-label-height: 0px !important;
+      ._x-labels {
+        display: none;
+      }
+    }
+  }
+
+  @container (max-width: 70px) {
+    & b {
+      --d-y-label-width: 0px !important;
+    }
+
+    ._y-labels {
+      display: none;
+    }
   }
 }

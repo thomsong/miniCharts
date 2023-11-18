@@ -66,7 +66,7 @@ const processClass = (savedFile) => {
       .replace(/[\s]*,[\s]+/g, ", ")
       .replace(/[\s]*&[\s]+/g, "& ")
       .replaceAll(", ", ",")
-      .replaceAll(";}", "}")
+      // .replaceAll(";}", "}")
       .replaceAll(" * ", "*")
       .replaceAll(" / ", "/")
       .replaceAll(", calc", ",calc")

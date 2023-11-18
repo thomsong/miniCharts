@@ -28,7 +28,6 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
             idx += 1;
         }
 
-        // System.debug(dataPoints);
         ///////////////////////////////////////////////////////
         Integer dotSize = 6;
         
@@ -54,8 +53,8 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         Double maxDisplayValue = 100.0;
         Double baselineDisplayValue = 0.0;
 
-        // Custom baseline
-        // baselineDisplayValue = 0-100.0;
+        // Min baseline
+        baselineDisplayValue = minDisplayValue;
 
         ///////////////////////////////////////////////////////
         Double displayValueRange = maxDisplayValue - minDisplayValue;
@@ -78,14 +77,12 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         // First Point - Took out of loop to avoid extra if checks for performance
         Integer displayY0 = ((dataPoints[0] * displayScaleY) + displayOffsetY).intValue();
         
-        fillPathData = 'M-10,' + baselineDisplayYS0 + 'V' + displayY0 + 'H0';
-        
         if (renderPoints) {
             valuePoints = 'M0,' + displayY0 + 'h0';
         }
 
         if (renderSmooth == false) {
-
+            fillPathData = 'M-10,' + baselineDisplayYS0 + 'V' + displayY0 + 'H0';
             Double xOffset = 0.0;
             for (Integer i = 0; i < dataPoints.size(); i += 1 ) {
                 Double displayY = (dataPoints[i] * displayScaleY) + displayOffsetY;
@@ -120,12 +117,12 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
                 xOffset += pointDisplayWidth;
             }
 
-            fillPathData += catmullRom2bezier(linePoints);
+            fillPathData = 'M-10,' + baselineDisplayYS0 + 'V' + displayY0 + 'H0C' + String.join(catmullRom2bezier(linePoints), ' ');
         }
         
         ///////////////////////////////////////////////////////
         // Lines + Fill Area
-        String fillPathSVG = '';
+        
         String lineColor = '#008CF7';
         String fillColor = 'none';
 
@@ -162,12 +159,12 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
             }
         }
 
-        
+        String fillPathSVG = '';
         if (xPadding > 0) {
-            fillPathSVG += '<mask id="m' + cmpIdx + '"><path style="fill:white;" d="M-0.5-2H400.5V102H0"/></mask>'
+            fillPathSVG = '<mask id="m' + cmpIdx + '"><path style="fill:white;" d="M-0.5-2H400.5V102H0"/></mask>'
                          + '<path mask="url(#m' + cmpIdx + ')" style="--d-line-color:' + lineColor + ';--d-fill-color:' + fillColor + '" class="_graph-fill" d="' + fillPathData + 'H410V' + baselineDisplayYS0 + '"/>';
         } else {
-            fillPathSVG += '<path style="--d-line-color:' + lineColor + ';--d-fill-color:' + fillColor + '" class="_graph-fill" d="' + fillPathData + 'H410V' + baselineDisplayYS0 + '"/>';
+            fillPathSVG = '<path style="--d-line-color:' + lineColor + ';--d-fill-color:' + fillColor + '" class="_graph-fill" d="' + fillPathData + 'H410V' + baselineDisplayYS0 + '"/>';
         }
         
         ///////////////////////////////////////////////////////
@@ -176,7 +173,7 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         
         if (renderPoints) {
             String pointColor = 'red';//'#027FD5';
-            pointsPathSVG += '<path style="--d-point-color:' + pointColor + '" class="_graph-points" d="' + valuePoints + '"/>';
+            pointsPathSVG = '<path style="--d-point-color:' + pointColor + '" class="_graph-points" d="' + valuePoints + '"/>';
         }
 
         ///////////////////////////////////////////////////////
@@ -192,14 +189,14 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
                 output += pointsPathSVG;    
                 
                 // Debug - baseline
-                output += '<line stroke="#777" stroke-width="0.5" y1="' + baselineDisplayYS0 + '" x2="' + graphWidth + '" y2="' + baselineDisplayYS0 + '"/>';
+                // output += '<line stroke="#777" stroke-width="0.5" y1="' + baselineDisplayYS0 + '" x2="' + graphWidth + '" y2="' + baselineDisplayYS0 + '"/>';
             output += '</svg>';
         output += '</d>';
         
         return BaseGraphDesign.render(props, output);
     } /* END RENDER_TEMPLATE */
     
-    private String catmullRom2bezier( List<Double> crp ) {
+    private List<Integer> catmullRom2bezier( List<Double> crp ) {
         Integer crpLenM2 = crp.size() - 2;
         Integer crpLenM4 = crpLenM2 - 2;
         
@@ -264,7 +261,7 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
             bezierPoints.add(p2y.intValue());
         }
         
-        return 'C' + String.join(bezierPoints, ' ');
+        return bezierPoints;
       }
 
     public String getStyle() {return BaseGraphDesign.getStyle()+'.graph > d{position:relative;width:100cqw;height:100cqh;& svg{position:absolute;top:0;width:100%;height:100%;& path,line{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}.z2{fill-rule:nonzero;fill:var(--2);stroke-width:1px;stroke:var(--1)}.z1{stroke-width:min(3cqw,max(1.5px,6cqh));stroke-linecap:round;stroke:var(--0)}.z0{fill:#fff;stroke:none}}}';}
@@ -310,6 +307,7 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         Double minDisplayValue = 0-100.0;
         Double maxDisplayValue = 100.0;
         Double baselineDisplayValue = 0.0;
+        baselineDisplayValue = minDisplayValue;
         Double displayValueRange = maxDisplayValue - minDisplayValue;
         Double displayScaleY = graphHeight / displayValueRange * -1;
         Double displayOffsetY = graphHeight - (minDisplayValue * displayScaleY);
@@ -319,11 +317,11 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         String fillPathData = '';
         String valuePoints = '';
         Integer displayY0 = ((dataPoints[0] * displayScaleY) + displayOffsetY).intValue();
-        fillPathData = 'M-10,'+baselineDisplayYS0+'V'+displayY0+'H0';
         if (renderPoints) {
             valuePoints = 'M0,'+displayY0+'h0';
         }
         if (renderSmooth == false) {
+            fillPathData = 'M-10,'+baselineDisplayYS0+'V'+displayY0+'H0';
             Double xOffset = 0.0;
             for (Integer i = 0; i < dataPoints.size(); i += 1 ) {
                 Double displayY = (dataPoints[i] * displayScaleY) + displayOffsetY;
@@ -350,9 +348,8 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
                 }
                 xOffset += pointDisplayWidth;
             }
-            fillPathData += catmullRom2bezier(linePoints);
+            fillPathData = 'M-10,'+baselineDisplayYS0+'V'+displayY0+'H0C'+String.join(catmullRom2bezier(linePoints), ' ');
         }
-        String fillPathSVG = '';
         String lineColor = '#008CF7';
         String fillColor = 'none';
         String gradientSVG = '';
@@ -369,17 +366,18 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
                 fillColor = 'url(#g-'+cmpIdx+')';
             }
         }
+        String fillPathSVG = '';
         if (xPadding > 0) {
-            fillPathSVG += '<mask id="m'+cmpIdx+'"><path style="fill:white;" d="M-0.5-2H400.5V102H0"/></mask><path mask="url(#m'+cmpIdx+')" style="--1:'+lineColor+';--2:'+fillColor+'" class="z2" d="'+fillPathData+'H410V'+baselineDisplayYS0+'"/>';
+            fillPathSVG = '<mask id="m'+cmpIdx+'"><path style="fill:white;" d="M-0.5-2H400.5V102H0"/></mask><path mask="url(#m'+cmpIdx+')" style="--1:'+lineColor+';--2:'+fillColor+'" class="z2" d="'+fillPathData+'H410V'+baselineDisplayYS0+'"/>';
         } else {
-            fillPathSVG += '<path style="--1:'+lineColor+';--2:'+fillColor+'" class="z2" d="'+fillPathData+'H410V'+baselineDisplayYS0+'"/>';
+            fillPathSVG = '<path style="--1:'+lineColor+';--2:'+fillColor+'" class="z2" d="'+fillPathData+'H410V'+baselineDisplayYS0+'"/>';
         }
         String pointsPathSVG = '';
         if (renderPoints) {
             String pointColor = 'red';//'#027FD5';
-            pointsPathSVG += '<path style="--0:'+pointColor+'" class="z1" d="'+valuePoints+'"/>';
+            pointsPathSVG = '<path style="--0:'+pointColor+'" class="z1" d="'+valuePoints+'"/>';
         }
-        String output = '<d><svg viewBox="-'+xPadding.intValue()+' -'+yPadding.intValue()+' '+(graphWidth + (xPadding * 2)).intValue()+' '+(graphHeight + (yPadding * 2)).intValue()+'" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'+gradientSVG+fillPathSVG+pointsPathSVG+'<line stroke="#777" stroke-width="0.5" y1="'+baselineDisplayYS0+'" x2="'+graphWidth+'" y2="'+baselineDisplayYS0+'"/></svg></d>';
+        String output = '<d><svg viewBox="-'+xPadding.intValue()+' -'+yPadding.intValue()+' '+(graphWidth + (xPadding * 2)).intValue()+' '+(graphHeight + (yPadding * 2)).intValue()+'" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'+gradientSVG+fillPathSVG+pointsPathSVG+'</svg></d>';
         return BaseGraphDesign.render(props, output);
     }
 }
