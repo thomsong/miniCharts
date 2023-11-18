@@ -21,11 +21,8 @@
     var(--h-px) - var(--d-title-height) - var(--d-x-label-height)
   );
 
-  container-type: inline-size;
-
   & b {
     width: 100%;
-    height: var(--h-px);
 
     & t {
       height: var(--d-title-height);
@@ -34,28 +31,29 @@
         padding-right: 1ch;
       }
     }
-  }
 
-  .graph {
-    position: relative;
-    height: var(--d-graph-height);
-    container-type: size;
-  }
-
-  ._x-labels {
-    font-size: 8px;
-    height: var(--d-x-label-height);
-    margin-left: var(--d-y-label-width);
-  }
-
-  ._y-labels {
-    & l {
-      width: var(--d-y-label-width);
-      padding-right: 2px;
-      text-align: right;
+    .graph {
+      position: relative;
+      height: var(--d-graph-height);
+      container-type: size;
     }
-    font-size: 8px;
-    height: var(--d-graph-height);
+
+    ._x-labels {
+      font-size: 8px;
+      height: var(--d-x-label-height);
+      margin-left: var(--d-y-label-width);
+    }
+
+    ._y-labels {
+      font-size: 8px;
+      height: var(--d-graph-height);
+
+      & l {
+        width: var(--d-y-label-width);
+        padding-right: 2px;
+        text-align: right;
+      }
+    }
   }
 
   &.sz1:has(t),
@@ -84,10 +82,10 @@
   @container (max-width: 70px) {
     & b {
       --d-y-label-width: 0px;
-    }
 
-    ._y-labels {
-      display: none;
+      ._y-labels {
+        display: none;
+      }
     }
   }
 }

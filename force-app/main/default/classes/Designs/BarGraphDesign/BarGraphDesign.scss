@@ -1,0 +1,23 @@
+._ {
+  .graph > d {
+    position: relative;
+    width: 100cqw;
+    height: 100cqh;
+
+    & svg {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+
+      & path,
+      line {
+        vector-effect: non-scaling-stroke;
+      }
+
+      ._graph-fill {
+        fill: var(--d-fill-color);
+      }
+    }
+  }
+}
