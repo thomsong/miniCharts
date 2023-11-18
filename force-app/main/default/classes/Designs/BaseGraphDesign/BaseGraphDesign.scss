@@ -14,7 +14,7 @@
     --d-x-label-height: 11px;
   }
   &:has(._y-labels) {
-    --d-y-label-width: 28px;
+    --d-y-label-width: 32px;
   }
 
   --d-graph-height: calc(
@@ -36,10 +36,18 @@
     }
   }
 
-  .graph {
+  ._graph-container {
     position: relative;
     height: var(--d-graph-height);
     container-type: size;
+
+    // ._y-baseline-marker {
+    //   position: absolute;
+    //   top: 0cqh;
+    //   width: 100cqw;
+    //   height: 0px;
+    //   border: 0.5px solid red;
+    // }
   }
 
   ._x-labels {
@@ -69,6 +77,12 @@
       ._x-labels {
         display: none;
       }
+    }
+  }
+
+  // Hide middle y label when there are 3
+  &.sz2 ._y-labels l:first-child:nth-last-child(3) + l {
+      display: none;
     }
   }
 
