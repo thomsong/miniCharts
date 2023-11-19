@@ -3,6 +3,7 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
     private String RENDER_TEMPLATE(Map<String, Object> props) {
         Integer cmpIdx = (Integer)props.get('__cmpIdx');
 
+        Boolean renderGridLines = true;
         Boolean renderFill = true;
         Boolean renderSmooth = true;
         Boolean renderAsSteps = false;
@@ -128,7 +129,7 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
 
         String gradientSVG = '';
         if (renderFill) {
-            fillColor = '#BBDEFC';
+            fillColor = '#008CF744';
 
             if (false) {
                 // Fill Gradient
@@ -177,6 +178,27 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         }
 
         ///////////////////////////////////////////////////////
+        // Horizontal grid lines
+        String gridLineSVG = '';
+        if (renderGridLines) {
+            // (displayScaleY * -1 * 50).intValue(); 
+            Integer markerGap = (displayScaleY * displayValueRange / -2.0).intValue();
+            
+            Integer baseline = baselineDisplayY.intValue();
+            while (baseline - markerGap >= 0) {
+                baseline -= markerGap;
+            }
+            
+            gridLineSVG = '<path stroke="#e4e3e2" stroke-width="0.5" d="';
+            for (Integer y = baseline; y <= 100; y += markerGap) {
+                gridLineSVG += 'M0,' + y + 'h' + graphWidth;
+            }
+            gridLineSVG += '"/>';
+
+            // gridLineSVG += '<line stroke="red" stroke-width="0.5" y1="' + baselineDisplayY.intValue() + '" x2="' + graphWidth + '" y2="' + baselineDisplayY.intValue() + '"/>';
+        }
+
+        ///////////////////////////////////////////////////////
         // Start Building Output - This Should Always Be Last
         // Do not use if / conditionals
         // APEX will use StringBuilder on SFDC when Compressed
@@ -184,12 +206,15 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         String output = '';
         output += '<d>';
             output += '<svg viewBox="-' + xPadding.intValue() +' -' + yPadding.intValue() + ' ' + (graphWidth + (xPadding * 2)).intValue() + ' ' + (graphHeight + (yPadding * 2)).intValue() + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">';
+                output += gridLineSVG;
                 output += gradientSVG;
                 output += fillPathSVG;
                 output += pointsPathSVG;    
                 
-                // Debug - baseline
-                // output += '<line stroke="#777" stroke-width="0.5" y1="' + baselineDisplayYS0 + '" x2="' + graphWidth + '" y2="' + baselineDisplayYS0 + '"/>';
+                // // Debug - baseline
+                // for (Integer y = 0; y <= 100; y += 10) {
+                //     output += '<line stroke="#777" stroke-width="0.5" y1="' + y + '" x2="' + graphWidth + '" y2="' + y + '"/>';
+                // }
             output += '</svg>';
         output += '</d>';
         
@@ -264,11 +289,12 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         return bezierPoints;
       }
 
-    public String getStyle() {return BaseGraphDesign.getStyle()+'.graph > d{position:relative;width:100cqw;height:100cqh;& svg{position:absolute;top:0;width:100%;height:100%;& path,line{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}.z2{fill-rule:nonzero;fill:var(--2);stroke-width:1px;stroke:var(--1)}.z1{stroke-width:min(3cqw,max(1.5px,6cqh));stroke-linecap:round;stroke:var(--0)}.z0{fill:#fff;stroke:none}}}';}
+    public String getStyle() {return BaseGraphDesign.getStyle()+'.graph > d{position:relative;width:100cqw;height:100cqh;& svg{position:absolute;top:0;width:100%;height:100%;& path,line{vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;}.z2{fill-rule:nonzero;fill:var(--2);stroke-width:1px;stroke:var(--1);}.z1{stroke-width:min(3cqw,max(1.5px,6cqh));stroke-linecap:round;stroke:var(--0);}.z0{fill:#fff;stroke:none;}}}';}
     
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
         Integer cmpIdx = (Integer)props.get('__cmpIdx');
+        Boolean renderGridLines = true;
         Boolean renderFill = true;
         Boolean renderSmooth = true;
         Boolean renderAsSteps = false;
@@ -354,7 +380,7 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
         String fillColor = 'none';
         String gradientSVG = '';
         if (renderFill) {
-            fillColor = '#BBDEFC';
+            fillColor = '#008CF744';
             if (false) {
                 if (baselineDisplayY > 95) {
                     gradientSVG = '<linearGradient id="g-'+cmpIdx+'" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="100"><stop stop-color="green" offset="0%"/><stop stop-color="blue" offset="100%"/></linearGradient>';
@@ -377,7 +403,20 @@ public with sharing class LineGraphDesign implements MiniChartsDesign {
             String pointColor = 'red';//'#027FD5';
             pointsPathSVG = '<path style="--0:'+pointColor+'" class="z1" d="'+valuePoints+'"/>';
         }
-        String output = '<d><svg viewBox="-'+xPadding.intValue()+' -'+yPadding.intValue()+' '+(graphWidth + (xPadding * 2)).intValue()+' '+(graphHeight + (yPadding * 2)).intValue()+'" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'+gradientSVG+fillPathSVG+pointsPathSVG+'</svg></d>';
+        String gridLineSVG = '';
+        if (renderGridLines) {
+            Integer markerGap = (displayScaleY * displayValueRange / -2.0).intValue();
+            Integer baseline = baselineDisplayY.intValue();
+            while (baseline - markerGap >= 0) {
+                baseline -= markerGap;
+            }
+            gridLineSVG = '<path stroke="#e4e3e2" stroke-width="0.5" d="';
+            for (Integer y = baseline; y <= 100; y += markerGap) {
+                gridLineSVG += 'M0,'+y+'h'+graphWidth;
+            }
+            gridLineSVG += '"/>';
+        }
+        String output = '<d><svg viewBox="-'+xPadding.intValue()+' -'+yPadding.intValue()+' '+(graphWidth + (xPadding * 2)).intValue()+' '+(graphHeight + (yPadding * 2)).intValue()+'" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'+gridLineSVG+gradientSVG+fillPathSVG+pointsPathSVG+'</svg></d>';
         return BaseGraphDesign.render(props, output);
     }
 }

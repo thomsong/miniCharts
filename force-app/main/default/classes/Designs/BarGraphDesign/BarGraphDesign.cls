@@ -3,6 +3,7 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
     private String RENDER_TEMPLATE(Map<String, Object> props) {
         Integer cmpIdx = (Integer)props.get('__cmpIdx');
 
+        Boolean renderGridLines = true;
         Boolean showSmallValues = true;
         Boolean showBarGaps = true;
 
@@ -41,7 +42,7 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
         Double baselineDisplayValue = 0.0;
 
         // Min baseline
-        // baselineDisplayValue = minDisplayValue;
+        baselineDisplayValue = minDisplayValue;
 
         ///////////////////////////////////////////////////////
         Double displayValueRange = maxDisplayValue - minDisplayValue;
@@ -98,7 +99,8 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
             // Fill Gradient
             gradientSVG = ''
                 + '<linearGradient id="g-' + cmpIdx + '" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="100">'
-                    + '<stop stop-color="#2E844A" offset="' + baselineDisplayY + '%"/>'
+                    + '<stop stop-color="#3290ED" offset="' + baselineDisplayY + '%"/>'
+                    // + '<stop stop-color="#2E844A" offset="' + baselineDisplayY + '%"/>'
                     + '<stop stop-color="#BA0517" offset="' + baselineDisplayY + '%"/>'
                 + '</linearGradient>';
 
@@ -108,6 +110,27 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
         String fillPathSVG = '<path style="--d-fill-color:' + fillColor + '" class="_graph-fill" d="' + fillPathData + '"/>';
         
         ///////////////////////////////////////////////////////
+        // Horizontal grid lines
+        String gridLineSVG = '';
+        if (renderGridLines) {
+            // (displayScaleY * -1 * 50).intValue(); 
+            Integer markerGap = (displayScaleY * displayValueRange / -2.0).intValue();
+            
+            Integer baseline = baselineDisplayY.intValue();
+            while (baseline - markerGap >= 0) {
+                baseline -= markerGap;
+            }
+            
+            gridLineSVG = '<path stroke="#e4e3e2" stroke-width="0.5" d="';
+            for (Integer y = baseline; y <= 100; y += markerGap) {
+                gridLineSVG += 'M0,' + y + 'h' + graphWidth;
+            }
+            gridLineSVG += '"/>';
+
+            // gridLineSVG += '<line stroke="red" stroke-width="0.5" y1="' + baselineDisplayY.intValue() + '" x2="' + graphWidth + '" y2="' + baselineDisplayY.intValue() + '"/>';
+        }
+
+        ///////////////////////////////////////////////////////
         // Start Building Output - This Should Always Be Last
         // Do not use if / conditionals
         // APEX will use StringBuilder on SFDC when Compressed
@@ -115,6 +138,7 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
         String output = '';
         output += '<d>';
             output += '<svg viewBox="-' + xPadding.intValue() +' -' + yPadding.intValue() + ' ' + (graphWidth + (xPadding * 2)).intValue() + ' ' + (graphHeight + (yPadding * 2)).intValue() + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">';
+                output += gridLineSVG;
                 output += gradientSVG;
                 output += fillPathSVG;    
                 
@@ -131,6 +155,7 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
         Integer cmpIdx = (Integer)props.get('__cmpIdx');
+        Boolean renderGridLines = true;
         Boolean showSmallValues = true;
         Boolean showBarGaps = true;
         Double[] dataPoints = new Double[20];
@@ -156,6 +181,7 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
         Double minDisplayValue = 0-100.0;
         Double maxDisplayValue = 100.0;
         Double baselineDisplayValue = 0.0;
+        baselineDisplayValue = minDisplayValue;
         Double displayValueRange = maxDisplayValue - minDisplayValue;
         Double displayScaleY = graphHeight / displayValueRange * -1;
         Double displayOffsetY = graphHeight - (minDisplayValue * displayScaleY);
@@ -188,11 +214,24 @@ public with sharing class BarGraphDesign implements MiniChartsDesign {
         String gradientSVG = '';
         fillColor = '#3290ED';//'#008CF7';
         if (true) {
-            gradientSVG = '<linearGradient id="g-'+cmpIdx+'" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="100"><stop stop-color="#2E844A" offset="'+baselineDisplayY+'%"/><stop stop-color="#BA0517" offset="'+baselineDisplayY+'%"/></linearGradient>';
+            gradientSVG = '<linearGradient id="g-'+cmpIdx+'" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="0" y2="100"><stop stop-color="#3290ED" offset="'+baselineDisplayY+'%"/><stop stop-color="#BA0517" offset="'+baselineDisplayY+'%"/></linearGradient>';
             fillColor = 'url(#g-'+cmpIdx+')';
         }
         String fillPathSVG = '<path style="--0:'+fillColor+'" class="z0" d="'+fillPathData+'"/>';
-        String output = '<d><svg viewBox="-'+xPadding.intValue()+' -'+yPadding.intValue()+' '+(graphWidth + (xPadding * 2)).intValue()+' '+(graphHeight + (yPadding * 2)).intValue()+'" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'+gradientSVG+fillPathSVG+'<line stroke="#777" stroke-width="0.5" y1="'+baselineDisplayYS0+'" x2="'+graphWidth+'" y2="'+baselineDisplayYS0+'"/></svg></d>';
+        String gridLineSVG = '';
+        if (renderGridLines) {
+            Integer markerGap = (displayScaleY * displayValueRange / -2.0).intValue();
+            Integer baseline = baselineDisplayY.intValue();
+            while (baseline - markerGap >= 0) {
+                baseline -= markerGap;
+            }
+            gridLineSVG = '<path stroke="#e4e3e2" stroke-width="0.5" d="';
+            for (Integer y = baseline; y <= 100; y += markerGap) {
+                gridLineSVG += 'M0,'+y+'h'+graphWidth;
+            }
+            gridLineSVG += '"/>';
+        }
+        String output = '<d><svg viewBox="-'+xPadding.intValue()+' -'+yPadding.intValue()+' '+(graphWidth + (xPadding * 2)).intValue()+' '+(graphHeight + (yPadding * 2)).intValue()+'" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">'+gridLineSVG+gradientSVG+fillPathSVG+'<line stroke="#777" stroke-width="0.5" y1="'+baselineDisplayYS0+'" x2="'+graphWidth+'" y2="'+baselineDisplayYS0+'"/></svg></d>';
         return BaseGraphDesign.render(props, output);
     }
 }

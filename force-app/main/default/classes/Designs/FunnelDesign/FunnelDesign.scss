@@ -1,0 +1,66 @@
+._ {
+  --d-title-height: 0px;
+  --d-x-label-height: 0px;
+
+  &:has(t) {
+    --d-title-height: 13px;
+  }
+  &:has(t[s="sm"]) {
+    --d-title-height: 11px;
+  }
+
+  &:has(._x-labels) {
+    --d-x-label-height: 11px;
+  }
+
+  --d-graph-height: calc(
+    var(--h-px) - var(--d-title-height) - var(--d-x-label-height)
+  );
+
+  & b {
+    width: 100%;
+
+    & t {
+      height: var(--d-title-height);
+
+      & l:first-of-type {
+        padding-right: 1ch;
+      }
+    }
+
+    .graph {
+      position: relative;
+      height: var(--d-graph-height);
+      container-type: size;
+
+      & > d {
+        position: relative;
+        width: 100cqw;
+        height: 100cqh;
+
+        & svg {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    ._x-labels {
+      font-size: 8px;
+      height: var(--d-x-label-height);
+      & l {
+        width: calc(var(--d-step-width, 1) * 100%);
+        text-align: center;
+      }
+    }
+  }
+
+  &.sz1:has(t) {
+    --d-x-label-height: 0px;
+    ._x-labels {
+      display: none;
+    }
+  }
+}

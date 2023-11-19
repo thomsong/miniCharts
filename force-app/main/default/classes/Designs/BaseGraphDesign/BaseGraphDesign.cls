@@ -19,8 +19,11 @@ public with sharing class BaseGraphDesign {
         if (true) {
             xLabelsHTML = ''
                 + '<d class="_x-labels fxr jcsb">'
-                    +'<l>Jan 22</l>'
-                    + '<l class="tar">Dec 22</l>'
+                    + '<l>Jan</l>'
+                    + '<l>Mar</l>'
+                    + '<l>Jun</l>'
+                    + '<l>Sep</l>'
+                    + '<l>Dec</l>'
                 + '</d>';
         }
 
@@ -49,7 +52,7 @@ public with sharing class BaseGraphDesign {
                     output += graphHTML;
                 output += '</d>';
             output += '</d>';
-            // output += xLabelsHTML;
+            output += xLabelsHTML;
         output += '</b>';
         
         return output;
@@ -68,12 +71,12 @@ public with sharing class BaseGraphDesign {
         }
         String xLabelsHTML = '';
         if (true) {
-            xLabelsHTML = '<d class="bz1 fxr jcsb"><l>Jan 22</l><l class="tar">Dec 22</l></d>';
+            xLabelsHTML = '<d class="bz1 fxr jcsb"><l>Jan</l><l>Mar</l><l>Jun</l><l>Sep</l><l>Dec</l></d>';
         }
         String yLabelsHTML = '';
         if (true) {
             yLabelsHTML = '<d class="bz0 fxc jcsb"><l><cur u="M">100</cur></l><l><cur n="1" u="M">100</cur></l></d>';
         }
-        return '<b style="--d-percent-value:'+pct+'%">'+titleHTML+'<d class="fg fxr"><d class="graph fg">'+graphHTML+'</d></d></b>';
+        return '<b style="--d-percent-value:'+pct+'%">'+titleHTML+'<d class="fg fxr"><d class="graph fg">'+graphHTML+'</d></d>'+xLabelsHTML+'</b>';
     }
 }
