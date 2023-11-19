@@ -17,6 +17,7 @@
     var(--h-px) - var(--d-title-height) - var(--d-x-label-height)
   );
 
+  container-type: inline-size;
   & b {
     width: 100%;
 
@@ -50,6 +51,7 @@
     ._x-labels {
       font-size: 8px;
       height: var(--d-x-label-height);
+
       & l {
         width: calc(var(--d-step-width, 1) * 100%);
         text-align: center;

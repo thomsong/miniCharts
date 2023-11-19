@@ -12,9 +12,16 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
 
         Double currentValue = 0.0;
         
-        for (Integer idx = 0; idx < 33; idx += 1) {
-            // currentValue -= (Math.random() * currentValue * 0.3);
-            currentValue = Math.random() * 100;
+        for (Integer idx = 0; idx < 10; idx += 1) {
+            currentValue += (Math.random() * 20) - 10;
+            if (currentValue < 0) {
+                currentValue = 0.0;
+            } else if (currentValue > 100) {
+                currentValue = 100.0;
+            }
+
+            currentValue = 10 + Math.random() * 90;
+
             funnelValues.add(currentValue);
         }
         
@@ -37,7 +44,7 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         funnelStepDisplayWidth = (graphWidth - (funnelStepTransitionWidthDouble * (funnelValues.size()-1))) / funnelValues.size();
         
         if (showSmallValues) {
-            for (Integer i = 1; i < funnelValues.size(); i += 1 ) {
+            for (Integer i = 0; i < funnelValues.size(); i += 1 ) {
                 if (funnelValues[i] < 4.0) {
                     funnelValues[i] = 4.0;
                 }
@@ -60,18 +67,20 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         if (true) {
             String funnelWidth = '';
             
-            if (false) {
-                String.valueOf(funnelStepDisplayWidth / 400);
+            if (true) {
+                funnelWidth = String.valueOf(funnelStepDisplayWidth / 400);
             }
+
             xLabelsHTML = ''
-                + '<d class="_x-labels fxr jcsb" style="--d-step-width:' + funnelWidth + '">'
-                    + '<l><pct>100</pct> Stage 1</l>'
+                + '<d class="_x-labels fxr jcsb" style="--d-step-width:' + funnelWidth + '">';
+                    // + '<l><pct>100</pct> Stage 1</l>'
                     // + '<l><pct>80</pct> Stage 2</l>'
-                    // + '<l><pct>76</pct> Stage 3</l>'
-                    // + '<l><pct>62</pct> Stage 4</l>'
-                    // + '<l><pct>49</pct> Stage 5</l>'
-                    + '<l><pct>24</pct> Stage 6</l>'
-                + '</d>';
+
+                    for (Integer idx = 0; idx < funnelValues.size(); idx += 1) {
+                        xLabelsHTML += '<l class="' + (funnelValues[idx] <= 30 ? 'top' : '') + '"><pct>' + funnelValues[idx].intValue() + '</pct></l>';
+                        // xLabelsHTML += '<l><pct>' + funnelValues[idx].intValue() + '</pct></l>';
+                    }
+                xLabelsHTML += '</d>';
         }
 
         ///////////////////////////////////////////////////////
@@ -162,7 +171,7 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
     } /* END RENDER_TEMPLATE */
 
     
-    public String getStyle() {return '--1:0px;--0:0px;&:has(t){--1:13px;}&:has(t[s="sm"]){--1:11px;}&:has(.z0){--0:11px;}--3:calc(var(--h-px) - var(--1) - var(--0));& b{width:100%;& t{height:var(--1);& l:first-of-type{padding-right:1ch;}}.graph{position:relative;height:var(--3);container-type:size;& > d{position:relative;width:100cqw;height:100cqh;& svg{position:absolute;top:0;width:100%;height:100%;}}}.z0{font-size:8px;height:var(--0);& l{width:calc(var(--2,1)*100%);text-align:center;}}}&.sz1:has(t){--0:0px;.z0{display:none;}}';}
+    public String getStyle() {return '--1:0px;--0:0px;&:has(t){--1:13px;}&:has(t[s="sm"]){--1:11px;}&:has(.z0){--0:11px;}--3:calc(var(--h-px) - var(--1) - var(--0));container-type:inline-size;& b{width:100%;& t{height:var(--1);& l:first-of-type{padding-right:1ch;}}.graph{position:relative;height:var(--3);container-type:size;& > d{position:relative;width:100cqw;height:100cqh;& svg{position:absolute;top:0;width:100%;height:100%;}}}.z0{font-size:8px;height:var(--0);& l{width:calc(var(--2,1)*100%);text-align:center;}}}&.sz1:has(t){--0:0px;.z0{display:none;}}';}
 
     /* COMPRESSED RENDER */
     public String render(Map<String, Object> props) {
@@ -171,8 +180,14 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         Integer pct = Math.round(Math.random() * 100);
         List<Double> funnelValues = new List<Double>();
         Double currentValue = 0.0;
-        for (Integer idx = 0; idx < 33; idx += 1) {
-            currentValue = Math.random() * 100;
+        for (Integer idx = 0; idx < 10; idx += 1) {
+            currentValue += (Math.random() * 20) - 10;
+            if (currentValue < 0) {
+                currentValue = 0.0;
+            } else if (currentValue > 100) {
+                currentValue = 100.0;
+            }
+            currentValue = 10 + Math.random() * 90;
             funnelValues.add(currentValue);
         }
         Integer graphWidth = 400;
@@ -186,7 +201,7 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         Double funnelStepTransitionWidthDouble = Double.valueOf(funnelStepTransitionWidth);
         funnelStepDisplayWidth = (graphWidth - (funnelStepTransitionWidthDouble * (funnelValues.size()-1))) / funnelValues.size();
         if (showSmallValues) {
-            for (Integer i = 1; i < funnelValues.size(); i += 1 ) {
+            for (Integer i = 0; i < funnelValues.size(); i += 1 ) {
                 if (funnelValues[i] < 4.0) {
                     funnelValues[i] = 4.0;
                 }
@@ -200,10 +215,14 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         String xLabelsHTML = '';
         if (true) {
             String funnelWidth = '';
-            if (false) {
-                String.valueOf(funnelStepDisplayWidth / 400);
+            if (true) {
+                funnelWidth = String.valueOf(funnelStepDisplayWidth / 400);
             }
-            xLabelsHTML = '<d class="z0 fxr jcsb" style="--2:'+funnelWidth+'"><l><pct>100</pct> Stage 1</l><l><pct>24</pct> Stage 6</l></d>';
+            xLabelsHTML = '<d class="z0 fxr jcsb" style="--2:'+funnelWidth+'">';
+                    for (Integer idx = 0; idx < funnelValues.size(); idx += 1) {
+                        xLabelsHTML += '<l class="'+(funnelValues[idx] <= 30 ? 'top' : '')+'"><pct>'+funnelValues[idx].intValue()+'</pct></l>';
+                    }
+                xLabelsHTML += '</d>';
         }
         Integer funnelStepDisplayWidthInt = funnelStepDisplayWidth.intValue();
         String funnelStepTransitionWidthS0 = String.valueOf(funnelStepTransitionWidth);
