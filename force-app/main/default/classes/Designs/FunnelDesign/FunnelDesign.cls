@@ -10,14 +10,11 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         ///////////////////////////////////////////////////////
         List<Double> funnelValues = new List<Double>();
 
-        Double currentValue = 100.0;
-        funnelValues.add(currentValue);
+        Double currentValue = 0.0;
         
-        for (Integer idx = 1; idx < 10; idx += 1) {
-            currentValue -= (Math.random() * 20.0);
-            if (currentValue < 0) {
-                currentValue = 0.0;
-            }
+        for (Integer idx = 0; idx < 33; idx += 1) {
+            // currentValue -= (Math.random() * currentValue * 0.3);
+            currentValue = Math.random() * 100;
             funnelValues.add(currentValue);
         }
         
@@ -36,7 +33,8 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
             funnelStepTransitionWidth = 1;
         }
         
-        funnelStepDisplayWidth = (graphWidth - (Decimal.valueOf(funnelStepTransitionWidth) * (funnelValues.size()-1))) / funnelValues.size();
+        Double funnelStepTransitionWidthDouble = Double.valueOf(funnelStepTransitionWidth);
+        funnelStepDisplayWidth = (graphWidth - (funnelStepTransitionWidthDouble * (funnelValues.size()-1))) / funnelValues.size();
         
         if (showSmallValues) {
             for (Integer i = 1; i < funnelValues.size(); i += 1 ) {
@@ -77,35 +75,50 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         }
 
         ///////////////////////////////////////////////////////
-        Double xOffset = funnelStepDisplayWidth + funnelStepTransitionWidth;
-        Double lastXOffset = 0.0;
-        Integer lastHalfValue = 50;
 
-        String funnelStepDisplayWidthS0 = String.valueOf(funnelStepDisplayWidth.intValue());
+        Integer funnelStepDisplayWidthInt = funnelStepDisplayWidth.intValue();
         String funnelStepTransitionWidthS0 = String.valueOf(funnelStepTransitionWidth);
-        String funnelStepDisplayWidthCeil = String.valueOf(Math.ceil(funnelStepDisplayWidth).intValue());
-        // First Block
-        String fillPathData = 'M0,0h' + funnelStepDisplayWidthS0 + 'v100h-' + funnelStepDisplayWidthS0 + 'Z';
+        Double stepRemainder = funnelStepDisplayWidth - funnelStepDisplayWidthInt;
+
+        Integer xOffset = 0;
+        Integer lastXOffset = 0;
+        Integer lastHalfValue = 0;
+
+        String fillPathData = '';
         String transitionPathData = '';
 
-        for (Integer i = 1; i < funnelValues.size(); i += 1 ) {
+        Double totalRemainer = 0.0;
+
+        for (Integer i = 0; i < funnelValues.size(); i += 1 ) {
             Integer halfValue = (funnelValues[i] / 2).intValue();
             Integer value = halfValue * 2;
+
+            if (i > 0) {
+                String tPath = 'M' + xOffset + ',' + (50 - lastHalfValue) + 'l' + funnelStepTransitionWidthS0 + ',' + (lastHalfValue - halfValue) + 'v' + value + 'l-' + funnelStepTransitionWidthS0 + ',' + (lastHalfValue - halfValue) + 'Z   ';
+                fillPathData += tPath;
+                transitionPathData += tPath;
+
+                xOffset += funnelStepTransitionWidth;
+            }
             
-            String tPath = 'M' + Math.floor(lastXOffset + funnelStepDisplayWidth) + ',' + (50 - lastHalfValue) + 'l' + funnelStepTransitionWidthS0 + ',' + (lastHalfValue - halfValue) + 'v' + value + 'l-' + funnelStepTransitionWidthS0 + ',' + (lastHalfValue - halfValue) + 'Z';
-            fillPathData += tPath;
-            transitionPathData += tPath;
-            
-            fillPathData += 'M' + xOffset.intValue() + ',' + (50 - halfValue) + 'h' + funnelStepDisplayWidthCeil + 'v' + value + 'h-' + funnelStepDisplayWidthCeil + 'Z';
+            Integer hWidth = funnelStepDisplayWidthInt;
+             
+            totalRemainer += stepRemainder;
+            if (totalRemainer >= 0.9) {
+                Double hAdditional = Math.round(totalRemainer);
+                totalRemainer -= hAdditional;
+                hWidth += hAdditional.intValue();
+            }
+
+            fillPathData += 'M' + xOffset + ',' + (50 - halfValue) + 'h' + hWidth + 'v' + value + 'h-' + hWidth + 'Z';
 
             lastXOffset = xOffset;
             lastHalfValue = halfValue;
 
-            xOffset += funnelStepDisplayWidth + funnelStepTransitionWidth;
+            xOffset += hWidth;
         }
 
         ///////////////////////////////////////////////////////
-
         String fillColor = 'none';
 
         String gradientSVG = '';
@@ -157,13 +170,9 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         Boolean showSmallValues = true;
         Integer pct = Math.round(Math.random() * 100);
         List<Double> funnelValues = new List<Double>();
-        Double currentValue = 100.0;
-        funnelValues.add(currentValue);
-        for (Integer idx = 1; idx < 10; idx += 1) {
-            currentValue -= (Math.random() * 20.0);
-            if (currentValue < 0) {
-                currentValue = 0.0;
-            }
+        Double currentValue = 0.0;
+        for (Integer idx = 0; idx < 33; idx += 1) {
+            currentValue = Math.random() * 100;
             funnelValues.add(currentValue);
         }
         Integer graphWidth = 400;
@@ -174,7 +183,8 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
         if (funnelStepTransitionWidth < 1) {
             funnelStepTransitionWidth = 1;
         }
-        funnelStepDisplayWidth = (graphWidth - (Decimal.valueOf(funnelStepTransitionWidth) * (funnelValues.size()-1))) / funnelValues.size();
+        Double funnelStepTransitionWidthDouble = Double.valueOf(funnelStepTransitionWidth);
+        funnelStepDisplayWidth = (graphWidth - (funnelStepTransitionWidthDouble * (funnelValues.size()-1))) / funnelValues.size();
         if (showSmallValues) {
             for (Integer i = 1; i < funnelValues.size(); i += 1 ) {
                 if (funnelValues[i] < 4.0) {
@@ -195,24 +205,35 @@ public with sharing class FunnelDesign implements MiniChartsDesign {
             }
             xLabelsHTML = '<d class="z0 fxr jcsb" style="--2:'+funnelWidth+'"><l><pct>100</pct> Stage 1</l><l><pct>24</pct> Stage 6</l></d>';
         }
-        Double xOffset = funnelStepDisplayWidth + funnelStepTransitionWidth;
-        Double lastXOffset = 0.0;
-        Integer lastHalfValue = 50;
-        String funnelStepDisplayWidthS0 = String.valueOf(funnelStepDisplayWidth.intValue());
+        Integer funnelStepDisplayWidthInt = funnelStepDisplayWidth.intValue();
         String funnelStepTransitionWidthS0 = String.valueOf(funnelStepTransitionWidth);
-        String funnelStepDisplayWidthCeil = String.valueOf(Math.ceil(funnelStepDisplayWidth).intValue());
-        String fillPathData = 'M0,0h'+funnelStepDisplayWidthS0+'v100h-'+funnelStepDisplayWidthS0+'Z';
+        Double stepRemainder = funnelStepDisplayWidth - funnelStepDisplayWidthInt;
+        Integer xOffset = 0;
+        Integer lastXOffset = 0;
+        Integer lastHalfValue = 0;
+        String fillPathData = '';
         String transitionPathData = '';
-        for (Integer i = 1; i < funnelValues.size(); i += 1 ) {
+        Double totalRemainer = 0.0;
+        for (Integer i = 0; i < funnelValues.size(); i += 1 ) {
             Integer halfValue = (funnelValues[i] / 2).intValue();
             Integer value = halfValue * 2;
-            String tPath = 'M'+Math.floor(lastXOffset + funnelStepDisplayWidth)+','+(50 - lastHalfValue)+'l'+funnelStepTransitionWidthS0+','+(lastHalfValue - halfValue)+'v'+value+'l-'+funnelStepTransitionWidthS0+','+(lastHalfValue - halfValue)+'Z';
-            fillPathData += tPath;
-            transitionPathData += tPath;
-            fillPathData += 'M'+xOffset.intValue()+','+(50 - halfValue)+'h'+funnelStepDisplayWidthCeil+'v'+value+'h-'+funnelStepDisplayWidthCeil+'Z';
+            if (i > 0) {
+                String tPath = 'M'+xOffset+','+(50 - lastHalfValue)+'l'+funnelStepTransitionWidthS0+','+(lastHalfValue - halfValue)+'v'+value+'l-'+funnelStepTransitionWidthS0+','+(lastHalfValue - halfValue)+'Z ';
+                fillPathData += tPath;
+                transitionPathData += tPath;
+                xOffset += funnelStepTransitionWidth;
+            }
+            Integer hWidth = funnelStepDisplayWidthInt;
+            totalRemainer += stepRemainder;
+            if (totalRemainer >= 0.9) {
+                Double hAdditional = Math.round(totalRemainer);
+                totalRemainer -= hAdditional;
+                hWidth += hAdditional.intValue();
+            }
+            fillPathData += 'M'+xOffset+','+(50 - halfValue)+'h'+hWidth+'v'+value+'h-'+hWidth+'Z';
             lastXOffset = xOffset;
             lastHalfValue = halfValue;
-            xOffset += funnelStepDisplayWidth + funnelStepTransitionWidth;
+            xOffset += hWidth;
         }
         String fillColor = 'none';
         String gradientSVG = '';

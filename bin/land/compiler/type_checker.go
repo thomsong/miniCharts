@@ -540,7 +540,13 @@ func (v *TypeChecker) VisitBinaryOperator(n *ast.BinaryOperator) (interface{}, e
 			l = left.(*ast.ClassType)
 		}
 		if r != nil && l != builtin.StringType && !builtin.Equals(l, r.(*ast.ClassType)) {
-			v.AddError(fmt.Sprintf("XX2Illegal assignment from %s to %s", r.(*ast.ClassType).String(), l.String()), n.Left)
+			// if r.(*ast.ClassType).String() == "Integer" && l.String() == "Double" {
+			// 	// All good
+			// } else if r.(*ast.ClassType).String() == "Double" && l.String() == "Integer" {
+			// 	// All good
+			// } else {
+				v.AddError(fmt.Sprintf("XX2Illegal assignment from %s to %s", r.(*ast.ClassType).String(), l.String()), n.Left)
+			// }
 		}
 		if soql, ok := n.Right.(*ast.Soql); ok {
 			if l.SuperClass == builtin.SObjectType {
