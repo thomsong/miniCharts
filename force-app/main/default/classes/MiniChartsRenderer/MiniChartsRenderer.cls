@@ -47,7 +47,7 @@ public with sharing class MiniChartsRenderer {
         row.put('h', 20);
       
         component = new Map<String, Object>(); 
-        component.put('t', 'FunnelDesign');
+        component.put('t', 'UserPhotoDesign');
         // component.put('wk', true);
         // component.put('gap', 5);
         rowComponents.add(component);
@@ -78,7 +78,7 @@ public with sharing class MiniChartsRenderer {
         // rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'FunnelDesign');
+        component.put('t', 'UserPhotoDesign');
         rowComponents.add(component);
 
         component = new Map<String, Object>(); 
@@ -104,7 +104,7 @@ public with sharing class MiniChartsRenderer {
         // rowComponents.add(component);
 
         component = new Map<String, Object>(); 
-        component.put('t', 'FunnelDesign');
+        component.put('t', 'UserPhotoDesign');
         // component.put('wk', true);
         rowComponents.add(component);
 
